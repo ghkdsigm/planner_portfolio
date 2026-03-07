@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, nextTick, onMounted, onUnmounted, ref } from "vue";
 import portfolio from "./data/portfolio.json";
 
 import heroCover from "./assets/images/hero-cover.svg";
@@ -8,6 +8,8 @@ import profilePortrait from "./assets/images/profile-portrait.png";
 import projectRoutine from "./assets/images/project-routine.svg";
 import projectAssistant from "./assets/images/project-assistant.svg";
 import projectChallenge from "./assets/images/project-challenge.svg";
+import bg01Gif from "./assets/images/bg01.gif";
+import bg00Gif from "./assets/images/bg00.gif";
 
 const imageMap = {
   heroCover,
@@ -60,7 +62,47 @@ const getItemLink = (item) => item.url || item.contentUrl || "";
 const getItemImage = (item) => item.image || item.contentUrl || "";
 const researchVoices = portfolio.research.insightBlocks.flatMap((item) =>
   (item.voices || []).map((voice) => ({ tag: item.tag, text: voice }))
-).slice(0, 3);
+);
+const displayedVoices = computed(() => [...researchVoices, ...researchVoices.slice(0, 3)]);
+
+const VOICE_ROLL_INTERVAL = 3000;
+const VOICE_GAP_REM = 0.8;
+const rollIndex = ref(0);
+const listTransitionOff = ref(false);
+const rollTrackRef = ref(null);
+const slotOffsetsPx = ref([0]);
+const voiceViewportHeightPx = ref(250);
+let rollTimer = null;
+
+const updateVoiceRollOffsets = () => {
+  const el = rollTrackRef.value;
+  if (!el || !el.children.length) return;
+  const gapPx = VOICE_GAP_REM * 16;
+  const children = Array.from(el.children);
+  const offsets = [0];
+  let y = 0;
+  for (let i = 0; i < children.length; i++) {
+    y += children[i].offsetHeight + gapPx;
+    offsets.push(y);
+  }
+  slotOffsetsPx.value = offsets;
+  const firstThreeHeight = offsets[3] - offsets[0];
+  voiceViewportHeightPx.value = firstThreeHeight + gapPx;
+};
+
+const advanceVoiceRoll = () => {
+  if (rollIndex.value < 6) {
+    rollIndex.value++;
+  } else {
+    listTransitionOff.value = true;
+    nextTick(() => {
+      rollIndex.value = 0;
+      nextTick(() => {
+        listTransitionOff.value = false;
+      });
+    });
+  }
+};
 const iaStructureBranches = [
   {
     title: "1. 전체 시스템 프로세스 (상세)",
@@ -352,11 +394,18 @@ onMounted(() => {
   );
 
   reveals.forEach((item) => observer.observe(item));
+
+  nextTick(() => updateVoiceRollOffsets());
+  window.addEventListener("resize", updateVoiceRollOffsets);
+
+  rollTimer = setInterval(advanceVoiceRoll, VOICE_ROLL_INTERVAL);
 });
 
 onUnmounted(() => {
   window.removeEventListener("scroll", updateTopButtonVisibility);
   window.removeEventListener("scroll", updateActiveSection);
+  window.removeEventListener("resize", updateVoiceRollOffsets);
+  if (rollTimer) clearInterval(rollTimer);
 });
 </script>
 
@@ -413,7 +462,22 @@ onUnmounted(() => {
 
     <main>
       <section id="cover" class="section cover">
-        <img class="cover-bg" :src="getImage('heroCover')" alt="portfolio cover visual" />
+        <!-- <img class="cover-bg" :src="getImage('heroCover')" alt="portfolio cover visual" /> -->
+        <picture style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -2;
+      ">
+          <source media="(min-width: 64.1rem)" :srcset="bg01Gif">
+          <source media="(max-width: 64rem)" :srcset="bg01Gif">
+          <img :src="bg01Gif" alt="" loading="lazy" style="
+          width: 100%;
+          opacity: 0.3;
+      ">
+        </picture>
         <div class="overlay" />
         <div class="container cover-content" data-reveal>
           <p class="mini-badge">{{ portfolio.hero.badge }}</p>
@@ -543,15 +607,27 @@ onUnmounted(() => {
             </article>
           </div>
           <div class="panel research-voices" data-reveal>
-            <div class="voice-list">
-              <p
-                v-for="(voice, index) in researchVoices"
-                :key="`${voice.tag}-${voice.text}`"
-                :class="['voice-item', index % 2 ? 'is-right' : 'is-left']"
+            <div
+              class="voice-list voice-roll-viewport"
+              :style="{ height: `${voiceViewportHeightPx}px` }"
+            >
+              <div
+                ref="rollTrackRef"
+                class="voice-roll-track"
+                :style="{
+                  transform: `translateY(-${slotOffsetsPx[rollIndex] ?? 0}px)`,
+                  transition: listTransitionOff ? 'none' : 'transform 0.6s ease-out',
+                }"
               >
-                <span class="voice-tag">{{ voice.tag }}</span>
-                {{ voice.text }}
-              </p>
+                <p
+                  v-for="(voice, index) in displayedVoices"
+                  :key="`roll-${index}-${voice.tag}-${voice.text.slice(0, 20)}`"
+                  :class="['voice-item', 'voice-roll-slot', ((index - rollIndex) % 2 + 2) % 2 ? 'is-right' : 'is-left']"
+                >
+                  <span class="voice-tag">{{ voice.tag }}</span>
+                  {{ voice.text }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -765,6 +841,11 @@ onUnmounted(() => {
       </section>
 
       <section id="contact" class="section closing">
+        <picture>
+        <source media="(min-width: 64.1rem)" :srcset="bg00Gif">
+        <source media="(max-width: 64rem)" :srcset="bg00Gif">
+        <img :src="bg00Gif" alt="" loading="lazy">
+      </picture>
         <div class="container closing-wrap" data-reveal>
           <p class="section-label">LET'S BUILD TOGETHER</p>
           <h2>{{ portfolio.closing.title }}</h2>
@@ -778,6 +859,11 @@ onUnmounted(() => {
         </div>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <p class="footer-copy">{{ new Date().getFullYear() }}. 0{{ new Date().getMonth() + 1 }}.</p>
+    </footer>
+
     <button
       v-show="showTopButton"
       type="button"

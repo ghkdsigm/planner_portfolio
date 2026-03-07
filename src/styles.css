@@ -183,6 +183,23 @@ body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
+#contact {
+  overflow: hidden;
+}
+
+#contact picture {
+  width: 100%;
+  position: absolute;
+  display: block;
+  height: 100%;
+  top: 0;
+}
+
+#contact picture img {
+  width: 100%;
+  height: 100%;
+}
+
 .page-shell {
   overflow-x: hidden;
 }
@@ -671,11 +688,29 @@ h3 {
 .voice-list {
   margin-top: 0.55rem;
   display: grid;
-  gap: 0.8rem;
   position: relative;
-  overflow: hidden;
   padding-bottom: 2.6rem;
   padding-top: 2rem;
+  gap: 0.8rem;
+  overflow: hidden;
+}
+
+.voice-roll-viewport {
+  overflow: hidden;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  min-height: 10rem;
+}
+
+.voice-roll-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.voice-roll-slot {
+  flex: 0 0 auto;
+  box-sizing: border-box;
 }
 
 .voice-list::after {
@@ -704,18 +739,19 @@ h3 {
 }
 
 .voice-item {
-  margin: 0;
   position: relative;
-  padding: 0.9rem 1.1rem 0.9rem 1.25rem;
-  border: 1px solid var(--stroke);
-  border-radius: 1rem;
-  background: color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
-  color: var(--text);
-  font-size: 0.94rem;
-  line-height: 1.55;
-  width: fit-content;
-  max-width: min(96%, 52rem);
-  margin-inline: auto;
+    color: var(--text);
+    font-size: 0.94rem;
+    line-height: 1.55;
+    width: fit-content;
+    max-width: min(96%, 52rem);
+    margin: 0px;
+    padding: 0.9rem 1.1rem 0.9rem 1.25rem;
+    border: 1px solid var(--stroke);
+    border-radius: 1rem;
+    background: 
+color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
+    margin-inline: auto;
 }
 
 .voice-item::before {
@@ -1542,6 +1578,27 @@ body[data-theme="light"] .mini-card {
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+/* Footer */
+.site-footer {
+  padding: 0.75rem 1rem;
+  text-align: center;
+  border-top: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+[data-theme="light"] .site-footer {
+  border-top-color: var(--border, rgba(0, 0, 0, 0.08));
+}
+
+.footer-copy {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted, rgba(255, 255, 255, 0.5));
+}
+
+[data-theme="light"] .footer-copy {
+  color: var(--muted, rgba(0, 0, 0, 0.5));
 }
 
  

@@ -571,9 +571,11 @@ h3 {
 .meter-fill {
   display: block;
   height: 100%;
+  width: 0;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--meter-fill-start), var(--meter-fill-end));
   box-shadow: 0 0 12px var(--accent-glow);
+  transition: width 1.28s ease-out;
 }
 
 .research-grid {

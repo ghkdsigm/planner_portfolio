@@ -32,6 +32,22 @@ const navItems = [
 const activeSection = ref("cover");
 const buttonRefs = ref({});
 const resizeKey = ref(0);
+const meterAnimated = ref({});
+
+const METER_ANIM_DURATION = 1300;
+
+function animateMeter(label, score) {
+  if (meterAnimated.value[label] === score) return;
+  const start = performance.now();
+  const step = (now) => {
+    const t = Math.min((now - start) / METER_ANIM_DURATION, 1);
+    const eased = 1 - (1 - t) ** 2;
+    const current = Math.round(score * eased);
+    meterAnimated.value = { ...meterAnimated.value, [label]: current };
+    if (t < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
 
 const setButtonRef = (el, id) => {
   const prev = buttonRefs.value[id];
@@ -386,6 +402,11 @@ onMounted(() => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
+          if (entry.target.classList.contains("meter-item")) {
+            const label = entry.target.dataset.label;
+            const score = Number(entry.target.dataset.score) || 0;
+            if (label != null) animateMeter(label, score);
+          }
           observer.unobserve(entry.target);
         }
       });
@@ -548,13 +569,15 @@ onUnmounted(() => {
               :key="meter.label"
               class="panel meter-item"
               data-reveal
+              :data-label="meter.label"
+              :data-score="meter.score"
             >
               <div class="meter-head">
                 <span>{{ meter.label }}</span>
-                <strong>{{ meter.score }}%</strong>
+                <strong>{{ meterAnimated[meter.label] ?? 0 }}%</strong>
               </div>
               <div class="meter-track">
-                <span class="meter-fill" :style="{ width: `${meter.score}%` }" />
+                <span class="meter-fill" :style="{ width: `${meterAnimated[meter.label] ?? 0}%` }" />
               </div>
             </article>
           </div>

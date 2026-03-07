@@ -1188,6 +1188,8 @@ color-mix(in srgb, var(--panel-bg-start) 10%, transparent) 58%, var(--panel-bg-s
   color: #000;
   font-size: 0.9rem;
   font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 15px;
 }
 
 .ia-child-list {

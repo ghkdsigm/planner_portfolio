@@ -4,6 +4,9 @@
   functions = "functions" # netlify dev uses this directory to scaffold and serve your functions
   publish = "dist"
 
+[build.environment]
+  NODE_VERSION = "20"
+
 # note: each of these fields are OPTIONAL
 [dev]
   framework = "#custom"

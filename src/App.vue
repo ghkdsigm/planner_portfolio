@@ -481,9 +481,9 @@ onUnmounted(() => {
         <div class="overlay" />
         <div class="container cover-content" data-reveal>
           <p class="mini-badge">{{ portfolio.hero.badge }}</p>
-          <p class="nameplate">
+          <!-- <p class="nameplate">
             {{ portfolio.meta.nameKo }} · {{ portfolio.meta.nameEn }}
-          </p>
+          </p> -->
           <h1>
             {{ portfolio.hero.titleTop }}<br />
             <span class="accent">{{ portfolio.hero.titleAccent }}</span><br />

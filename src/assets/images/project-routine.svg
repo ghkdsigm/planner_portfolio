@@ -1,0 +1,17 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" rx="34" fill="#0B1018"/>
+  <rect x="70" y="70" width="1060" height="560" rx="24" fill="#141C2A" stroke="#2AFAC3" stroke-opacity="0.35"/>
+  <rect x="120" y="140" width="330" height="420" rx="20" fill="#0E1420"/>
+  <rect x="490" y="140" width="580" height="120" rx="20" fill="#0E1420"/>
+  <rect x="490" y="290" width="580" height="120" rx="20" fill="#0E1420"/>
+  <rect x="490" y="440" width="580" height="120" rx="20" fill="#0E1420"/>
+  <rect x="155" y="190" width="260" height="22" rx="11" fill="#2AFAC3"/>
+  <rect x="155" y="235" width="190" height="16" rx="8" fill="#B8FFF0" fill-opacity="0.7"/>
+  <rect x="155" y="272" width="225" height="16" rx="8" fill="#B8FFF0" fill-opacity="0.44"/>
+  <circle cx="265" cy="390" r="95" stroke="#2AFAC3" stroke-width="10"/>
+  <path d="M265 390L310 360" stroke="#2AFAC3" stroke-width="10" stroke-linecap="round"/>
+  <text x="510" y="212" fill="#E8FFF8" font-family="Pretendard, sans-serif" font-size="30" font-weight="700">AI Routine Planner</text>
+  <text x="510" y="360" fill="#BFFFEF" font-family="Pretendard, sans-serif" font-size="24">Weekly Reflection + Motivation Loop</text>
+  <text x="510" y="510" fill="#BFFFEF" font-family="Pretendard, sans-serif" font-size="24">Replace image with your screenshot</text>
+</svg>
+

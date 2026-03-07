@@ -1,0 +1,11 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#05070B"/>
+  <circle cx="1340" cy="40" r="520" stroke="#1FFFB8" stroke-opacity="0.6" stroke-width="2"/>
+  <circle cx="220" cy="830" r="440" stroke="#1FFFB8" stroke-opacity="0.4" stroke-width="2"/>
+  <path d="M0 520C230 360 450 300 680 350C880 395 1090 560 1600 470" stroke="#1FFFB8" stroke-opacity="0.55" stroke-width="3"/>
+  <path d="M0 640C290 500 470 505 710 560C980 620 1220 790 1600 690" stroke="#9FFFE4" stroke-opacity="0.2" stroke-width="2"/>
+  <rect x="120" y="130" width="300" height="170" rx="22" fill="#11151D" stroke="#2AFAC3" stroke-opacity="0.35"/>
+  <text x="160" y="205" fill="#E8FFF8" font-family="Pretendard, sans-serif" font-size="24" font-weight="700">AI/AX Portfolio</text>
+  <text x="160" y="245" fill="#2AFAC3" font-family="Pretendard, sans-serif" font-size="18">Planner Visual Cover</text>
+</svg>
+

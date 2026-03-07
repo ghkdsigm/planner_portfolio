@@ -10,6 +10,7 @@ import projectAssistant from "./assets/images/project-assistant.svg";
 import projectChallenge from "./assets/images/project-challenge.svg";
 import bg01Gif from "./assets/images/bg01.gif";
 import bg00Gif from "./assets/images/bg00.gif";
+import dwbrain from "./assets/images/dwbrain.jpg";
 
 const imageMap = {
   heroCover,
@@ -713,7 +714,7 @@ onUnmounted(() => {
                   <div class="scene-visual">
                     <span class="scene-glow" />
                     <figure class="phone-mock primary">
-                      <img :src="getImage(item.imageKey)" :alt="item.name" />
+                      <img :src="index === 0 ? dwbrain : getImage(item.imageKey)" :alt="item.name" />
                     </figure>
                     <figure class="phone-mock secondary">
                       <img :src="getImage(item.imageKey)" :alt="`${item.name} detail`" />

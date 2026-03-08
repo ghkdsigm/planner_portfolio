@@ -243,6 +243,10 @@ body {
   font-size: 0.86rem;
 }
 
+.nav-top-row {
+  display: contents;
+}
+
 .theme-toggle {
   border: 1px solid var(--stroke);
   background: var(--accent-soft);
@@ -285,6 +289,47 @@ nav {
 
 .nav-with-indicator {
   position: relative;
+}
+
+.nav-menu-toggle {
+  display: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--stroke);
+  border-radius: 0.72rem;
+  background: color-mix(in srgb, var(--nav-bg) 80%, var(--accent) 20%);
+  color: var(--text);
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.nav-menu-toggle:hover {
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--accent-soft) 72%, var(--accent) 28%);
+}
+
+.nav-menu-toggle .bar {
+  width: 0.95rem;
+  height: 1.7px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-menu-toggle.is-open .bar:nth-child(1) {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.nav-menu-toggle.is-open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-menu-toggle.is-open .bar:nth-child(3) {
+  transform: translateY(-4px) rotate(-45deg);
 }
 
 .nav-indicator {
@@ -1521,15 +1566,80 @@ body[data-theme="light"] .mini-card {
 }
 
 @media (max-width: 700px) {
+  .floating-nav[data-reveal] {
+    transform: translateX(-50%) translateY(24px);
+  }
+
+  .floating-nav[data-reveal].is-visible {
+    transform: translateX(-50%) translateY(0);
+  }
+
   .floating-nav {
     border-radius: 1.1rem;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+    align-items: stretch;
+    gap: 0.35rem;
+    padding: 0.7rem 0.75rem;
+  }
+
+  .nav-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .brand {
+    width: auto;
+    justify-content: flex-start;
+  }
+
+  .brand > span {
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-menu-toggle {
+    display: inline-flex;
+    align-self: auto;
   }
 
   nav {
     flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .nav-with-indicator {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: max-height 0.28s ease, opacity 0.2s ease;
+  }
+
+  .nav-with-indicator.is-open {
+    max-height: 20rem;
+    opacity: 1;
+    pointer-events: auto;
+    padding-top: 0.15rem;
+  }
+
+  .nav-indicator {
+    display: none;
+  }
+
+  .nav-btn {
+    margin: 0;
+    padding: 0.42rem 0.68rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    background: color-mix(in srgb, var(--surface) 82%, var(--accent-soft) 18%);
+  }
+
+  .nav-btn.active,
+  .nav-btn:hover,
+  .nav-btn.active:hover {
+    background: color-mix(in srgb, var(--reference-strong) 82%, #fff 18%);
   }
 
   .section {

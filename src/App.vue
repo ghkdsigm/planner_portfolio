@@ -34,8 +34,11 @@ const activeSection = ref("cover");
 const buttonRefs = ref({});
 const resizeKey = ref(0);
 const meterAnimated = ref({});
+const mobileMenuOpen = ref(false);
+const isMobileViewport = ref(false);
 
 const METER_ANIM_DURATION = 1300;
+const MOBILE_NAV_BREAKPOINT = 700;
 
 function animateMeter(label, score) {
   if (meterAnimated.value[label] === score) return;
@@ -358,10 +361,25 @@ const toggleTheme = () => {
   applyTheme();
 };
 
+const syncMobileNavState = () => {
+  isMobileViewport.value = window.innerWidth <= MOBILE_NAV_BREAKPOINT;
+  if (!isMobileViewport.value) {
+    mobileMenuOpen.value = false;
+  }
+};
+
+const toggleMobileNav = () => {
+  if (!isMobileViewport.value) return;
+  mobileMenuOpen.value = !mobileMenuOpen.value;
+};
+
 const smoothScroll = (id) => {
   const target = document.getElementById(id);
   if (target) {
     target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  if (isMobileViewport.value) {
+    mobileMenuOpen.value = false;
   }
 };
 
@@ -383,19 +401,23 @@ const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
+const handleWindowResize = () => {
+  resizeKey.value++;
+  syncMobileNavState();
+};
+
 onMounted(() => {
   const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
   if (savedTheme === "light") {
     isDarkMode.value = false;
   }
   applyTheme();
+  syncMobileNavState();
   updateTopButtonVisibility();
   updateActiveSection();
   window.addEventListener("scroll", updateTopButtonVisibility, { passive: true });
   window.addEventListener("scroll", updateActiveSection, { passive: true });
-  window.addEventListener("resize", () => {
-    resizeKey.value++;
-  });
+  window.addEventListener("resize", handleWindowResize);
 
   const reveals = document.querySelectorAll("[data-reveal]");
   const observer = new IntersectionObserver(
@@ -426,6 +448,7 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", updateTopButtonVisibility);
   window.removeEventListener("scroll", updateActiveSection);
+  window.removeEventListener("resize", handleWindowResize);
   window.removeEventListener("resize", updateVoiceRollOffsets);
   if (rollTimer) clearInterval(rollTimer);
 });
@@ -434,35 +457,49 @@ onUnmounted(() => {
 <template>
   <div class="page-shell">
     <header class="floating-nav" data-reveal>
-      <div class="brand">
-        <span>{{ portfolio.meta.role }}</span>
+      <div class="nav-top-row">
+        <div class="brand">
+          <span>{{ portfolio.meta.role }}</span>
+          <button
+            type="button"
+            class="theme-toggle"
+            :aria-label="isDarkMode ? '라이트 모드로 전환' : '다크 모드로 전환'"
+            @click="toggleTheme"
+          >
+            <svg
+              v-if="isDarkMode"
+              class="theme-toggle-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M14.2 3.2a1 1 0 0 1 .3 1.04A7.8 7.8 0 1 0 19.76 9.5a1 1 0 0 1 1.04-1.3 9.8 9.8 0 1 1-6.6-6.6Z"
+                fill="currentColor"
+              />
+            </svg>
+            <svg v-else class="theme-toggle-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.2" fill="currentColor" />
+              <path
+                d="M12 2.4a1 1 0 0 1 1 1v2.1a1 1 0 1 1-2 0V3.4a1 1 0 0 1 1-1Zm0 16a1 1 0 0 1 1 1v2.1a1 1 0 1 1-2 0v-2.1a1 1 0 0 1 1-1Zm9.6-7.4a1 1 0 1 1 0 2h-2.1a1 1 0 1 1 0-2h2.1Zm-17.1 0a1 1 0 1 1 0 2H2.4a1 1 0 1 1 0-2h2.1Zm13.28-5.88a1 1 0 0 1 1.41 1.41l-1.49 1.49a1 1 0 1 1-1.41-1.41l1.49-1.49Zm-11.12 11.12a1 1 0 0 1 1.41 1.41l-1.49 1.49a1 1 0 1 1-1.41-1.41l1.49-1.49Zm12.61 2.9a1 1 0 1 1-1.41 1.41l-1.49-1.49a1 1 0 0 1 1.41-1.41l1.49 1.49ZM8.06 8.06a1 1 0 1 1-1.41 1.41L5.16 7.98a1 1 0 1 1 1.41-1.41l1.49 1.49Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
         <button
           type="button"
-          class="theme-toggle"
-          :aria-label="isDarkMode ? '라이트 모드로 전환' : '다크 모드로 전환'"
-          @click="toggleTheme"
+          class="nav-menu-toggle"
+          :class="{ 'is-open': mobileMenuOpen }"
+          :aria-expanded="mobileMenuOpen"
+          aria-label="모바일 메뉴 열기/닫기"
+          @click="toggleMobileNav"
         >
-          <svg
-            v-if="isDarkMode"
-            class="theme-toggle-icon"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              d="M14.2 3.2a1 1 0 0 1 .3 1.04A7.8 7.8 0 1 0 19.76 9.5a1 1 0 0 1 1.04-1.3 9.8 9.8 0 1 1-6.6-6.6Z"
-              fill="currentColor"
-            />
-          </svg>
-          <svg v-else class="theme-toggle-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="4.2" fill="currentColor" />
-            <path
-              d="M12 2.4a1 1 0 0 1 1 1v2.1a1 1 0 1 1-2 0V3.4a1 1 0 0 1 1-1Zm0 16a1 1 0 0 1 1 1v2.1a1 1 0 1 1-2 0v-2.1a1 1 0 0 1 1-1Zm9.6-7.4a1 1 0 1 1 0 2h-2.1a1 1 0 1 1 0-2h2.1Zm-17.1 0a1 1 0 1 1 0 2H2.4a1 1 0 1 1 0-2h2.1Zm13.28-5.88a1 1 0 0 1 1.41 1.41l-1.49 1.49a1 1 0 1 1-1.41-1.41l1.49-1.49Zm-11.12 11.12a1 1 0 0 1 1.41 1.41l-1.49 1.49a1 1 0 1 1-1.41-1.41l1.49-1.49Zm12.61 2.9a1 1 0 1 1-1.41 1.41l-1.49-1.49a1 1 0 0 1 1.41-1.41l1.49 1.49ZM8.06 8.06a1 1 0 1 1-1.41 1.41L5.16 7.98a1 1 0 1 1 1.41-1.41l1.49 1.49Z"
-              fill="currentColor"
-            />
-          </svg>
+          <span class="bar" />
+          <span class="bar" />
+          <span class="bar" />
         </button>
       </div>
-      <nav class="nav-with-indicator">
+      <nav class="nav-with-indicator" :class="{ 'is-open': mobileMenuOpen }">
         <div
           class="nav-indicator"
           :style="indicatorStyle"
@@ -495,10 +532,16 @@ onUnmounted(() => {
       ">
           <source media="(min-width: 64.1rem)" :srcset="bg01Gif">
           <source media="(max-width: 64rem)" :srcset="bg01Gif">
-          <img :src="bg01Gif" alt="" loading="lazy" style="
-          width: 100%;
-          opacity: 0.3;
-      ">
+          <img
+            :src="bg01Gif"
+            alt=""
+            loading="lazy"
+            :style="{
+              width: isMobileViewport ? 'auto' : '100%',
+              height: isMobileViewport ? '100%' : 'auto',
+              opacity: 0.3,
+            }"
+          >
         </picture>
         <div class="overlay" />
         <div class="container cover-content" data-reveal>

@@ -7,7 +7,7 @@ import bgImage from "./assets/images/bg.png";
 import profilePortrait from "./assets/images/profile-portrait.png";
 import projectRoutine from "./assets/images/project-routine.svg";
 import projectAssistant from "./assets/images/project-assistant.svg";
-import projectChallenge from "./assets/images/project-challenge.svg";
+import projectChallenge from "./assets/images/project03.png";
 import bg01Gif from "./assets/images/bg01.gif";
 import bg00Gif from "./assets/images/bg00.gif";
 import m01 from "./assets/images/m01.jpg";
@@ -883,26 +883,31 @@ onUnmounted(() => {
 
                   <div class="scene-visual">
                     <span class="scene-glow" />
-                    <figure class="phone-mock primary">
-                      <div
-                        v-if="index === 0"
-                        class="reference-main-slider-track"
-                        :style="{ transform: `translateX(-${referenceMainSlideIndex * 100}%)` }"
-                      >
-                        <img
-                          v-for="(slide, slideIdx) in referenceMainSlides"
-                          :key="`reference-main-${slideIdx}`"
-                          :src="slide"
-                          :alt="`${item.name} ${slideIdx + 1}`"
-                        />
+                    <template v-if="index === 0">
+                      <figure class="phone-mock primary">
+                        <div
+                          class="reference-main-slider-track"
+                          :style="{ transform: `translateX(-${referenceMainSlideIndex * 100}%)` }"
+                        >
+                          <img
+                            v-for="(slide, slideIdx) in referenceMainSlides"
+                            :key="`reference-main-${slideIdx}`"
+                            :src="slide"
+                            :alt="`${item.name} ${slideIdx + 1}`"
+                          />
+                        </div>
+                      </figure>
+                      <figure class="phone-mock secondary">
+                        <img :src="getImage(item.imageKey)" :alt="`${item.name} detail`" />
+                      </figure>
+                      <figure class="phone-mock tertiary">
+                        <img :src="getImage(item.imageKey)" :alt="`${item.name} dashboard`" />
+                      </figure>
+                    </template>
+                    <figure v-else class="pc-mock">
+                      <div class="pc-screen">
+                        <img :src="getImage(item.imageKey)" :alt="item.name" />
                       </div>
-                      <img v-else :src="getImage(item.imageKey)" :alt="item.name" />
-                    </figure>
-                    <figure class="phone-mock secondary">
-                      <img :src="getImage(item.imageKey)" :alt="`${item.name} detail`" />
-                    </figure>
-                    <figure class="phone-mock tertiary">
-                      <img :src="getImage(item.imageKey)" :alt="`${item.name} dashboard`" />
                     </figure>
                   </div>
                 </div>

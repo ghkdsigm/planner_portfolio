@@ -10,7 +10,19 @@ import projectAssistant from "./assets/images/project-assistant.svg";
 import projectChallenge from "./assets/images/project-challenge.svg";
 import bg01Gif from "./assets/images/bg01.gif";
 import bg00Gif from "./assets/images/bg00.gif";
-import dwbrain from "./assets/images/dwbrain.jpg";
+import m01 from "./assets/images/m01.jpg";
+import m02 from "./assets/images/m02.jpg";
+import m03 from "./assets/images/m03.jpg";
+import m04 from "./assets/images/m04.jpg";
+import m05 from "./assets/images/m05.jpg";
+import m06 from "./assets/images/m06.jpg";
+import m07 from "./assets/images/m07.jpg";
+import m08 from "./assets/images/m08.jpg";
+import m09 from "./assets/images/m09.jpg";
+import project04Slide01 from "./assets/images/r01.jpg";
+import project04Slide02 from "./assets/images/r02.jpg";
+import project04Slide03 from "./assets/images/r03.jpg";
+import project04Slide04 from "./assets/images/r04.jpg";
 
 const imageMap = {
   heroCover,
@@ -18,6 +30,12 @@ const imageMap = {
   projectRoutine,
   projectAssistant,
   projectChallenge,
+};
+const project04ImageMap = {
+  "r01.jpg": project04Slide01,
+  "r02.jpg": project04Slide02,
+  "r03.jpg": project04Slide03,
+  "r04.jpg": project04Slide04,
 };
 
 const navItems = [
@@ -78,12 +96,23 @@ const indicatorStyle = computed(() => {
 });
 
 const getImage = (key) => imageMap[key] ?? heroCover;
+const getProject04SlideImage = (slide) => project04ImageMap[slide?.image] || slide?.image || "";
 const getItemLink = (item) => item.url || item.contentUrl || "";
 const getItemImage = (item) => item.image || item.contentUrl || "";
 const researchVoices = portfolio.research.insightBlocks.flatMap((item) =>
   (item.voices || []).map((voice) => ({ tag: item.tag, text: voice }))
 );
 const displayedVoices = computed(() => [...researchVoices, ...researchVoices.slice(0, 3)]);
+const project04 = computed(() => portfolio.references.project04 || null);
+const project04Slides = computed(() => project04.value?.slides || []);
+const project04CurrentIndex = ref(0);
+const project04Progress = ref(0);
+const PROJECT04_SLIDE_INTERVAL = 8000;
+let project04Timer = null;
+const referenceMainSlides = [m01, m02, m03, m04, m05, m06, m07, m08, m09];
+const referenceMainSlideIndex = ref(0);
+const REFERENCE_MAIN_SLIDE_INTERVAL = 2500;
+let referenceMainSlideTimer = null;
 
 const VOICE_ROLL_INTERVAL = 3000;
 const VOICE_GAP_REM = 0.8;
@@ -93,6 +122,45 @@ const rollTrackRef = ref(null);
 const slotOffsetsPx = ref([0]);
 const voiceViewportHeightPx = ref(250);
 let rollTimer = null;
+
+const setProject04Slide = (index) => {
+  const total = project04Slides.value.length;
+  if (!total) return;
+  const next = ((index % total) + total) % total;
+  project04CurrentIndex.value = next;
+};
+
+const nextProject04Slide = () => {
+  setProject04Slide(project04CurrentIndex.value + 1);
+};
+
+const prevProject04Slide = () => {
+  setProject04Slide(project04CurrentIndex.value - 1);
+};
+
+const restartProject04Timer = () => {
+  if (project04Timer) clearInterval(project04Timer);
+  if (!project04Slides.value.length) return;
+  const start = performance.now();
+  project04Progress.value = 0;
+  project04Timer = setInterval(() => {
+    const elapsed = performance.now() - start;
+    const ratio = Math.min(elapsed / PROJECT04_SLIDE_INTERVAL, 1);
+    project04Progress.value = Math.round(ratio * 100);
+    if (ratio >= 1) {
+      setProject04Slide(project04CurrentIndex.value + 1);
+      restartProject04Timer();
+    }
+  }, 40);
+};
+
+const startReferenceMainSlideTimer = () => {
+  if (referenceMainSlideTimer) clearInterval(referenceMainSlideTimer);
+  if (referenceMainSlides.length <= 1) return;
+  referenceMainSlideTimer = setInterval(() => {
+    referenceMainSlideIndex.value = (referenceMainSlideIndex.value + 1) % referenceMainSlides.length;
+  }, REFERENCE_MAIN_SLIDE_INTERVAL);
+};
 
 const updateVoiceRollOffsets = () => {
   const el = rollTrackRef.value;
@@ -443,6 +511,8 @@ onMounted(() => {
   window.addEventListener("resize", updateVoiceRollOffsets);
 
   rollTimer = setInterval(advanceVoiceRoll, VOICE_ROLL_INTERVAL);
+  restartProject04Timer();
+  startReferenceMainSlideTimer();
 });
 
 onUnmounted(() => {
@@ -451,6 +521,8 @@ onUnmounted(() => {
   window.removeEventListener("resize", handleWindowResize);
   window.removeEventListener("resize", updateVoiceRollOffsets);
   if (rollTimer) clearInterval(rollTimer);
+  if (project04Timer) clearInterval(project04Timer);
+  if (referenceMainSlideTimer) clearInterval(referenceMainSlideTimer);
 });
 </script>
 
@@ -758,7 +830,19 @@ onUnmounted(() => {
                   <div class="scene-visual">
                     <span class="scene-glow" />
                     <figure class="phone-mock primary">
-                      <img :src="index === 0 ? dwbrain : getImage(item.imageKey)" :alt="item.name" />
+                      <div
+                        v-if="index === 0"
+                        class="reference-main-slider-track"
+                        :style="{ transform: `translateX(-${referenceMainSlideIndex * 100}%)` }"
+                      >
+                        <img
+                          v-for="(slide, slideIdx) in referenceMainSlides"
+                          :key="`reference-main-${slideIdx}`"
+                          :src="slide"
+                          :alt="`${item.name} ${slideIdx + 1}`"
+                        />
+                      </div>
+                      <img v-else :src="getImage(item.imageKey)" :alt="item.name" />
                     </figure>
                     <figure class="phone-mock secondary">
                       <img :src="getImage(item.imageKey)" :alt="`${item.name} detail`" />
@@ -818,6 +902,71 @@ onUnmounted(() => {
               </section>
           </template>
         </div>
+
+        <section v-if="project04" class="project04-showcase" data-reveal>
+          <div class="project04-grid">
+            <div class="project04-copy">
+              <p class="scene-kicker">PROJECT 04 · {{ project04.period }}</p>
+              <h3>{{ project04.name }}</h3>
+              <p class="paragraph">{{ project04.description }}</p>
+            </div>
+
+            <div class="project04-slider">
+              <div class="project04-slider-window">
+                <div
+                  class="project04-slider-track"
+                  :style="{ transform: `translateX(-${project04CurrentIndex * 100}%)` }"
+                >
+                  <article
+                    v-for="(slide, slideIndex) in project04Slides"
+                    :key="`project04-slide-${slideIndex}`"
+                    class="project04-slide"
+                  >
+                    <figure class="project04-visual">
+                      <img
+                        v-if="getProject04SlideImage(slide)"
+                        :src="getProject04SlideImage(slide)"
+                        :alt="slide.title"
+                        loading="lazy"
+                      />
+                      <div v-else class="project04-placeholder">
+                        <strong>{{ slide.title }}</strong>
+                        <p>기획서 이미지 삽입 예정</p>
+                      </div>
+                    </figure>
+                    <div class="project04-meta">
+                      <p class="mini-head">{{ slide.title }}</p>
+                      <p>{{ slide.caption }}</p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+
+              <div class="project04-controls">
+                <div class="project04-progress">
+                  <button
+                    v-for="(slide, idx) in project04Slides"
+                    :key="`project04-step-${idx}`"
+                    type="button"
+                    class="project04-step"
+                    :class="{ active: project04CurrentIndex === idx }"
+                    :aria-label="`${idx + 1}번 슬라이드`"
+                    @click="setProject04Slide(idx); restartProject04Timer()"
+                  >
+                    <span
+                      class="step-fill"
+                      :style="{
+                        width: `${idx < project04CurrentIndex ? 100 : idx === project04CurrentIndex ? project04Progress : 0}%`,
+                      }"
+                    />
+                    <span class="step-number">{{ idx + 1 }}.</span>
+                    <span class="step-label">{{ slide.navLabel || slide.caption }}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </section>
 
       <section class="section deep">

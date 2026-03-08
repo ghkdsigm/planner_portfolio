@@ -859,7 +859,7 @@ onUnmounted(() => {
           </div>
 
           <div class="career-masonry-wrap" data-reveal>
-            <p class="mini-head">같이 일한 동료들과의 기록</p>
+            <p class="mini-head">Companions</p>
             <div class="career-masonry">
               <figure
                 v-for="(photo, index) in careerMasonryPhotos"

@@ -84,6 +84,44 @@ const setButtonRef = (el, id) => {
   }
 };
 
+const skillGroupCards = computed(() => {
+  const groups = portfolio.skills.groups || [];
+  const meters = portfolio.skills.meters || [];
+  const meterByLabel = Object.fromEntries(meters.map((meter) => [meter.label, meter]));
+  const meterLabelsByGroupName = {
+    "기획 전략": ["Problem Framing"],
+    "AI/데이터": ["AI Feature Planning", "Data Analysis"],
+    "프로덕트 실행": ["Delivery Management"],
+    "협업/커뮤니케이션": ["UX Writing & Flow"],
+    "기술 아키텍쳐 이해": ["Technical Architecture Understanding"],
+    "신속한 프로토타이핑": ["Rapid Prototyping"],
+    "Technical Architecture Understanding": ["Technical Architecture Understanding"],
+    "Rapid Prototyping": ["Rapid Prototyping"],
+  };
+
+  return groups.map((group, index) => ({
+    ...group,
+    meters:
+      (meterLabelsByGroupName[group.name] || [])
+        .map((label) => meterByLabel[label])
+        .filter(Boolean).length > 0
+        ? (meterLabelsByGroupName[group.name] || [])
+            .map((label) => meterByLabel[label])
+            .filter(Boolean)
+        : meters[index]
+          ? [meters[index]]
+          : [],
+  }));
+});
+
+const remainingSkillMeters = computed(() => {
+  const meters = portfolio.skills.meters || [];
+  const assignedLabels = new Set(
+    skillGroupCards.value.flatMap((card) => (card.meters || []).map((meter) => meter.label))
+  );
+  return meters.filter((meter) => !assignedLabels.has(meter.label));
+});
+
 const indicatorStyle = computed(() => {
   resizeKey.value;
   const el = buttonRefs.value[activeSection.value];
@@ -668,21 +706,37 @@ onUnmounted(() => {
 
           <div class="skill-grid">
             <article
-              v-for="group in portfolio.skills.groups"
-              :key="group.name"
+              v-for="card in skillGroupCards"
+              :key="card.name"
               class="panel skill-panel"
               data-reveal
             >
-              <h3>{{ group.name }}</h3>
+              <h3>{{ card.name }}</h3>
               <ul>
-                <li v-for="item in group.items" :key="item">{{ item }}</li>
+                <li v-for="item in card.items" :key="item">{{ item }}</li>
               </ul>
+              <div
+                v-for="meter in card.meters"
+                :key="`${card.name}-${meter.label}`"
+                class="meter-item skill-meter"
+                data-reveal
+                :data-label="meter.label"
+                :data-score="meter.score"
+              >
+                <div class="meter-head">
+                  <span>{{ meter.label }}</span>
+                  <strong>{{ meterAnimated[meter.label] ?? 0 }}%</strong>
+                </div>
+                <div class="meter-track">
+                  <span class="meter-fill" :style="{ width: `${meterAnimated[meter.label] ?? 0}%` }" />
+                </div>
+              </div>
             </article>
           </div>
 
-          <div class="meter-list">
+          <div v-if="remainingSkillMeters.length" class="meter-list">
             <article
-              v-for="meter in portfolio.skills.meters"
+              v-for="meter in remainingSkillMeters"
               :key="meter.label"
               class="panel meter-item"
               data-reveal
@@ -820,8 +874,8 @@ onUnmounted(() => {
                       PROJECT {{ String(index + 1).padStart(2, "0") }} · {{ item.period }}
                     </p>
                     <h3>{{ item.name }}</h3>
-                    <p class="scene-line"><strong>Problem.</strong> {{ item.problem }}</p>
-                    <p class="scene-line"><strong>Solution.</strong> {{ item.solution }}</p>
+                    <p class="scene-line"><strong style="display: block;">Problem.</strong> {{ item.problem }}</p>
+                    <p class="scene-line"><strong style="display: block;">Solution.</strong> {{ item.solution }}</p>
                     <ul class="scene-impact">
                       <li v-for="point in item.impact" :key="point">{{ point }}</li>
                     </ul>
@@ -906,7 +960,7 @@ onUnmounted(() => {
         <section v-if="project04" class="project04-showcase" data-reveal>
           <div class="project04-grid">
             <div class="project04-copy">
-              <p class="scene-kicker">PROJECT 04 · {{ project04.period }}</p>
+              <p class="scene-kicker">PROJECTS · ~{{ project04.period }}</p>
               <h3>{{ project04.name }}</h3>
               <p class="paragraph">{{ project04.description }}</p>
             </div>
@@ -1078,7 +1132,7 @@ onUnmounted(() => {
     </main>
 
     <footer class="site-footer">
-      <p class="footer-copy">{{ new Date().getFullYear() }}. 0{{ new Date().getMonth() + 1 }}.</p>
+      <p class="footer-copy">{{ new Date().getFullYear() }}. 0{{ new Date().getMonth() + 1 }}. AI 서비스 전략 기획 황승현.</p>
     </footer>
 
     <button

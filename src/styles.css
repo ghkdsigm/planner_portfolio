@@ -575,6 +575,16 @@ h3 {
   padding: 1.15rem 1.1rem;
 }
 
+.skill-meter {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--stroke);
+}
+
+.skill-meter + .skill-meter {
+  margin-top: 0.7rem;
+}
+
 .skill-panel ul,
 .timeline-item ul,
 .reference-body ul {
@@ -1079,6 +1089,7 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
 .scene-1 .scene-copy {
   max-width: 52rem;
   margin: 0 auto;
+      padding-bottom: 40px;
 }
 
 .scene-1 .scene-visual {
@@ -1253,9 +1264,7 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
 
 .project04-meta {
   padding: 0.75rem 0.85rem 0.95rem;
-  border-top: 1px solid var(--stroke);
-  background: color-mix(in srgb, var(--panel-bg-start) 88%, #fff 12%);
-}
+  background: linear-gradient(180deg, var(--panel-bg-start), var(--panel-bg-end));}
 
 .project04-meta p {
   margin: 0;

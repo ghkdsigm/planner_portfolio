@@ -19,6 +19,12 @@ import m06 from "./assets/images/m06.jpg";
 import m07 from "./assets/images/m07.jpg";
 import m08 from "./assets/images/m08.jpg";
 import m09 from "./assets/images/m09.jpg";
+import com01 from "./assets/images/com01.jpg";
+import com02 from "./assets/images/com02.jpg";
+import com04 from "./assets/images/com04.jpg";
+import com05 from "./assets/images/com05.jpg";
+import com06 from "./assets/images/com06.jpg";
+import com07 from "./assets/images/com07.jpg";
 import project04Slide01 from "./assets/images/r01.jpg";
 import project04Slide02 from "./assets/images/r02.jpg";
 import project04Slide03 from "./assets/images/r03.jpg";
@@ -148,6 +154,7 @@ const project04Progress = ref(0);
 const PROJECT04_SLIDE_INTERVAL = 8000;
 let project04Timer = null;
 const referenceMainSlides = [m01, m02, m03, m04, m05, m06, m07, m08, m09];
+const careerMasonryPhotos = [com01, com02, com04, com05, com06, com07];
 const referenceMainSlideIndex = ref(0);
 const REFERENCE_MAIN_SLIDE_INTERVAL = 2500;
 let referenceMainSlideTimer = null;
@@ -849,6 +856,19 @@ onUnmounted(() => {
                 <li v-for="point in job.highlights" :key="point">{{ point }}</li>
               </ul>
             </article>
+          </div>
+
+          <div class="career-masonry-wrap" data-reveal>
+            <p class="mini-head">같이 일한 동료들과의 기록</p>
+            <div class="career-masonry">
+              <figure
+                v-for="(photo, index) in careerMasonryPhotos"
+                :key="`career-photo-${index}`"
+                class="career-masonry-item"
+              >
+                <img :src="photo" :alt="`커리어 협업 사진 ${index + 1}`" loading="lazy" />
+              </figure>
+            </div>
           </div>
         </div>
       </section>

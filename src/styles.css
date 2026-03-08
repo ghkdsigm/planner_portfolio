@@ -910,6 +910,30 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
   color: var(--position-text);
 }
 
+.career-masonry-wrap {
+  margin-top: 1.2rem;
+}
+
+.career-masonry {
+  column-count: 3;
+  column-gap: 0.9rem;
+}
+
+.career-masonry-item {
+  margin: 0 0 0.9rem;
+  break-inside: avoid;
+  border: 1px solid var(--stroke);
+  border-radius: 0.9rem;
+  overflow: hidden;
+  background: var(--card-bg);
+}
+
+.career-masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .reference-list {
   display: grid;
   gap: 0;
@@ -1709,7 +1733,9 @@ body[data-theme="light"] .mini-card {
   border-radius: 999px;
   padding: 0.48rem 0.72rem;
   font-size: 0.81rem;
-  color: var(--chip-text);
+  color: #fff;
+  text-align: center;
+  font-weight: 100;
   background: color-mix(in srgb, var(--chip-bg) 82%, transparent);
 }
 
@@ -2015,6 +2041,10 @@ body[data-theme="light"] .process-card {
     grid-template-columns: 1fr;
     gap: 1.2rem;
   }
+
+  .career-masonry {
+    column-count: 2;
+  }
 }
 
 @media (max-width: 700px) {
@@ -2171,6 +2201,10 @@ body[data-theme="light"] .process-card {
   .donut-wrap {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .career-masonry {
+    column-count: 1;
   }
 }
 

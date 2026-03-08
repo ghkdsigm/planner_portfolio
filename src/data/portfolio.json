@@ -268,19 +268,18 @@
         "period": "2025.03 - 2025.05",
         "company": "유엔비즈",
         "position": "Buisness Leading & Frontend Developer",
-        "summary": "경찰청, 한국프로스포츠협회, KLEAGUE, 대한체육회, SK협업 정부실증사업 등 공공기관,협회,기업 등 프로젝트 총괄. 프로젝트 기획, 개발, 운영 전체 과정을 담당했습니다.",
+        "summary": "경찰청, 국가대표선수촌, 한국프로스포츠협회, KLEAGUE, 대한체육회, SK협업 정부실증사업 등 공공기관,협회,기업 등 프로젝트 총괄. 프로젝트 기획, 개발, 운영 전체 과정을 담당했습니다.",
         "highlights": [
           "공공기관 프로젝트 총괄 경험",
           "LMS/DATA PORTAL/ERP 프로젝트 경험",
-          "DT 프로젝트 경험",
-          "SI 프로젝트 경험"
+          "SK&제주유나이티드 협업 정부실증사업 과제 완수"
         ]
       }
     ]
   },
   "references": {
     "label": "TASK REFERENCES",
-    "title": "과업 레퍼런스 & 대표 프로젝트",
+    "title": "과업 레퍼런스 & 대표 AI 프로젝트",
     "items": [
       {
         "name": "DW-Brain · AI 개입형 브레인스토밍 협업 채팅 데스크톱앱 & WEB",
@@ -354,7 +353,7 @@
   "process": {
     "label": "WORKING PROCESS",
     "title": "AI 전략/서비스 기획 업무 프로세스",
-    "description": "Google PAIR Guidebook의 User Needs + Data Evaluation 프레임과 NN/g의 문제중심 AI 설계 원칙을 기반으로, 전략-설계-검증-운영을 연결한 실무형 사이클입니다.",
+    "description": "저는 문제 정의 -> 데이터/가치 설계 -> 프로토타입 -> MVP 검증 -> 출시/도입 -> 운영 고도화 순서로 AI 서비스 기획을 진행합니다.",
     "principles": [
       "기술 중심이 아닌 사용자 가치 중심으로 문제를 정의합니다.",
       "자동화(Automation)와 증강(Augmentation)의 균형을 설계합니다.",

@@ -1033,17 +1033,43 @@ onUnmounted(() => {
           <div class="section-head" data-reveal>
             <p class="section-label">{{ portfolio.process.label }}</p>
             <h2>{{ portfolio.process.title }}</h2>
+            <p class="section-desc">{{ portfolio.process.description }}</p>
+          </div>
+
+          <div class="process-principles" data-reveal>
+            <p v-for="item in portfolio.process.principles" :key="item" class="process-principle-chip">
+              {{ item }}
+            </p>
           </div>
 
           <div class="process-grid">
             <article
-              v-for="step in portfolio.process.steps"
+              v-for="(step, index) in portfolio.process.steps"
               :key="step.name"
               class="panel process-card"
               data-reveal
             >
+              <p class="process-phase">{{ step.phase }}</p>
               <h3>{{ step.name }}</h3>
-              <p>{{ step.detail }}</p>
+              <p class="process-detail">{{ step.detail }}</p>
+              <div class="process-block">
+                <p class="mini-head">핵심 액션</p>
+                <ul>
+                  <li v-for="action in step.actions" :key="`${step.phase}-${action}`">{{ action }}</li>
+                </ul>
+              </div>
+              <div class="process-block">
+                <p class="mini-head">주요 산출물</p>
+                <div class="process-deliverables">
+                  <span v-for="item in step.deliverables" :key="`${step.phase}-${item}`" class="process-deliverable">
+                    {{ item }}
+                  </span>
+                </div>
+              </div>
+              <p class="process-kpi"><strong>Success KPI</strong> · {{ step.kpi }}</p>
+              <span v-if="index !== portfolio.process.steps.length - 1" class="process-arrow" aria-hidden="true">
+                →
+              </span>
             </article>
           </div>
         </div>

@@ -427,7 +427,7 @@ nav {
 
 .cover-content h1 {
   margin: 1rem 0;
-  font-size: clamp(2.2rem, 7vw, 5rem);
+  font-size: clamp(2.2rem, 7vw, 4.5rem);
   line-height: 1.15;
 }
 
@@ -859,6 +859,16 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
 .timeline {
   display: grid;
   gap: 1rem;
+  max-height: clamp(34rem, 72vh, 40rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.timeline::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .timeline-item {

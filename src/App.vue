@@ -553,6 +553,7 @@ onUnmounted(() => {
             {{ portfolio.hero.titleTop }}<br />
             <span class="accent">{{ portfolio.hero.titleAccent }}</span><br />
             {{ portfolio.hero.titleBottom }}
+            {{ portfolio.hero.titleName }}
           </h1>
           <p class="lead">{{ portfolio.meta.headline }}</p>
           <p class="desc">{{ portfolio.hero.description }}</p>

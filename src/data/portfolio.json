@@ -88,6 +88,24 @@
           "경영진 보고",
           "운영팀 매뉴얼 문서화"
         ]
+      },
+      {
+        "name": "기술 아키텍쳐 이해",
+        "items": [
+          "시스템 구조 설계 이해",
+          "API / Backend Flow 설계",
+          "Cloud & Deployment 구조 이해",
+          "AI 서비스 인프라 구조 설계"
+        ]
+      },
+      {
+        "name": "신속한 프로토타이핑",
+        "items": [
+          "Figma -> 실제 서비스 구현",
+          "AI 기능 PoC 개발",
+          "Frontend Prototype 제작",
+          "사용자 테스트용 MVP 구축"
+        ]
       }
     ],
     "meters": [
@@ -110,6 +128,14 @@
       {
         "label": "Delivery Management",
         "score": 93
+      },
+      {
+        "label": "Technical Architecture Understanding",
+        "score": 91
+      },
+      {
+        "label": "Rapid Prototyping",
+        "score": 94
       }
     ]
   },

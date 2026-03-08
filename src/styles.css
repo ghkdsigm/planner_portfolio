@@ -559,9 +559,9 @@ h3 {
 }
 
 .panel {
-  /* border: 1px solid var(--stroke);
+  border: 1px solid var(--stroke);
   border-radius: 1.18rem;
-  background: linear-gradient(180deg, var(--panel-bg-start), var(--panel-bg-end)); */
+  background: linear-gradient(180deg, var(--panel-bg-start), var(--panel-bg-end));
   box-shadow: none;
 }
 
@@ -641,6 +641,8 @@ h3 {
 
 .research-card {
   padding: 1rem;
+  border: none;
+  background: none;
 }
 
 .research-card h3{
@@ -792,7 +794,9 @@ h3 {
 }
 
 .research-voices {
-  margin-top: 1rem;  
+  margin-top: 1rem;
+  border: none;
+  background: none;
 }
 
 .voice-item {

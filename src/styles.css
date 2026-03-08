@@ -1552,7 +1552,7 @@ body[data-theme="light"] .mini-card {
   }
 
   .scene-2 {
-    background: linear-gradient(180deg, var(--reference-scene2-bg-a) 0 50%, var(--reference-scene2-bg-b) 50% 100%);
+    background: linear-gradient(90deg, #232323 0 56%, var(--reference-scene2-bg-b) 56% 100%);
   }
 
   .scene-visual {

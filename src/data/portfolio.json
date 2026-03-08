@@ -11,7 +11,7 @@
     "titleTop": "사용자가 끝까지",
     "titleAccent": "지속할 수 있는 경험을 ",
     "titleBottom": "설계하는 AI 기획자 황승현입니다.",
-    "description": "정성/정량 리서치 기반으로 사용자 행동을 해석하고, AI 기능을 제품 맥락에 맞게 통합해 실질적인 전환을 만드는 기획을 수행합니다.",
+    "description": "정성/정량 리서치 기반으로 사용자 행동을 해석하고, AI 기능을 제품 맥락에 맞게 통합해 실질적인 전환을 만드는 기획을 수행합니다. 특히 새로운 아이디어를 발굴하고 창의적인 해결책으로 연결하는 데 강점이 있습니다.",
     "stats": [
       {
         "label": "누적 프로젝트",
@@ -199,20 +199,30 @@
     "title": "문제 해결 중심으로 쌓아온 커리어",
     "timeline": [
       {
-        "period": "2024.04 - Present",
-        "company": "NOVA AX Lab",
-        "position": "Senior Service Planner",
-        "summary": "사내 AX 전환 프로젝트 총괄. RAG 기반 업무 도우미와 AI 지식검색 기능을 기획해 도입률을 높였습니다.",
+        "period": "2026.04 - Present",
+        "company": "M-PARK",
+        "position": "AI Service Planner",
+        "summary": "국내 최대 규모 엠파크 단지내 AX 전환 프로젝트 총괄. RAG 기반 업무 도우미와 AI IoT 기능을 기획해 도입률을 높였습니다.",
         "highlights": [
-          "사내 지식검색 정확도 31% 개선",
-          "업무 문의 처리시간 42% 단축",
-          "월간 활성 사용자 3.2배 성장"
+          "내부 고객 업무 효율성 31% 개선",
+          "업무 문의 처리시간 42% 단축"
         ]
       },
       {
-        "period": "2021.07 - 2024.03",
-        "company": "BrightFit",
-        "position": "Product Planner",
+        "period": "2023.10 - 2026.04",
+        "company": "동화기업",
+        "position": "AI Service Planner & Builder Developer",
+        "summary": "신규 서비스 PoC와 운영 개선을 담당하며 리서치-설계-실행 사이클을 빠르게 반복했습니다.",
+        "highlights": [
+          "PoC 5건 진행, 2건 상용화",
+          "현업 실무 협업 효과성 42% 단축",
+          "내부 운영툴 개선으로 리드타임 28% 절감"
+        ]
+      },
+      {
+        "period": "2025.06 - 2025.09",
+        "company": "아이템베이",
+        "position": "Frontend Developer",
         "summary": "자기개발/루틴 서비스 기획 리드. 온보딩, 코칭추천, 챌린지 운영 기능을 단계적으로 출시했습니다.",
         "highlights": [
           "D30 리텐션 +16.8%",
@@ -221,13 +231,25 @@
         ]
       },
       {
-        "period": "2018.09 - 2021.06",
-        "company": "Orion Digital",
-        "position": "Junior PM / Service Designer",
-        "summary": "신규 서비스 PoC와 운영 개선을 담당하며 리서치-설계-실행 사이클을 빠르게 반복했습니다.",
+        "period": "2025.06 - 2025.09",
+        "company": "HYPERNEST",
+        "position": "Service Planner",
+        "summary": "자기개발/루틴 서비스 기획 리드. 온보딩, 코칭추천, 챌린지 운영 기능을 단계적으로 출시했습니다.",
         "highlights": [
-          "PoC 8건 진행, 3건 상용화",
-          "내부 운영툴 개선으로 리드타임 28% 절감"
+          "NFT 거래소 서비스 기획",
+          "유명 인플루언서(오중석작가, 오담률 랩퍼 등) 협업 NFT 컨텐츠 제작"
+        ]
+      },
+      {
+        "period": "2025.03 - 2025.05",
+        "company": "유엔비즈",
+        "position": "Buisness Leading & Frontend Developer",
+        "summary": "경찰청, 한국프로스포츠협회, KLEAGUE, 대한체육회, SK협업 정부실증사업 등 공공기관,협회,기업 등 프로젝트 총괄. 프로젝트 기획, 개발, 운영 전체 과정을 담당했습니다.",
+        "highlights": [
+          "공공기관 프로젝트 총괄 경험",
+          "LMS/DATA PORTAL/ERP 프로젝트 경험",
+          "DT 프로젝트 경험",
+          "SI 프로젝트 경험"
         ]
       }
     ]
@@ -262,7 +284,7 @@
         "imageKey": "projectRoutine"
       },
       {
-        "name": "팀 협업형 학습 챌린지",
+        "name": "엠파크 AI스마트 에이전트 카메이트",
         "period": "2023",
         "problem": "그룹 챌린지는 초기 참여율은 높지만 일정 조율 실패로 완주율이 낮았습니다.",
         "solution": "자동 일정 제안, 불참자 대체 룰, 진행률 가시화 대시보드를 포함한 운영 구조를 설계했습니다.",

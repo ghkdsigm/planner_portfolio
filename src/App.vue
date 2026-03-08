@@ -173,51 +173,6 @@ const iaStructureBranches = [
       },
     ],
   },
-  {
-    title: "2. IA 메뉴 트리 (상세)",
-    nodes: [
-      {
-        label: "노드 공통 정의",
-        items: [
-          "화면/컴포넌트 예: RoomList, ChatPanel, jarvisOpen",
-          "사용자 액션: 클릭, 우클릭, 입력, 토글",
-          "연관 API 또는 WebSocket 이벤트 연결",
-        ],
-      },
-      {
-        label: "채팅 패널",
-        items: [
-          "헤더: 인사이트 토글, 이름 변경, 삭제",
-          "미니 모드: 더보기 팝오버 항목",
-          "옵션 바: 화면 공유, AI 숨기기/참여, 뉴스, 동료추가, 회의록 불러오기",
-        ],
-      },
-      {
-        label: "메시지 기능",
-        items: [
-          "북마크, Devil's Advocate, AI 선택",
-          "첨부/주변정보 카드/번역",
-          "우클릭: 확인완료, 복사, 답장, 전달",
-        ],
-      },
-      {
-        label: "인사이트 패널 3탭",
-        items: [
-          "아이디어 카드 + 카드 API",
-          "지식 그래프 + graph API",
-          "Brain Pulse 리포트 + pulse-report API",
-        ],
-      },
-      {
-        label: "Composer/가이드",
-        items: [
-          "텍스트, 첨부, AI 질문 모달(공유/개인/액션 실행), 주변정보",
-          "모달/팝업 목록과 역할 정리",
-          "가이드 탭: 사용법, 단축키, About",
-        ],
-      },
-    ],
-  },
   // {
   //   title: "3. 서버 REST API 상세",
   //   nodes: [
@@ -282,6 +237,51 @@ const iaStructureBranches = [
       {
         label: "주의사항",
         detail: "주변 장소(places)는 Worker가 아닌 클라이언트에서 직접 호출",
+      },
+    ],
+  },
+  {
+    title: "2. IA 메뉴 트리 (상세)",
+    nodes: [
+      {
+        label: "노드 공통 정의",
+        items: [
+          "화면/컴포넌트 예: RoomList, ChatPanel, jarvisOpen",
+          "사용자 액션: 클릭, 우클릭, 입력, 토글",
+          "연관 API 또는 WebSocket 이벤트 연결",
+        ],
+      },
+      {
+        label: "채팅 패널",
+        items: [
+          "헤더: 인사이트 토글, 이름 변경, 삭제",
+          "미니 모드: 더보기 팝오버 항목",
+          "옵션 바: 화면 공유, AI 숨기기/참여, 뉴스, 동료추가, 회의록 불러오기",
+        ],
+      },
+      {
+        label: "메시지 기능",
+        items: [
+          "북마크, Devil's Advocate, AI 선택",
+          "첨부/주변정보 카드/번역",
+          "우클릭: 확인완료, 복사, 답장, 전달",
+        ],
+      },
+      {
+        label: "인사이트 패널 3탭",
+        items: [
+          "아이디어 카드 + 카드 API",
+          "지식 그래프 + graph API",
+          "Brain Pulse 리포트 + pulse-report API",
+        ],
+      },
+      {
+        label: "Composer/가이드",
+        items: [
+          "텍스트, 첨부, AI 질문 모달(공유/개인/액션 실행), 주변정보",
+          "모달/팝업 목록과 역할 정리",
+          "가이드 탭: 사용법, 단축키, About",
+        ],
       },
     ],
   },
@@ -777,7 +777,7 @@ onUnmounted(() => {
                 />
                 <div class="ia-overlay" />
                 <div class="ia-structure">
-                  <p class="ia-title">DW-Brain · IA Structure</p>
+                  <p class="ia-title">IA Structure Example</p>
                   <div class="ia-column-grid">
                     <article
                       v-for="column in iaTreeColumns"

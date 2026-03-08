@@ -428,7 +428,7 @@ nav {
 .cover-content h1 {
   margin: 1rem 0;
   font-size: clamp(2.2rem, 7vw, 5rem);
-  line-height: 1.04;
+  line-height: 1.15;
 }
 
 .accent {
@@ -465,7 +465,7 @@ nav {
 .desc {
   margin-top: 0.6rem;
   color: var(--muted);
-  max-width: 45rem;
+  max-width: 55rem;
 }
 
 .stats {
@@ -1552,7 +1552,7 @@ body[data-theme="light"] .mini-card {
   }
 
   .scene-2 {
-    background: linear-gradient(90deg, #232323 0 56%, var(--reference-scene2-bg-b) 56% 100%);
+    background: linear-gradient(180deg, #232323 0 50%, var(--reference-scene2-bg-b) 50% 100%);
   }
 
   .scene-visual {

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, nextTick, onMounted, onUnmounted, ref } from "vue";
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import portfolio from "./data/portfolio.json";
 
 import heroCover from "./assets/images/hero-cover.svg";
@@ -158,6 +158,156 @@ const careerMasonryPhotos = [com01, com02, com04, com05, com06, com07];
 const referenceMainSlideIndex = ref(0);
 const REFERENCE_MAIN_SLIDE_INTERVAL = 2500;
 let referenceMainSlideTimer = null;
+const projectPopupTabItems = [
+  { id: "overview", label: "01. 비지니스 접근 방식" },
+  { id: "problem", label: "02. Pain Points 발굴 및 정의" },
+  { id: "solution", label: "03. 문제 파악 및 해결" },
+  { id: "result", label: "04. PRD작성/프로토타이핑 협업" },
+];
+const PROJECT_POPUP_TAB_DURATION = 10000;
+const projectPopupVisualSets = [
+  [project04Slide01, project04Slide02, project04Slide03, project04Slide04],
+  [project04Slide02, project04Slide03, project04Slide04, project04Slide01],
+  [project04Slide03, project04Slide04, project04Slide01, project04Slide02],
+];
+const isProjectPopupOpen = ref(false);
+const isProjectPopupClosing = ref(false);
+const activePopupProjectKey = ref("");
+const activePopupTabId = ref(projectPopupTabItems[0].id);
+const popupTabProgress = ref(0);
+let popupTabTimer = null;
+let popupCloseTimer = null;
+
+const popupProjects = computed(() =>
+  (portfolio.references.items || []).slice(0, 3).map((item, index) => {
+    const visuals = projectPopupVisualSets[index] || projectPopupVisualSets[0];
+    return {
+      key: `project-${index + 1}`,
+      name: item.name,
+      period: item.period,
+      tabs: [
+        {
+          id: "overview",
+          heading: "비지니스 접근 방식",
+          body: `${item.period} 진행 프로젝트로, 핵심 문제를 빠르게 구조화하고 실행 가능한 설계까지 연결한 프로젝트입니다.`,
+          bullets: [
+            `프로젝트명: ${item.name}`,
+            "핵심 가치: 문제 구조화 -> 실행 가능한 산출물 전환",
+            "테스트 이미지 영역(추후 실제 스크린샷 교체 가능)",
+          ],
+          image: visuals[0],
+        },
+        {
+          id: "problem",
+          heading: "Pain Points 발굴 및 정의",
+          body: item.problem,
+          bullets: [
+            "기존 운영 흐름의 병목 구간 식별",
+            "사용자/실무자 관점의 불편 요소 정리",
+            "우선 해결 과제 도출",
+          ],
+          image: visuals[1],
+        },
+        {
+          id: "solution",
+          heading: "문제 파악 및 해결",
+          body: item.solution,
+          bullets: [
+            "문제 단위로 기능 설계",
+            "실행 단계별 프로세스와 검증 기준 설정",
+            "운영 가능한 형태로 정리 및 전달",
+          ],
+          image: visuals[2],
+        },
+        {
+          id: "result",
+          heading: "PRD작성/프로토타이핑 협업",
+          body: "측정 가능한 개선 지표를 기반으로 성과를 검증하고, 다음 확장 포인트를 정리했습니다.",
+          bullets: [
+            ...(item.impact || []),
+            "회고: 고도화 우선순위를 기반으로 다음 스프린트 계획 수립",
+          ],
+          image: visuals[3],
+        },
+      ],
+    };
+  })
+);
+
+const activePopupProject = computed(
+  () => popupProjects.value.find((project) => project.key === activePopupProjectKey.value) || null
+);
+
+const activePopupTabContent = computed(() => {
+  const project = activePopupProject.value;
+  if (!project) return null;
+  return project.tabs.find((tab) => tab.id === activePopupTabId.value) || project.tabs[0];
+});
+
+const clearPopupTabTimer = () => {
+  if (popupTabTimer) {
+    clearInterval(popupTabTimer);
+    popupTabTimer = null;
+  }
+};
+
+const getPopupTabIndex = (tabId) => projectPopupTabItems.findIndex((tab) => tab.id === tabId);
+
+const getPopupTabProgress = (tabId) => {
+  const currentIndex = getPopupTabIndex(activePopupTabId.value);
+  const tabIndex = getPopupTabIndex(tabId);
+  if (tabIndex < currentIndex) return 100;
+  if (tabIndex > currentIndex) return 0;
+  return popupTabProgress.value;
+};
+
+const startPopupTabTimer = () => {
+  clearPopupTabTimer();
+  const start = performance.now();
+  popupTabProgress.value = 0;
+  popupTabTimer = setInterval(() => {
+    const elapsed = performance.now() - start;
+    const ratio = Math.min(elapsed / PROJECT_POPUP_TAB_DURATION, 1);
+    popupTabProgress.value = Math.round(ratio * 100);
+    if (ratio >= 1) {
+      const currentIndex = getPopupTabIndex(activePopupTabId.value);
+      const nextIndex = (currentIndex + 1) % projectPopupTabItems.length;
+      activePopupTabId.value = projectPopupTabItems[nextIndex].id;
+      startPopupTabTimer();
+    }
+  }, 40);
+};
+
+const activatePopupTab = (tabId) => {
+  if (!isProjectPopupOpen.value || activePopupTabId.value === tabId) return;
+  activePopupTabId.value = tabId;
+  startPopupTabTimer();
+};
+
+const openProjectPopup = (index) => {
+  const target = popupProjects.value[index];
+  if (!target) return;
+  if (popupCloseTimer) clearTimeout(popupCloseTimer);
+  isProjectPopupClosing.value = false;
+  activePopupProjectKey.value = target.key;
+  activePopupTabId.value = projectPopupTabItems[0].id;
+  popupTabProgress.value = 0;
+  isProjectPopupOpen.value = true;
+  startPopupTabTimer();
+};
+
+const closeProjectPopup = () => {
+  if (!isProjectPopupOpen.value || isProjectPopupClosing.value) return;
+  isProjectPopupClosing.value = true;
+  clearPopupTabTimer();
+  popupCloseTimer = setTimeout(() => {
+    isProjectPopupOpen.value = false;
+    isProjectPopupClosing.value = false;
+    activePopupProjectKey.value = "";
+    activePopupTabId.value = projectPopupTabItems[0].id;
+    popupTabProgress.value = 0;
+  }, 260);
+};
 
 const VOICE_ROLL_INTERVAL = 3000;
 const VOICE_GAP_REM = 0.8;
@@ -519,6 +669,20 @@ const handleWindowResize = () => {
   syncMobileNavState();
 };
 
+const handleGlobalKeydown = (event) => {
+  if (event.key === "Escape") {
+    closeProjectPopup();
+  }
+};
+
+watch(isProjectPopupOpen, (isOpen) => {
+  if (isOpen) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
+});
+
 onMounted(() => {
   const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
   if (savedTheme === "light") {
@@ -531,6 +695,7 @@ onMounted(() => {
   window.addEventListener("scroll", updateTopButtonVisibility, { passive: true });
   window.addEventListener("scroll", updateActiveSection, { passive: true });
   window.addEventListener("resize", handleWindowResize);
+  window.addEventListener("keydown", handleGlobalKeydown);
 
   const reveals = document.querySelectorAll("[data-reveal]");
   const observer = new IntersectionObserver(
@@ -565,9 +730,13 @@ onUnmounted(() => {
   window.removeEventListener("scroll", updateActiveSection);
   window.removeEventListener("resize", handleWindowResize);
   window.removeEventListener("resize", updateVoiceRollOffsets);
+  window.removeEventListener("keydown", handleGlobalKeydown);
   if (rollTimer) clearInterval(rollTimer);
   if (project04Timer) clearInterval(project04Timer);
   if (referenceMainSlideTimer) clearInterval(referenceMainSlideTimer);
+  clearPopupTabTimer();
+  if (popupCloseTimer) clearTimeout(popupCloseTimer);
+  document.body.style.overflow = "";
 });
 </script>
 
@@ -893,7 +1062,26 @@ onUnmounted(() => {
                     <p class="scene-kicker">
                       PROJECT {{ String(index + 1).padStart(2, "0") }} · {{ item.period }}
                     </p>
-                    <h3>{{ item.name }}</h3>
+                    <h3>
+                      <button
+                        v-if="index < 3"
+                        type="button"
+                        class="project-title-trigger"
+                        @click="openProjectPopup(index)"
+                      >
+                        <span class="project-title-text">
+                          <span class="project-title-base">{{ item.name }}</span>
+                          <span
+                            class="project-title-water"
+                            :data-text="item.name"
+                            aria-hidden="true"
+                          >
+                            {{ item.name }}
+                          </span>
+                        </span>
+                      </button>
+                      <span v-else>{{ item.name }}</span>
+                    </h3>
                     <p class="scene-line"><strong style="display: block;">Problem.</strong> {{ item.problem }}</p>
                     <p class="scene-line"><strong style="display: block;">Solution.</strong> {{ item.solution }}</p>
                     <ul class="scene-impact">
@@ -1181,6 +1369,73 @@ onUnmounted(() => {
         </div>
       </section>
     </main>
+
+    <transition name="project-popup-overlay">
+      <div
+        v-if="isProjectPopupOpen"
+        class="project-popup-overlay"
+        :class="{ 'is-closing': isProjectPopupClosing }"
+        @click.self="closeProjectPopup"
+      >
+        <div class="project-popup-stack">
+          <button
+            type="button"
+            class="project-popup-close"
+            aria-label="팝업 닫기"
+            @click="closeProjectPopup"
+          >
+            ×
+          </button>
+
+          <section
+            class="project-popup-panel"
+            :class="{ 'is-closing': isProjectPopupClosing }"
+            role="dialog"
+            aria-modal="true"
+            :aria-label="activePopupProject?.name || '프로젝트 팝업'"
+          >
+            <header class="project-popup-head">
+              <p class="project-popup-kicker">{{ activePopupProject?.period }} · PROJECT PROCESS</p>
+              <h3>{{ activePopupProject?.name }}</h3>
+            </header>
+
+            <nav class="project-popup-tabs" aria-label="프로젝트 단계 탭">
+              <button
+                v-for="tab in projectPopupTabItems"
+                :key="tab.id"
+                type="button"
+                class="project-popup-tab"
+                :class="{ active: activePopupTabId === tab.id }"
+                @click="activatePopupTab(tab.id)"
+              >
+                <span>{{ tab.label }}</span>
+                <span class="project-popup-tab-line">
+                  <span
+                    class="project-popup-tab-line-fill"
+                    :style="{ width: `${getPopupTabProgress(tab.id)}%` }"
+                  />
+                </span>
+              </button>
+            </nav>
+
+            <transition name="project-popup-content-slide" mode="out-in">
+              <article v-if="activePopupTabContent" :key="activePopupTabContent.id" class="project-popup-content">
+                <div class="project-popup-copy">
+                  <p class="project-popup-section">{{ activePopupTabContent.heading }}</p>
+                  <p class="project-popup-body">{{ activePopupTabContent.body }}</p>
+                  <ul class="project-popup-bullets">
+                    <li v-for="point in activePopupTabContent.bullets" :key="point">{{ point }}</li>
+                  </ul>
+                </div>
+                <figure class="project-popup-visual project-popup-visual--ppt">
+                  <img :src="activePopupTabContent.image" :alt="activePopupTabContent.heading" />
+                </figure>
+              </article>
+            </transition>
+          </section>
+        </div>
+      </div>
+    </transition>
 
     <footer class="site-footer">
       <p class="footer-copy">{{ new Date().getFullYear() }}. 0{{ new Date().getMonth() + 1 }}. AI 서비스 전략 기획 황승현.</p>

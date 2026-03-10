@@ -1162,10 +1162,10 @@ onUnmounted(() => {
                         </button>
                       </h3>
                       <button
-                        v-if="index === 0"
+                        v-if="index === 0 || index === 3"
                         type="button"
                         class="project-demo-btn"
-                        @click.stop="openProjectDemo('project01')"
+                        @click.stop="openProjectDemo(index === 0 ? 'project01' : 'project04')"
                       >
                         데모보기
                       </button>
@@ -1272,13 +1272,6 @@ onUnmounted(() => {
               <p class="scene-kicker">PROJECTS · ~{{ project04.period }}</p>
               <div class="project04-title-row">
                 <h3>{{ project04.name }}</h3>
-                <button
-                  type="button"
-                  class="project-demo-btn"
-                  @click="openProjectDemo('project04')"
-                >
-                  데모보기
-                </button>
               </div>
               <p class="paragraph">{{ project04.description }}</p>
             </div>

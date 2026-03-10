@@ -999,6 +999,13 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
   line-height: 1.15;
 }
 
+.scene-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
 .project-title-trigger {
   border: 0;
   padding: 0;
@@ -1033,7 +1040,7 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
   position: absolute;
   inset: 0;
   display: inline-block;
-  color: #ffffff;
+  color: var(--reference-title);
   /* -webkit-text-stroke: 1px #ffffff; */
   clip-path: polygon(
     0% 25%,
@@ -1062,7 +1069,7 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
   content: attr(data-text);
   position: absolute;
   inset: 0;
-  color: #ffffff;
+  color: var(--reference-title);
   opacity: 0.58;
   /* transform: translateY(2px); */
   clip-path: polygon(
@@ -1483,11 +1490,14 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
 .scene-2 .scene-kicker,
 .scene-2 .scene-line,
 .scene-2 .scene-impact {
-  color: #c5c5c5;
+  color: var(--reference-line);
   font-weight: 100;
 }
 
-.scene-2 .scene-copy h3{color: #fff;font-weight: 600;}
+.scene-2 .scene-copy h3 {
+  color: var(--reference-title);
+  font-weight: 600;
+}
 
 .scene-2 .scene-impact li::before {
   color: var(--reference-scene2-strong);
@@ -1591,6 +1601,25 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
 .project04-copy h3 {
   margin: 0.5rem 0 0.7rem;
   font-size: clamp(1.3rem, 2.4vw, 2rem);
+}
+
+.project-demo-btn {
+  flex: 0 0 auto;
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  padding: 0.32rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-main);
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.project-demo-btn:hover {
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--panel-soft) 90%, transparent);
 }
 
 .project04-slider {
@@ -2056,7 +2085,7 @@ body[data-theme="light"] .mini-card {
   border-radius: 999px;
   padding: 0.48rem 0.72rem;
   font-size: 0.81rem;
-  color: #fff;
+  color: var(--chip-text);
   text-align: center;
   font-weight: 100;
   background: color-mix(in srgb, var(--chip-bg) 82%, transparent);
@@ -2790,6 +2819,12 @@ body[data-theme="light"] .process-card {
 
   .scene-copy h3 {
     font-size: 1.55rem;
+  }
+
+  .scene-title-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .scene-1 .scene-grid {

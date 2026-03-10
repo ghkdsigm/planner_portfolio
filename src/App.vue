@@ -179,11 +179,20 @@ const getImage = (key) => imageMap[key] ?? heroCover;
 const getProject04SlideImage = (slide) => project04ImageMap[slide?.image] || slide?.image || "";
 const getItemLink = (item) => item.url || item.contentUrl || "";
 const getItemImage = (item) => item.image || item.contentUrl || "";
+const demoUrlMap = {
+  project01: "https://web.jck40cggccckkkoo4844c44o.54.66.155.158.sslip.io/",
+  project04: "https://daop.netlify.app/",
+};
 const toggleDisplayFocus = (index) => {
   focusedDisplayIndex.value = focusedDisplayIndex.value === index ? -1 : index;
 };
 const clearDisplayFocus = () => {
   focusedDisplayIndex.value = -1;
+};
+const openProjectDemo = (projectKey) => {
+  const url = demoUrlMap[projectKey];
+  if (!url) return;
+  window.open(url, "_blank", "noopener,noreferrer");
 };
 const researchVoices = portfolio.research.insightBlocks.flatMap((item) =>
   (item.voices || []).map((voice) => ({ tag: item.tag, text: voice }))
@@ -1128,24 +1137,34 @@ onUnmounted(() => {
                     <p class="scene-kicker">
                       PROJECT {{ String(index + 1).padStart(2, "0") }} · {{ item.period }}
                     </p>
-                    <h3>
-                      <button
-                        type="button"
-                        class="project-title-trigger"
-                        @click="openProjectPopup(index)"
-                      >
-                        <span class="project-title-text">
-                          <span class="project-title-base">{{ item.name }}</span>
-                          <span
-                            class="project-title-water"
-                            :data-text="item.name"
-                            aria-hidden="true"
-                          >
-                            {{ item.name }}
+                    <div class="scene-title-row">
+                      <h3>
+                        <button
+                          type="button"
+                          class="project-title-trigger"
+                          @click="openProjectPopup(index)"
+                        >
+                          <span class="project-title-text">
+                            <span class="project-title-base">{{ item.name }}</span>
+                            <span
+                              class="project-title-water"
+                              :data-text="item.name"
+                              aria-hidden="true"
+                            >
+                              {{ item.name }}
+                            </span>
                           </span>
-                        </span>
+                        </button>
+                      </h3>
+                      <button
+                        v-if="index === 0 || index === 3"
+                        type="button"
+                        class="project-demo-btn"
+                        @click.stop="openProjectDemo(index === 0 ? 'project01' : 'project04')"
+                      >
+                        데모보기
                       </button>
-                    </h3>
+                    </div>
                     <p class="scene-line"><strong style="display: block;">Problem.</strong> {{ item.problem }}</p>
                     <p class="scene-line"><strong style="display: block;">Solution.</strong> {{ item.solution }}</p>
                     <ul class="scene-impact">

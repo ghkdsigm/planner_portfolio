@@ -8,6 +8,7 @@ import profilePortrait from "./assets/images/profile-portrait.png";
 import projectRoutine from "./assets/images/project-routine.svg";
 import projectAssistant from "./assets/images/project-assistant.svg";
 import projectChallenge from "./assets/images/project03.png";
+import panorama from "./assets/images/panorama.png";
 import bg01Gif from "./assets/images/bg01.gif";
 import bg00Gif from "./assets/images/bg00.gif";
 import m01 from "./assets/images/m01.jpg";
@@ -29,6 +30,7 @@ import project04Slide01 from "./assets/images/r01.jpg";
 import project04Slide02 from "./assets/images/r02.jpg";
 import project04Slide03 from "./assets/images/r03.jpg";
 import project04Slide04 from "./assets/images/r04.jpg";
+import daopSlide01 from "./assets/images/daop01.png";
 
 const imageMap = {
   heroCover,
@@ -36,12 +38,14 @@ const imageMap = {
   projectRoutine,
   projectAssistant,
   projectChallenge,
+  panorama,
 };
 const project04ImageMap = {
   "r01.jpg": project04Slide01,
   "r02.jpg": project04Slide02,
   "r03.jpg": project04Slide03,
   "r04.jpg": project04Slide04,
+  "daop01.png": daopSlide01,
 };
 
 const navItems = [
@@ -60,6 +64,7 @@ const resizeKey = ref(0);
 const meterAnimated = ref({});
 const mobileMenuOpen = ref(false);
 const isMobileViewport = ref(false);
+const focusedDisplayIndex = ref(-1);
 
 const METER_ANIM_DURATION = 1300;
 const MOBILE_NAV_BREAKPOINT = 700;
@@ -143,6 +148,12 @@ const getImage = (key) => imageMap[key] ?? heroCover;
 const getProject04SlideImage = (slide) => project04ImageMap[slide?.image] || slide?.image || "";
 const getItemLink = (item) => item.url || item.contentUrl || "";
 const getItemImage = (item) => item.image || item.contentUrl || "";
+const toggleDisplayFocus = (index) => {
+  focusedDisplayIndex.value = focusedDisplayIndex.value === index ? -1 : index;
+};
+const clearDisplayFocus = () => {
+  focusedDisplayIndex.value = -1;
+};
 const researchVoices = portfolio.research.insightBlocks.flatMap((item) =>
   (item.voices || []).map((voice) => ({ tag: item.tag, text: voice }))
 );
@@ -179,7 +190,7 @@ let popupTabTimer = null;
 let popupCloseTimer = null;
 
 const popupProjects = computed(() =>
-  (portfolio.references.items || []).slice(0, 3).map((item, index) => {
+  (portfolio.references.items || []).map((item, index) => {
     const visuals = projectPopupVisualSets[index] || projectPopupVisualSets[0];
     return {
       key: `project-${index + 1}`,
@@ -671,6 +682,10 @@ const handleWindowResize = () => {
 
 const handleGlobalKeydown = (event) => {
   if (event.key === "Escape") {
+    if (focusedDisplayIndex.value !== -1) {
+      clearDisplayFocus();
+      return;
+    }
     closeProjectPopup();
   }
 };
@@ -1064,7 +1079,6 @@ onUnmounted(() => {
                     </p>
                     <h3>
                       <button
-                        v-if="index < 3"
                         type="button"
                         class="project-title-trigger"
                         @click="openProjectPopup(index)"
@@ -1080,7 +1094,6 @@ onUnmounted(() => {
                           </span>
                         </span>
                       </button>
-                      <span v-else>{{ item.name }}</span>
                     </h3>
                     <p class="scene-line"><strong style="display: block;">Problem.</strong> {{ item.problem }}</p>
                     <p class="scene-line"><strong style="display: block;">Solution.</strong> {{ item.solution }}</p>
@@ -1112,9 +1125,17 @@ onUnmounted(() => {
                         <img :src="getImage(item.imageKey)" :alt="`${item.name} dashboard`" />
                       </figure>
                     </template>
-                    <figure v-else class="pc-mock">
+                    <figure
+                      v-else
+                      class="pc-mock"
+                      :class="{ 'is-display-focus': focusedDisplayIndex === index }"
+                      @click.stop="toggleDisplayFocus(index)"
+                    >
                       <div class="pc-screen">
-                        <img :src="getImage(item.imageKey)" :alt="item.name" />
+                        <img
+                          :src="item.name.includes('DAOP') ? daopSlide01 : getImage(item.imageKey)"
+                          :alt="item.name"
+                        />
                       </div>
                     </figure>
                   </div>
@@ -1428,7 +1449,9 @@ onUnmounted(() => {
                   </ul>
                 </div>
                 <figure class="project-popup-visual project-popup-visual--ppt">
-                  <img :src="activePopupTabContent.image" :alt="activePopupTabContent.heading" />
+                  <div class="project-popup-placeholder">
+                    <strong>준비중입니다.</strong>
+                  </div>
                 </figure>
               </article>
             </transition>

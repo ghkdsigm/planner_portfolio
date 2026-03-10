@@ -1327,10 +1327,11 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
 }
 
 .pc-mock {
+  --pc-offset-y: 0rem;
   position: relative;
   margin: 0;
-  width: min(92%, 680px);
-  aspect-ratio: 16 / 9;
+  width: min(92%, 1680px);
+  /* aspect-ratio: 16 / 9; */
   padding: 0.5rem 0.5rem 1rem;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 0.95rem;
@@ -1339,6 +1340,12 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
   box-shadow:
     0 16px 30px rgba(0, 0, 0, 0.34),
     0 3px 10px rgba(0, 0, 0, 0.16);
+  transform: translate3d(0, var(--pc-offset-y), 0) scale(1);
+  transform-origin: center center;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 0.7, 0.16, 1),
+    box-shadow 0.45s ease;
+  will-change: transform;
 }
 
 .pc-screen {
@@ -1491,7 +1498,7 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
 }
 
 .scene-2 .pc-mock {
-  transform: translateY(-1.2rem);
+  --pc-offset-y: -1.2rem;
 }
 
 .scene-3 {
@@ -1515,7 +1522,44 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
 }
 
 .scene-3 .pc-mock {
-  transform: translateY(1rem);
+  --pc-offset-y: 1rem;
+}
+
+.reference-scene .pc-mock {
+  cursor: pointer;
+}
+
+.reference-scene .pc-mock.is-display-focus {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(94vw, 1600px);
+  max-height: 88vh;
+  padding: 0.7rem 0.7rem 1.2rem;
+  transform: translate3d(-50%, -50%, 0) scale(1.06);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 0 0 100vmax rgba(3, 5, 10, 0.68),
+    0 42px 110px rgba(0, 0, 0, 0.55),
+    0 16px 45px rgba(0, 0, 0, 0.35);
+  z-index: 1200;
+}
+
+.reference-scene .pc-mock.is-display-focus .pc-screen {
+  /* max-height: calc(88vh - 1.9rem); */
+  /* width: calc(30vw - 1px); */
+  height:50vh;
+  margin: 0px auto;
+}
+
+.reference-scene .pc-mock.is-display-focus::before {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-mock {
+    transition: none;
+  }
 }
 
 .project04-showcase {
@@ -2429,7 +2473,7 @@ body[data-theme="light"] .process-card {
 }
 
 .project-popup-visual--ppt {
-  aspect-ratio: 21 / 9;
+  /* aspect-ratio: 21 / 9; */
   min-height: auto;
   max-height: min(58vh, 610px);
   background: #0f141c;
@@ -2440,6 +2484,32 @@ body[data-theme="light"] .process-card {
   height: 100%;
   object-fit: contain;
   display: block;
+}
+
+.project-popup-placeholder {
+  width: 100%;
+  height: 100%;
+  /* min-height: min(58vh, 610px); */
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(176, 252, 229, 0.14), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(124, 177, 255, 0.14), transparent 44%),
+    #0f141c;
+}
+
+.project-popup-placeholder strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(82vw, 360px);
+  padding: 0.95rem 1.4rem;
+  border: 1px solid color-mix(in srgb, var(--stroke) 64%, #fff 36%);
+  border-radius: 999px;
+  color: var(--reference-strong);
+  font-size: clamp(1.05rem, 1.9vw, 1.45rem);
+  letter-spacing: 0.02em;
+  background: color-mix(in srgb, var(--panel-bg-start) 82%, transparent);
 }
 
 .project-popup-overlay-enter-active,

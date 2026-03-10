@@ -1411,7 +1411,7 @@ onUnmounted(() => {
                 <p class="mini-head">{{ item.time }}</p>
                 <h3>{{ item.title }}</h3>
                 <p class="paragraph">{{ item.content }}</p>
-                <p class="archive-meta">{{ item.tag }} · 참여도 {{ item.party }}</p>
+                <p class="archive-meta">참여도 {{ item.party }}</p>
                 <a
                   v-if="getItemLink(item)"
                   :href="getItemLink(item)"

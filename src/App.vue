@@ -62,11 +62,14 @@ const activeSection = ref("cover");
 const buttonRefs = ref({});
 const resizeKey = ref(0);
 const meterAnimated = ref({});
+const donutProgressAnimated = ref({});
+const donutFocusAnimated = ref({});
 const mobileMenuOpen = ref(false);
 const isMobileViewport = ref(false);
 const focusedDisplayIndex = ref(-1);
 
 const METER_ANIM_DURATION = 1300;
+const DONUT_ANIM_DURATION = 1700;
 const MOBILE_NAV_BREAKPOINT = 700;
 
 function animateMeter(label, score) {
@@ -77,6 +80,34 @@ function animateMeter(label, score) {
     const eased = 1 - (1 - t) ** 2;
     const current = Math.round(score * eased);
     meterAnimated.value = { ...meterAnimated.value, [label]: current };
+    if (t < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+const getDonutKey = (item, index) => `${item.tag}-${index}`;
+
+const formatPercent = (value) => {
+  const rounded = Math.round(value * 10) / 10;
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+};
+
+function animateDonut(key, focusValue) {
+  if (!key) return;
+  const targetFocus = Number(focusValue) || 0;
+  const startProgress = donutProgressAnimated.value[key] ?? 0;
+  const startFocus = donutFocusAnimated.value[key] ?? 0;
+
+  if (startProgress >= 1 && Math.abs(startFocus - targetFocus) < 0.1) return;
+
+  const start = performance.now();
+  const step = (now) => {
+    const t = Math.min((now - start) / DONUT_ANIM_DURATION, 1);
+    const eased = 1 - (1 - t) ** 3;
+    const progress = startProgress + (1 - startProgress) * eased;
+    const focus = startFocus + (targetFocus - startFocus) * eased;
+    donutProgressAnimated.value = { ...donutProgressAnimated.value, [key]: progress };
+    donutFocusAnimated.value = { ...donutFocusAnimated.value, [key]: focus };
     if (t < 1) requestAnimationFrame(step);
   };
   requestAnimationFrame(step);
@@ -603,9 +634,14 @@ const getIaBranches = (indexes = []) =>
   indexes
     .map((index) => iaStructureBranches[index])
     .filter(Boolean);
-const getDonutStyle = (segments = []) => {
+const getDonutStyle = (segments = [], donutKey = "") => {
+  const progress = donutProgressAnimated.value[donutKey] ?? 0;
+
   if (!segments.length) {
-    return { background: "conic-gradient(var(--accent) 0 100%)" };
+    const end = Math.min(progress * 100, 100);
+    return {
+      background: `conic-gradient(var(--accent) 0 ${end}%, var(--stroke) ${end}% 100%)`,
+    };
   }
 
   let offset = 0;
@@ -613,8 +649,10 @@ const getDonutStyle = (segments = []) => {
     const start = offset;
     const end = offset + segment.value;
     offset = end;
-    return `${segment.color} ${start}% ${end}%`;
+    return `${segment.color} ${start * progress}% ${end * progress}%`;
   });
+  const filledEnd = Math.min(offset * progress, 100);
+  stops.push(`var(--stroke) ${filledEnd}% 100%`);
 
   return {
     background: `conic-gradient(${stops.join(", ")})`,
@@ -722,6 +760,14 @@ onMounted(() => {
             const label = entry.target.dataset.label;
             const score = Number(entry.target.dataset.score) || 0;
             if (label != null) animateMeter(label, score);
+          }
+          if (entry.target.classList.contains("research-card")) {
+            const donutItems = entry.target.querySelectorAll(".donut-item");
+            donutItems.forEach((donutItem) => {
+              const key = donutItem.dataset.donutKey || "";
+              const focus = Number(donutItem.dataset.donutFocus) || 0;
+              animateDonut(key, focus);
+            });
           }
           observer.unobserve(entry.target);
         }
@@ -955,7 +1001,7 @@ onUnmounted(() => {
           </div>
           <div class="research-grid">
             <article
-              v-for="item in portfolio.research.insightBlocks"
+              v-for="(item, index) in portfolio.research.insightBlocks"
               :key="item.tag"
               class="panel research-card"
               data-reveal
@@ -968,8 +1014,13 @@ onUnmounted(() => {
                   <p class="mini-head">Survey</p>
                   <p class="survey-question">{{ item.surveyChart.question }}</p>
                   <div class="donut-wrap">
-                    <span class="donut-chart" :style="getDonutStyle(item.surveyChart.segments)">
-                      <strong>{{ item.surveyChart.focusValue }}%</strong>
+                    <span
+                      class="donut-chart donut-item"
+                      :style="getDonutStyle(item.surveyChart.segments, getDonutKey(item, index))"
+                      :data-donut-key="getDonutKey(item, index)"
+                      :data-donut-focus="item.surveyChart.focusValue"
+                    >
+                      <strong>{{ formatPercent(donutFocusAnimated[getDonutKey(item, index)] ?? 0) }}%</strong>
                     </span>
                     <div class="donut-legend">
                       <p

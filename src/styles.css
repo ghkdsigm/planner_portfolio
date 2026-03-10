@@ -221,8 +221,7 @@ body {
 .floating-nav {
   position: fixed;
   top: 1.2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  right: max(0.8rem, calc((100vw - 1160px) / 2));
   width: min(1100px, calc(100vw - 1.6rem));
   z-index: 40;
   padding: 0.82rem 1rem;
@@ -233,6 +232,14 @@ body {
   border-radius: 999px;
   background: var(--nav-bg);
   backdrop-filter: blur(12px);
+}
+
+.floating-nav[data-reveal] {
+  transform: translateY(24px);
+}
+
+.floating-nav[data-reveal].is-visible {
+  transform: translateY(0);
 }
 
 .brand {
@@ -1505,6 +1512,7 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)),
     #020202;
+    padding-bottom: 10rem;
 }
 
 .scene-3::after {
@@ -2135,9 +2143,9 @@ body[data-theme="light"] .mini-card {
   display: grid;
   place-items: center;
   font-size: 1rem;
-  color: #04110c;
+  color: var(--reference-strong);
   font-weight: bold;
-  background: var(--reference-strong);
+  /* background: var(--reference-strong); */
   box-shadow: 0 0 14px var(--accent-glow);
   z-index: 2;
 }
@@ -2678,11 +2686,11 @@ body[data-theme="light"] .process-card {
 
 @media (max-width: 700px) {
   .floating-nav[data-reveal] {
-    transform: translateX(-50%) translateY(24px);
+    transform: translateY(24px);
   }
 
   .floating-nav[data-reveal].is-visible {
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 
   .floating-nav {

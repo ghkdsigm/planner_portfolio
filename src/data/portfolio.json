@@ -590,6 +590,195 @@
             "tag": "#프론트개발 #마크업",
             "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img37_1.PNG",
             "url": "https://www.greendongwha.com/"
+          },
+          {
+            "title": "대한민국 No.1 자동차 매매단지 엠파크 플랫폼 운영",
+            "content": "동화기업 계열사 자동차 유통 허브/임대 사업 매매 운영 플랫폼, KB차차차 + 케이카 등 국내 중고자동차 API연동 및 인프라 구성",
+            "time": "2023.10 ~ ",
+            "party": "100%",
+            "tag": "#프론트개발 #마크업",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img37_2.png",
+            "url": "https://www.m-park.co.kr/"
+          },
+          {
+            "title": "아이템베이 Reborn 관리자 신규 구축 및 운영",
+            "content": "아이템베이 아이템 거래 플랫폼 회원관리, 입출금관리, 통계관리, 서비스관리, 상담관리 등 통합관리자시스템 구축",
+            "time": "2022.11 ~ 2023.10",
+            "party": "100%",
+            "tag": "#프론트개발",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img33_1.png",
+            "url": ""
+          },
+          {
+            "title": "아이템베이 게임 아이탬 중개 거래 플랫폼 운영",
+            "content": "거래 포털 플랫폼 웹 & 모바일웹 수정 요청 사항 반영, edm 이메일 통합 관리, 계정 및 거래 페이지, 마이페이지, 포인트 및 마일리지 상품권 페이지, 메인페이지, 충전페이지, 아이템 거래 페이지 퍼블리싱",
+            "time": "2022.11 ~ 2023.10",
+            "party": "100%",
+            "tag": "#퍼블리싱 #프론트개발",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img29_1.png",
+            "url": "https://www.itembay.com/main"
+          },
+          {
+            "title": "아이템베이 이벤트 프로모션 정기 구축",
+            "content": "아이템베이 아이템 거래 플랫폼 이용 유저 프로모션 혜택 제공을 위한 인터렉티브 웹 & 모바일웹 게임 이벤트 페이지 정기 구축 (룰렛 뽑기, 부르마블, 랜덤카드뽑기, 초성검색, 아이템강화, 상자뽑기 등)",
+            "time": "2022.11 ~ 2023.10",
+            "party": "100%",
+            "tag": "#퍼블리싱 #프론트개발",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img030_1.png",
+            "url": "https://www.itembay.com/event/eventMainView"
+          },
+          {
+            "title": "GxG.Style NFT 거래소 고도화",
+            "content": "기존 NFT거래소와의 차별화를 위한 통합 마켓플레이스, 메신저 기능을 활성화하며 COLLECTION 구분 및 게임 인프라를 구축하여 플랫폼 이용 수요 제고 UI/UX 기획 및 프론트 개발",
+            "time": "2022.05 ~ 2022.11",
+            "party": "100%",
+            "tag": "#퍼블리싱 #프론트개발 #기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img24_1.png",
+            "url": "https://gxg.style/"
+          },
+          {
+            "title": "GotG World 홈페이지 개편",
+            "content": "독자적인 NFT 기술 기반의 시스템 GotG 생태계의 인프라, 정보 전달을 위한 User 친화적 설계 및 다국어 페이지 제작 및 해외 거래소 Api활용 실시간 시세 반영시 cors 문제발생 해결을 위한 프록시 서버 구축 등의 내용 학습",
+            "time": "2022.05 ~ 2022.06",
+            "party": "100%",
+            "tag": "#퍼블리싱 #프론트개발",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img23_1.png",
+            "url": "https://www.gotg.world/"
+          },
+          {
+            "title": "제주유나이티드 스마트-스타디움 내손안의전광판 모바일웹앱 구축 (+가이드제작)",
+            "content": "경기장을 찾은 팬들을 위해 실시간 전력분석영상 및 각도별 화면 콘텐츠 등의 화면 UI 구축, 5G MEC 기반 경기장운영사업 활성화를 목표로한 정부실증사업으로 SKT와의 협업을 통해 성공적인 개편",
+            "time": "2021.03 ~ 2021.09",
+            "party": "100%",
+            "tag": "#퍼블리싱 #디자인 #기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img10_1.png",
+            "url": "https://jejuutd-smart.com/intro.do"
+          },
+          {
+            "title": "한국프로스포츠협회 정보광장포탈 개선사업",
+            "content": "사용자와 연구자 등이 통계 데이터를 쉽게 획득할 수 있는 UI로 개발, 이용 편의성 제고를 위한 서비스 플로우 및 기능 개선",
+            "time": "2020.08 ~ 2020.12",
+            "party": "100%",
+            "tag": "#퍼블리싱 #디자인 #기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img04_1.png",
+            "url": "http://data.prosports.or.kr/"
+          },
+          {
+            "title": "한국도핑방지위원회 검사관교육시스템 구축",
+            "content": "역량평가 운영관리 및 참여하기 용이한 UI로 개발, 웹/모바일 2가지 레이아웃 별 온라인 평가 응시 기능 제공 등 웹 표준 및 접근성준수와 더불어 최신 트렌드 반영 설계",
+            "time": "2020.07 ~ 2020.11",
+            "party": "100%",
+            "tag": "#퍼블리싱 #디자인 #기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img08_1.png",
+            "url": ""
+          },
+          {
+            "title": "한국프로스포츠협회 홈페이지 구축",
+            "content": "프로스포츠 5개 대표 단체 및 한국프로스포츠협회를 대표하는 정체성을 쉽고 간편히 전달하기위한 UX·UI개발 & 트렌드한 디자인 설계",
+            "time": "2020.07 ~ 2020.08",
+            "party": "100%",
+            "tag": "#퍼블리싱 #디자인 #기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img02_1.png",
+            "url": "http://www.prosports.or.kr/"
+          },
+          {
+            "title": "경남체육회 온오프라인 스포츠한마당 앱제작",
+            "content": "경상남도 청소년 대상 복잡한 단계별 화면을 최소화하고 직관적인 인터페이스를 제공",
+            "time": "2020.10 ~ 2020.11",
+            "party": "85%",
+            "tag": "#퍼블리싱 #디자인 #기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img07_1.png",
+            "url": "https://apkpure.com/id/gnsf-%EA%B2%BD%EB%82%A8%EC%8A%A4%ED%8F%AC%EC%B8%A0%ED%95%9C%EB%A7%88%EB%8B%B9/com.companyname.gnsportvideo"
+          },
+          {
+            "title": "KADA 한국도핑방지위원회 온라인교육센터(LMS) 구축",
+            "content": "스포츠 선수나 관계자 등이 쉽게 사용할수있는 교육시스템 표준화(웹,모바일,테블릿) 반응형 설계, 교육 사업에 따른 차별화된 UI 제공",
+            "time": "2020.07 ~ 2020.11",
+            "party": "100%",
+            "tag": "#퍼블리싱 #디자인 #기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img03_1.png",
+            "url": "https://edu.kada-ad.or.kr/main.do"
+          },
+          {
+            "title": "한국 프로스포츠협회 온라인 암표신고 사이트 구축",
+            "content": "신고 게시판, 접수관리, 접수목록 등 간편 접수 서비스 플로우 제작",
+            "time": "2020.02",
+            "party": "100%",
+            "tag": "#퍼블리싱 #디자인 #기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img13_1.png",
+            "url": "http://report.prosports.or.kr/report"
+          },
+          {
+            "title": "K리그 아카이브 시스템 구축",
+            "content": "방대한 데이터를 가진 경기 컨텐츠별 검색 및 조회 등이 가능하도록 멀티 해시태그 선택형 검색 페이지 제작",
+            "time": "2020.01 ~ 2020.08",
+            "party": "65%",
+            "tag": "#퍼블리싱",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img12_1.png",
+            "url": ""
+          },
+          {
+            "title": "국가대표선수촌 방문예약시스템 구축",
+            "content": "선수촌 내부 파트별 소개 정보 제공, 이용자 타겟별 등록 인터페이스 재배치를 통해 사용 편의성 향상",
+            "time": "2019.11 ~ 2020.04",
+            "party": "100%",
+            "tag": "#퍼블리싱 #디자인 #기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img11_1.png",
+            "url": "https://www.sports.or.kr/home/010804/0050/main.do"
+          },
+          {
+            "title": "대한체육회 100주년 기념홈페이지 구축",
+            "content": "대한체육회 100년의 히스토리와 보도자료 홍보자료 국민제안 포토갤러리 등 기념사업 특성에 맞는 컨텐츠 활용 설계, 웹표준 및 웹접근성 준수",
+            "time": "2019.09 ~ 2019.12",
+            "party": "100%",
+            "tag": "#퍼블리싱 #디자인 #기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img05_1.png",
+            "url": "http://www.ksoc100.or.kr/"
+          },
+          {
+            "title": "대한체육회 한국체육을 빛낸 100인 후보자 추천 접수 제작",
+            "content": "전 국민 대상 간편 투표 UX/UI 설계",
+            "time": "2019.06 ~ 2019.11",
+            "party": "100%",
+            "tag": "#퍼블리싱 #디자인 #기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img15_1.png",
+            "url": "http://hero.sports.or.kr/100people"
+          },
+          {
+            "title": "한국프로축구연맹(KLEAGUE) 심판관리시스템(KRMS) 구축",
+            "content": "구단관계자 및 심판등 심판 판독( ex)오심여부 교육 )이 용이한 UI로 개발, 웹/모바일 2가지 레이아웃 별 영상 분석 UI 제공 과 더불어 최신 트렌드 반영 설계",
+            "time": "2018.03 ~ 2018.12",
+            "party": "100%",
+            "tag": "#퍼블리싱 #디자인 #기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img09_1.png",
+            "url": "http://kleague.unbiz.co.kr/login"
+          },
+          {
+            "title": "대한체육회 대회경기영상 사이트 고도화",
+            "content": "대한체육회 주요 행사관련 중계, 캠페인홍보영상, 인터뷰영상 제공 등 다양한 영상 컨텐츠를 쉽게 접근할수있는 인터페이스 구축",
+            "time": "2017.09 ~ 2017.12",
+            "party": "60%",
+            "tag": "#퍼블리싱",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img14_1.png",
+            "url": "https://vod.sports.or.kr/"
+          },
+          {
+            "title": "경찰청 홈페이지 고도화 사업",
+            "content": "사용자들이 원하는 정보를 보다 편리하고 신속하게 찾고 구성할 수 있도록 함으로써 대국민 서비스 업무 효율 활성화, 웹/모바일 2가지 별도 구축 & 웹 표준 및 접근성 준수",
+            "time": "2016.12 ~ 2017.12",
+            "party": "100%",
+            "tag": "#퍼블리싱",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img06_1.png",
+            "url": "https://www.police.go.kr/index.do"
+          },
+          {
+            "title": "대한체육회 스포츠영웅 국민지지도 조사 사이트 구축 (2016~2021)",
+            "content": "홈페이지 기능 개선을 통해 업무 효율성·신속성·정확성 제고 및 대국민 서비스 만족도 개선을 위한 홈페이지 콘텐츠 확대 설계, 사용자 편의 증진을 위한 접근성 및 호환성 기능 향상 반영",
+            "time": "2016.09 ~ 2021.09(매년)",
+            "party": "100%",
+            "tag": "#퍼블리싱 #디자인 #기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img01_1.png",
+            "url": "http://hero.sports.or.kr/2021vote"
           }
         ]
       },
@@ -672,6 +861,668 @@
             "tag": "#Vue2 #TMDB API",
             "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img16_1.png",
             "url": "https://cosmic-wisp-5f059a.netlify.app/"
+          }
+        ]
+      }
+    ],
+    "portfolios": [
+      {
+        "title": "동화기업 보드 수요 예측 시스템 구축",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img39_2.png",
+        "innerImage": [
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/sb_01.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/sb_02.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/sb_03.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/sb_04.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/sb_05.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/sb_06.png"
+        ],
+        "sub": "동화기업 보드 사업부 통계 자료 분석 수요 예측 시스템 구축",
+        "url": "",
+        "tag": "#프론트개발 #퍼블리싱",
+        "articles": "",
+        "party": "100%",
+        "content": "내부 통계 정보 분석 시스템 신규 구축 프로젝트",
+        "things": "클라이언트오피스",
+        "time": "2025.3 ~ 2025.6",
+        "target": "MDF/PB/강화마루 담당 부서",
+        "language": "Javascript, Vue.js, Websocket",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%),프론트개발(100%)",
+            "ds": "디자인(0%)",
+            "op": "기획(0%)",
+            "pt": "관리자페이지(0%)"
+          }
+        ]
+      },
+      {
+        "title": "동화기업 베트남 법인 동화베트남(Dongwha Vietnam) 글로벌 홈페이지(DWVN) 신규 구축",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img39_1.png",
+        "innerImage": [
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/dvwn01.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/dvwn02.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/dvwn03.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/dvwn04.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/dvwn05.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/dvwn06.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/dvwn07.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/dvwn08.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/dvwn09.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/dvwn10.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/dvwn11.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/dvwn12.png"
+        ],
+        "sub": "동화기업 해외 법인 동화베트남(DWVN) 홈페이지 구축",
+        "url": "https://www.dongwhavietnam.com/",
+        "tag": "#프론트개발 #퍼블리싱",
+        "articles": "https://www.dongwhavietnam.com/en/news/detail/36",
+        "party": "100%",
+        "content": "베트남 MDF 생산 1위 건장재 마켓 타겟 글로벌 홈페이지 개선 프로젝트",
+        "things": "클라이언트오피스, 백오피스, 다국어(I18N/EN,VI), SEO(SSG기반)",
+        "time": "2024.3 ~ 2024.8",
+        "target": "베트남 현지 사업부 담당자, 베트남 MDF/강화마루 수요 고객",
+        "language": "Html, Scss, Javascript, Nuxt.js",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%),프론트개발(100%)",
+            "ds": "디자인(0%)",
+            "op": "기획(0%)",
+            "pt": "관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "국내 1위 규모 엠파크 중고차 매매단지 통합관리시스템 UMS 신규 구축",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img38_1.png",
+        "innerImage": [
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_13.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_14.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_15.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_17.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_16.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_18.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_19.png"
+        ],
+        "sub": "동화그룹 자회사 엠파크 자동차 매매단지 단지/상사/자사 통합 관리 시스템",
+        "url": "https://ums.online.m-park.co.kr/",
+        "tag": "#프론트개발 #마크업",
+        "articles": "https://www.mk.co.kr/news/business/10643443",
+        "party": "100%",
+        "content": "상사/단지 임대 산업 운영 기반의 시설/운영/기초정보/임대/계량기/관리비/입출고/차량통제 등 대한민국 1위 규모 매매단지 관리시스템 신규 구축",
+        "things": "클라이언트, 백오피스, 키오스크, RS통신을 이용한 입출고 관리, 데이터센터 등",
+        "time": "2023.12 ~ ",
+        "target": "매매딜러, 단지 및 상사 담당자, 그룹사 사업 담당자",
+        "language": "Html, Scss, Javascript, Nuxt.js, Aws, Node.js, Pwa",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%),프론트개발(100%)",
+            "ds": "디자인(0%)",
+            "op": "기획(0%)",
+            "pt": "관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "LIVE IN PRIDE | 동화자연마루 홈페이지 운영",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img37_1.PNG",
+        "innerImage": [
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_01.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_02.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_03.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_04.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_05.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_07.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_06.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_08.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_09.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_10.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_11.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/green_12.png"
+        ],
+        "sub": "친환경 바닥재 전문업체, 강화마루,강마루, 디자인월, 자연타일, 도어, 인테리어제품, 카탈로그 안내 홈페이지",
+        "url": "https://www.greendongwha.com/",
+        "tag": "#프론트개발 #마크업",
+        "articles": "https://www.hankookilbo.com/News/Read/A2023070409130000929?did=NA",
+        "party": "100%",
+        "content": "대한민국 1위 인테리어 자제 및 서비스 경쟁력 제고",
+        "things": "클라이언트오피스, 백오피스",
+        "time": "2023.10 ~ ",
+        "target": "마루 및 벽재 구매 고객, 대리점 담당자, 자사 담당자",
+        "language": "Html, Scss, Javascript, Vue.js, Aws, Node Server",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%),프론트개발(100%)",
+            "ds": "디자인(0%)",
+            "op": "기획(0%)",
+            "pt": "관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "대한민국 No.1 자동차 매매단지 엠파크 플랫폼 운영",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img37_2.png",
+        "innerImage": [
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/mpark_00.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/mpark_01.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/mpark_02.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/mpark_03.png"
+        ],
+        "sub": "약 1만 대, 국내 최대 규모의 전시대수 안심할 수 있는 투명한 거래 시스템",
+        "url": "https://www.m-park.co.kr/",
+        "tag": "#프론트개발 #마크업",
+        "articles": "https://blog.naver.com/miny125/222705571569",
+        "party": "100%",
+        "content": "동화기업 계열사 자동차 유통 허브/임대 사업 매매 운영 플랫폼, KB차차차 + 케이카 등 국내 중고자동차 API연동 및 인프라 구성",
+        "things": "클라이언트오피스, 백오피스",
+        "time": "2023.10 ~ ",
+        "target": "중고 자동차 구입 고객, 딜러, 상사운영담당자, 계열사 담당자",
+        "language": "Html, Scss, Javascript, Nuxt.js, Aws",
+        "part": [
+          {
+            "pb": "프론트개발(100%)",
+            "ds": "디자인(0%)",
+            "op": "기획(0%)",
+            "pt": "관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "아이템베이 Upfac 2D/3D 모델링 그래픽 이미지/영상 거래 플랫폼 신규 구축",
+        "image": "",
+        "innerImage": "",
+        "sub": "2D/3D 모델링 그래픽 이미지/영상 거래 플랫폼",
+        "url": "",
+        "tag": "#프론트 #마크업",
+        "articles": "",
+        "party": "100%",
+        "content": "아이템베이 Upfac 2D/3D 모델링 그래픽 이미지/영상 거래 플랫폼 신규 구축",
+        "things": "클라이언트오피스",
+        "time": "2023.07 ~ 2023.10",
+        "target": "2,3D 이미지 수요 고객",
+        "language": "Html, Css, Javascript",
+        "part": [
+          {
+            "pb": "프론트개발(20%)",
+            "ds": "디자인(0%)",
+            "op": "기획(0%)",
+            "pt": "관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "아이템베이 Reborn 관리자 신규 구축 및 운영",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img33_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img33_11.png",
+        "sub": "아이템베이 플랫폼 관리자",
+        "url": "",
+        "tag": "#프론트개발",
+        "articles": "",
+        "party": "100%",
+        "content": "아이템베이 아이템 거래 플랫폼 회원관리, 입출금관리, 통계관리, 서비스관리, 상담관리 등 통합관리자시스템 구축",
+        "things": "관리자",
+        "time": "2022.11 ~ 2023.10",
+        "target": "아이템베이 & 아이템매니아 담당 관리 직원",
+        "language": "Nuxt.js, Javascript",
+        "part": [
+          {
+            "pb": "프론트개발(100%)",
+            "ds": "디자인(0%)",
+            "op": "기획(0%)",
+            "pt": "관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "아이템베이 게임 아이탬 중개 거래 플랫폼 운영",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img29_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img29_2.png",
+        "sub": "게임 아이탬 중개 거래 플랫폼 운영·관리",
+        "url": "https://www.itembay.com/main",
+        "tag": "#퍼블리싱 #프론트개발",
+        "articles": "https://search.naver.com/search.naver?where=news&sm=tab_jum&query=%EC%95%84%EC%9D%B4%ED%85%9C%EB%B2%A0%EC%9D%B4",
+        "party": "100%",
+        "content": "거래 포털 플랫폼 웹 & 모바일웹 수정 요청 사항 반영, edm 이메일 통합 관리, 계정 및 거래 페이지, 마이페이지, 포인트 및 마일리지 상품권 페이지, 메인페이지, 충전페이지, 아이템 거래 페이지 퍼블리싱",
+        "time": "2022.11 ~ 2023.10",
+        "target": "게임 아이템 거래 유저",
+        "language": "Html, Css, Scss, jQuery, javascript",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%),프론트개발(50%)",
+            "ds": "디자인(0%)",
+            "op": "기획(0%)",
+            "pt": "웹 & 모바일웹 사용자페이지, 관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "아이템베이 이벤트 프로모션 정기 구축",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img030_1.png",
+        "innerImage": [
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_01.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_02.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_03.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_04.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_05.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_06.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_07.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_08.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_09.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_10.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_11.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_12.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_13.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_14.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_15.png",
+          "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/events/bay_event_16.png"
+        ],
+        "sub": "게임 아이탬 중개 거래 플랫폼 이벤트 프로모션, 사전예약 템플릿 자동화",
+        "url": "https://www.itembay.com/event/eventMainView",
+        "tag": "#퍼블리싱 #프론트개발",
+        "articles": "https://search.naver.com/search.naver?where=news&sm=tab_jum&query=%EC%95%84%EC%9D%B4%ED%85%9C%EB%B2%A0%EC%9D%B4+%EC%9D%B4%EB%B2%A4%ED%8A%B8+",
+        "party": "100%",
+        "content": "아이템베이 아이템 거래 플랫폼 이용 유저 프로모션 혜택 제공을 위한 인터렉티브 웹 & 모바일웹 게임 이벤트 페이지 정기 구축 (룰렛 뽑기, 부르마블, 랜덤카드뽑기, 초성검색, 아이템강화, 상자뽑기 등)",
+        "things": "사용자",
+        "time": "2022.11 ~ 2023.10",
+        "target": "아이템베이 회원",
+        "language": "Html, Css, Javascript, Jquery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(0%)",
+            "op": "기획(0%)",
+            "pt": "웹 & 모바일웹 사용자페이지"
+          }
+        ]
+      },
+      {
+        "title": "GxG.Style NFT 거래소 고도화",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img24_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/webs/e14.gif",
+        "sub": "가상자산 지갑, 통합 마켓플레이스, 메신저 기능이 통합된 NFT 거래에 특화된 플랫폼",
+        "url": "https://gxg.style/",
+        "tag": "#퍼블리싱 #프론트개발 #기획",
+        "articles": "http://www.it-b.co.kr/news/articleView.html?idxno=59132",
+        "party": "100%",
+        "content": "기존 NFT거래소와의 차별화를 위한 통합 마켓플레이스, 메신저 기능을 활성화하며 COLLECTION 구분 및 게임 인프라를 구축하여 플랫폼 이용 수요 제고 UI/UX 기획 및 프론트 개발",
+        "things": "사용자, 관리자",
+        "time": "2022.05 ~ 2022.11",
+        "target": "일반 유저",
+        "language": "ASP.NET 기반 MudBlazor, Html, Css, Javascript",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(10%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "GotG World 홈페이지 개편",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img23_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/webs/e13.gif",
+        "sub": "디지털 자산 시장 및 메타버스 블록체인 보험 안내 홈페이지",
+        "url": "https://www.gotg.world/",
+        "tag": "#퍼블리싱 #프론트개발",
+        "articles": "https://www.itbiznews.com/news/articleView.html?idxno=68718",
+        "party": "100%",
+        "content": "독자적인 NFT 기술 기반의 시스템 GotG 생태계의 인프라, 정보 전달을 위한 User 친화적 설계 및 다국어 페이지 제작 및 해외 거래소 Api활용 실시간 시세 반영시 cors 문제발생 해결을 위한 프록시 서버 구축 등의 내용 학습",
+        "things": "사용자",
+        "time": "2022.05 ~ 2022.06",
+        "target": "일반 유저",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "한국프로스포츠협회 정보광장포탈 개선사업",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img04_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/webs/e00.gif",
+        "sub": "5개 단체 프로스포츠 경기일정/결과, 관중현황, 영상자료 등의 산업 전반 통계 정보 제공 플랫폼",
+        "url": "http://data.prosports.or.kr/",
+        "tag": "#퍼블리싱 #디자인 #기획",
+        "articles": "https://sports.v.daum.net/v/20210312130517034",
+        "party": "100%",
+        "content": "사용자와 연구자 등이 통계 데이터를 쉽게 획득할 수 있는 UI로 개발, 이용 편의성 제고를 위한 서비스 플로우 및 기능 개선",
+        "things": "사용자 / 관리자",
+        "time": "2020.08 ~ 2020.12",
+        "target": "일반 국민/국내프로스포츠인/스포츠기자 및 구단 관계자",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "한국도핑방지위원회 검사관교육시스템 구축",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img08_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/webs/e02.gif",
+        "sub": "도빙검사관 재인증 및 필수 의무 테스트 서비스 제공 시스템",
+        "url": "",
+        "tag": "#퍼블리싱 #디자인 #기획",
+        "articles": "",
+        "party": "100%",
+        "content": "역량평가 운영관리 및 참여하기 용이한 UI로 개발, 웹/모바일 2가지 레이아웃 별 온라인 평가 응시 기능 제공 등 웹 표준 및 접근성준수와 더불어 최신 트렌드 반영 설계",
+        "things": "사용자 / 관리자",
+        "time": "2020.07 ~ 2020.11",
+        "target": "일반 국민/국내프로스포츠인/스포츠기자 및 구단 관계자",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "한국프로스포츠협회 홈페이지 구축",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img02_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/webs/e03.gif",
+        "sub": "한국프로스포츠 협회의 추진전략과 핵심과제 정보를 제공하는 홈페이지",
+        "url": "http://www.prosports.or.kr/",
+        "tag": "#퍼블리싱 #디자인 #기획",
+        "articles": "http://www.prosports.or.kr/",
+        "party": "100%",
+        "content": "프로스포츠 5개 대표 단체 및 한국프로스포츠협회를 대표하는 정체성을 쉽고 간편히 전달하기위한 UX·UI개발 & 트렌드한 디자인 설계",
+        "things": "사용자 / 관리자",
+        "time": "2020.07 ~ 2020.08",
+        "target": "일반 국민/국내프로스포츠인/스포츠기자 및 구단 관계자",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "대한체육회 스포츠영웅 국민지지도 조사 사이트 구축 (2016~2021)",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img01_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/webs/e04.gif",
+        "sub": "이 시대에 귀감이 되고, 사회통합과 국위선양에 기여한 대한민국의 자랑스러운 스포츠인을 대한민국 국민이 직접 투표하는 투표 플랫폼",
+        "url": "http://hero.sports.or.kr/2021vote",
+        "tag": "#퍼블리싱 #디자인 #기획",
+        "articles": "http://www.newsbusan.com/m/view.php?idx=8305",
+        "party": "100%",
+        "content": "홈페이지 기능 개선을 통해 업무 효율성·신속성·정확성 제고 및 대국민 서비스 만족도 개선을 위한 홈페이지 콘텐츠 확대 설계, 사용자 편의 증진을 위한 접근성 및 호환성 기능 향상 반영",
+        "things": "사용자 / 관리자",
+        "time": "2016.09 ~ 2021.09(매년)",
+        "target": "일반 국민",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "KADA 한국도핑방지위원회 온라인교육센터(LMS) 구축",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img03_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/webs/e06.gif",
+        "sub": "대한체육회 및 대한장애인체육회 (학생선수 포함), 프로스포츠단체 등록선수를 위한 의무교육 포함, 기타 관련자분들을 위한 도핑 방지 주제별 강의 제공 LMS",
+        "url": "https://edu.kada-ad.or.kr/main.do",
+        "tag": "#퍼블리싱 #디자인 #기획",
+        "articles": "https://mobile.newsis.com/view.html?ar_id=NISX20211013_0001612652",
+        "party": "100%",
+        "content": "스포츠 선수나 관계자 등이 쉽게 사용할수있는 교육시스템 표준화(웹,모바일,테블릿) 반응형 설계, 교육 사업에 따른 차별화된 UI 제공",
+        "things": "사용자 / 관리자",
+        "time": "2020.07 ~ 2020.11",
+        "target": "국내 프로 스포츠선수 등록 희망자",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "한국프로축구연맹(KLEAGUE) 심판관리시스템(KRMS) 구축",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img09_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/webs/e04.gif",
+        "sub": "대한축구협회 소속 심판 전문 통계 및 판독 분석 정보 제공 플랫폼",
+        "url": "http://kleague.unbiz.co.kr/login",
+        "tag": "#퍼블리싱 #디자인 #기획",
+        "articles": "https://m.hankookilbo.com/News/Read/201905221513325168",
+        "party": "100%",
+        "content": "구단관계자 및 심판등 심판 판독( ex)오심여부 교육 )이 용이한 UI로 개발, 웹/모바일 2가지 레이아웃 별 영상 분석 UI 제공 과 더불어 최신 트렌드 반영 설계",
+        "things": "사용자 / 관리자",
+        "time": "2018.03 ~ 2018.12",
+        "target": "K리그 관계자/국내 등록 축구심판/대한축구협회 관계자",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "대한체육회 100주년 기념홈페이지 구축",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img05_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/webs/e07.gif",
+        "sub": "대한민국이 눈부신 스포츠 역사를 쓰기까지 중추적 역할을 해온 대한체육회의 창립 100주년을 기념하는 홈페이지",
+        "url": "http://www.ksoc100.or.kr/",
+        "tag": "#퍼블리싱 #디자인 #기획",
+        "articles": "https://blog.naver.com/reina_blog/222011817428",
+        "party": "100%",
+        "content": "대한체육회 100년의 히스토리와 보도자료 홍보자료 국민제안 포토갤러리 등 기념사업 특성에 맞는 컨텐츠 활용 설계, 웹표준 및 웹접근성 준수",
+        "things": "사용자 / 관리자",
+        "time": "2019.09 ~ 2019.12",
+        "target": "일반 국민",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "제주유나이티드 스마트-스타디움 내손안의전광판 모바일웹앱 구축 (+가이드제작)",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img10_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img35_1.png",
+        "sub": "경기 정보와 경기장 실시간 영상, 경기장 실시간 사진, 경기 분석 자료 등 풍성한 정보를 지원하며 경기장 주변 맛집 정보와 선수 관련 게임, 참여형 행사 등 관객들이 즐길 수 있는 다채로운 콘텐츠를 제공하는 플랫폼",
+        "url": "https://jejuutd-smart.com/intro.do",
+        "tag": "#퍼블리싱 #디자인 #기획",
+        "articles": "http://m.dailysportshankook.co.kr/news/articleView.html?idxno=255774",
+        "party": "100%",
+        "content": "경기장을 찾은 팬들을 위해 실시간 전력분석영상 및 각도별 화면 콘텐츠 등의 화면 UI 구축, 5G MEC 기반 경기장운영사업 활성화를 목표로한 정부실증사업으로 SKT와의 협업을 통해 성공적인 개편",
+        "things": "사용자 / 관리자",
+        "time": "2021.03 ~ 2021.09",
+        "target": "일반 국민(경기현장관람 관람객 대상)",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "경찰청 홈페이지 고도화 사업",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img06_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img06_2.png",
+        "sub": "경찰의 다양한 소식과 정보를 전하며 국민을 향한 열린 행정을 제공하는 대표 홈페이지",
+        "url": "https://www.police.go.kr/index.do",
+        "tag": "#퍼블리싱",
+        "articles": "https://post.naver.com/viewer/postView.nhn?volumeNo=12891144&memberNo=40119132",
+        "party": "100%",
+        "content": "사용자들이 원하는 정보를 보다 편리하고 신속하게 찾고 구성할 수 있도록 함으로써 대국민 서비스 업무 효율 활성화, 웹/모바일 2가지 별도 구축 & 웹 표준 및 접근성 준수",
+        "things": "사용자 / 관리자",
+        "time": "2016.12 ~ 2017.12",
+        "target": "일반 국민",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "경남체육회 온오프라인 스포츠한마당 앱제작",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img07_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img07_2.png",
+        "sub": "코로나19시대 청소년 대상 비대면 스포츠대회 접수 및 참가 서비스 앱어플리케이션",
+        "url": "https://apkpure.com/id/gnsf-%EA%B2%BD%EB%82%A8%EC%8A%A4%ED%8F%AC%EC%B8%A0%ED%95%9C%EB%A7%88%EB%8B%B9/com.companyname.gnsportvideo",
+        "tag": "#퍼블리싱 #디자인 #기획",
+        "articles": "https://www.contestkorea.com/sub/view.php?displayrow=12&int_gbn=1&Txt_sGn=1&Txt_key=all&Txt_word=&Txt_bcode=&Txt_code1=&Txt_aarea=&Txt_area=&Txt_sortkey=a.int_sort&Txt_sortword=desc&Txt_host=&Txt_actcode=&page=157&str_no=202011270008",
+        "party": "85%",
+        "content": "경상남도 청소년 대상 복잡한 단계별 화면을 최소화하고 직관적인 인터페이스를 제공",
+        "things": "사용자 / 관리자",
+        "time": "2020.10 ~ 2020.11",
+        "target": "일반 국민/국내프로스포츠인",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "K리그 아카이브 시스템 구축",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img12_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img12_2.png",
+        "sub": "서브제목",
+        "url": "",
+        "tag": "#퍼블리싱",
+        "articles": "",
+        "party": "65%",
+        "content": "방대한 데이터를 가진 경기 컨텐츠별 검색 및 조회 등이 가능하도록 멀티 해시태그 선택형 검색 페이지 제작",
+        "things": "사용자 / 관리자",
+        "time": "2020.01 ~ 2020.08",
+        "target": "K리그 관계자",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "국가대표선수촌 방문예약시스템 구축",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img11_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img11_2.png",
+        "sub": "국민적 관심을 높이고 스포츠 꿈나무 선수에게 동기를 부여하고자 제공하는 선수촌 견학 프로그램",
+        "url": "https://www.sports.or.kr/home/010804/0050/main.do",
+        "tag": "#퍼블리싱 #디자인 #기획",
+        "articles": "https://www.hankyung.com/sports/article/201912172260Y",
+        "party": "100%",
+        "content": "선수촌 내부 파트별 소개 정보 제공, 이용자 타겟별 등록 인터페이스 재배치를 통해 사용 편의성 향상",
+        "things": "사용자 / 관리자",
+        "time": "2019.11 ~ 2020.04",
+        "target": "일반 국민/도시산간 거주 청소년",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "대한체육회 대회경기영상 사이트 고도화",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img14_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img14_2.png",
+        "sub": "대한체육회 종목별 대회 VOD 영상 플랫폼",
+        "url": "https://vod.sports.or.kr/",
+        "tag": "#퍼블리싱",
+        "articles": "https://m.blog.naver.com/islsori/221657739018",
+        "party": "60%",
+        "content": "대한체육회 주요 행사관련 중계, 캠페인홍보영상, 인터뷰영상 제공 등 다양한 영상 컨텐츠를 쉽게 접근할수있는 인터페이스 구축",
+        "things": "사용자 / 관리자",
+        "time": "2017.09 ~ 2017.12",
+        "target": "일반 국민/국내프로스포츠인",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "대한체육회 한국체육을 빛낸 100인 후보자 추천 접수 제작",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img15_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img15_2.png",
+        "sub": "2020년 체육회 창립 100주년을 맞아 국민을 대상으로 한국 체육을 빛낸 100인 후보자 추천 투표를 받는 웹사이트",
+        "url": "http://hero.sports.or.kr/100people",
+        "tag": "#퍼블리싱 #디자인 #기획",
+        "articles": "https://www.yna.co.kr/view/AKR20190701108100007",
+        "party": "100%",
+        "content": "전 국민 대상 간편 투표 UX/UI 설계",
+        "things": "사용자 / 관리자",
+        "time": "2019.06 ~ 2019.11",
+        "target": "일반 국민",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
+          }
+        ]
+      },
+      {
+        "title": "한국 프로스포츠협회 온라인 암표신고 사이트 구축",
+        "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img13_1.png",
+        "innerImage": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img13_2.png",
+        "sub": "각종 사이트나 SNS를 통해 판매되고 있는 암표 및 매크로를 이용한 불법 구매 의심사례에 대한 제보 플랫폼",
+        "url": "http://report.prosports.or.kr/report",
+        "tag": "#퍼블리싱 #디자인 #기획",
+        "articles": "https://news.mt.co.kr/mtview.php?no=2020103015214542728",
+        "party": "100%",
+        "content": "신고 게시판, 접수관리, 접수목록 등 간편 접수 서비스 플로우 제작",
+        "things": "사용자 / 관리자",
+        "time": "2020.02",
+        "target": "일반 국민/국내프로스포츠인/스포츠기자 및 구단 관계자",
+        "language": "Html, Css, Javascript, jQuery",
+        "part": [
+          {
+            "pb": "퍼블리싱(100%)",
+            "ds": "디자인(100%)",
+            "op": "기획(100%)",
+            "pt": "사용자페이지,관리자페이지"
           }
         ]
       }

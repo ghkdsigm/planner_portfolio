@@ -782,7 +782,12 @@ onMounted(() => {
         }
       });
     },
-    { threshold: 0.16 }
+    {
+      // Large sections (like archive groups) may never hit high intersection ratios.
+      // Use a low threshold so reveal animations still trigger reliably.
+      threshold: 0.01,
+      rootMargin: "0px 0px -8% 0px",
+    }
   );
 
   reveals.forEach((item) => observer.observe(item));
@@ -1157,10 +1162,10 @@ onUnmounted(() => {
                         </button>
                       </h3>
                       <button
-                        v-if="index === 0 || index === 3"
+                        v-if="index === 0"
                         type="button"
                         class="project-demo-btn"
-                        @click.stop="openProjectDemo(index === 0 ? 'project01' : 'project04')"
+                        @click.stop="openProjectDemo('project01')"
                       >
                         데모보기
                       </button>
@@ -1265,7 +1270,16 @@ onUnmounted(() => {
           <div class="project04-grid">
             <div class="project04-copy">
               <p class="scene-kicker">PROJECTS · ~{{ project04.period }}</p>
-              <h3>{{ project04.name }}</h3>
+              <div class="project04-title-row">
+                <h3>{{ project04.name }}</h3>
+                <button
+                  type="button"
+                  class="project-demo-btn"
+                  @click="openProjectDemo('project04')"
+                >
+                  데모보기
+                </button>
+              </div>
               <p class="paragraph">{{ project04.description }}</p>
             </div>
 
@@ -1380,35 +1394,7 @@ onUnmounted(() => {
             <p class="section-label">{{ portfolio.archive.label }}</p>
             <h2>{{ portfolio.archive.title }}</h2>
             <p class="section-desc">{{ portfolio.archive.description }}</p>
-          </div>
-
-          <div class="archive-group" data-reveal>
-            <h3>{{ portfolio.archive.contentGroupTitle }}</h3>
-            <div class="archive-grid">
-              <article
-                v-for="item in portfolio.archive.contents"
-                :key="`content-${item.contentId}`"
-                class="panel archive-card"
-              >
-                <figure v-if="getItemImage(item)" class="archive-thumb">
-                  <img :src="getItemImage(item)" :alt="`${item.title} thumbnail`" loading="lazy" />
-                </figure>
-                <p class="mini-head">{{ item.time }}</p>
-                <h3>{{ item.title }}</h3>
-                <p class="paragraph">{{ item.summary }}</p>
-                <p class="archive-meta">참여도 {{ item.party }}</p>
-                <a
-                  v-if="getItemLink(item)"
-                  :href="getItemLink(item)"
-                  class="archive-link"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  콘텐츠 보기
-                </a>
-              </article>
-            </div>
-          </div>
+          </div>         
 
           <div
             v-for="group in portfolio.archive.projectGroups"
@@ -1434,6 +1420,34 @@ onUnmounted(() => {
                   rel="noreferrer"
                 >
                   프로젝트 링크
+                </a>
+              </article>
+            </div>
+          </div>
+
+          <div class="archive-group" data-reveal>
+            <h3>{{ portfolio.archive.contentGroupTitle }}</h3>
+            <div class="archive-grid">
+              <article
+                v-for="item in portfolio.archive.contents"
+                :key="`content-${item.contentId}`"
+                class="panel archive-card"
+              >
+                <figure v-if="getItemImage(item)" class="archive-thumb">
+                  <img :src="getItemImage(item)" :alt="`${item.title} thumbnail`" loading="lazy" />
+                </figure>
+                <p class="mini-head">{{ item.time }}</p>
+                <h3>{{ item.title }}</h3>
+                <p class="paragraph">{{ item.summary }}</p>
+                <p class="archive-meta">참여도 {{ item.party }}</p>
+                <a
+                  v-if="getItemLink(item)"
+                  :href="getItemLink(item)"
+                  class="archive-link"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  콘텐츠 보기
                 </a>
               </article>
             </div>

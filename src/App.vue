@@ -1169,7 +1169,7 @@ onUnmounted(() => {
                         class="project-demo-btn"
                         @click.stop="openProjectDemo(index === 0 ? 'project01' : 'project04')"
                       >
-                        데모보기
+                        MVP보기
                       </button>
                     </div>
                     <p class="scene-line"><strong style="display: block;">Problem.</strong> {{ item.problem }}</p>

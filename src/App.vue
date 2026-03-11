@@ -480,11 +480,8 @@ const iaStructureBranches = [
       {
         label: "실시간 이벤트",
         detail: "WebSocket으로 오가는 이벤트 타입 규격화",
-      },
-      {
-        label: "저장소",
-        detail: "Postgres(Prisma) + Redis(큐/Pub/Sub) 역할 분담",
-      },
+      }
+      
     ],
   },
   // {
@@ -933,9 +930,7 @@ onUnmounted(() => {
           <div class="about-text" data-reveal>
             <p class="section-label">{{ portfolio.about.label }}</p>
             <h2>{{ portfolio.about.title }}</h2>
-            <p v-for="line in portfolio.about.paragraphs" :key="line" class="paragraph">
-              {{ line }}
-            </p>
+            <p v-for="line in portfolio.about.paragraphs" :key="line" class="paragraph" v-html="line" />
             <div class="chip-wrap">
               <span v-for="item in portfolio.about.keywords" :key="item" class="chip">
                 {{ item }}
@@ -1078,45 +1073,6 @@ onUnmounted(() => {
                   {{ voice.text }}
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="career" class="section deep">
-        <div class="container">
-          <div class="section-head" data-reveal>
-            <p class="section-label">{{ portfolio.career.label }}</p>
-            <h2>{{ portfolio.career.title }}</h2>
-          </div>
-
-          <div class="timeline">
-            <article
-              v-for="job in portfolio.career.timeline"
-              :key="`${job.company}-${job.period}`"
-              class="panel timeline-item"
-              data-reveal
-            >
-              <p class="period">{{ job.period }}</p>
-              <h3>{{ job.company }}</h3>
-              <p class="position">{{ job.position }}</p>
-              <p class="paragraph">{{ job.summary }}</p>
-              <ul>
-                <li v-for="point in job.highlights" :key="point">{{ point }}</li>
-              </ul>
-            </article>
-          </div>
-
-          <div class="career-masonry-wrap" data-reveal>
-            <p class="mini-head">Companions</p>
-            <div class="career-masonry">
-              <figure
-                v-for="(photo, index) in careerMasonryPhotos"
-                :key="`career-photo-${index}`"
-                class="career-masonry-item"
-              >
-                <img :src="photo" :alt="`커리어 협업 사진 ${index + 1}`" loading="lazy" />
-              </figure>
             </div>
           </div>
         </div>
@@ -1381,12 +1337,51 @@ onUnmounted(() => {
         </div>
       </section>
 
+      <section id="career" class="section deep">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <p class="section-label">{{ portfolio.career.label }}</p>
+            <h2>{{ portfolio.career.title }}</h2>
+          </div>
+
+          <div class="timeline">
+            <article
+              v-for="job in portfolio.career.timeline"
+              :key="`${job.company}-${job.period}`"
+              class="panel timeline-item"
+              data-reveal
+            >
+              <p class="period">{{ job.period }}</p>
+              <h3>{{ job.company }}</h3>
+              <p class="position">{{ job.position }}</p>
+              <p class="paragraph">{{ job.summary }}</p>
+              <ul>
+                <li v-for="point in job.highlights" :key="point">{{ point }}</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="career-masonry-wrap" data-reveal>
+            <p class="mini-head">Companions</p>
+            <div class="career-masonry">
+              <figure
+                v-for="(photo, index) in careerMasonryPhotos"
+                :key="`career-photo-${index}`"
+                class="career-masonry-item"
+              >
+                <img :src="photo" :alt="`커리어 협업 사진 ${index + 1}`" loading="lazy" />
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="archive" class="section">
         <div class="container">
           <div class="section-head" data-reveal>
             <p class="section-label">{{ portfolio.archive.label }}</p>
             <h2>{{ portfolio.archive.title }}</h2>
-            <p class="section-desc">{{ portfolio.archive.description }}</p>
+            <p class="section-desc" v-html="portfolio.archive.description" />
           </div>         
 
           <div

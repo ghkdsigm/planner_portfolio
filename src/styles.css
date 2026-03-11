@@ -533,6 +533,10 @@ h3 {
   margin-top: 0.85rem;
 }
 
+body:not([data-theme="light"]) .paragraph strong {
+  color: #fff;
+}
+
 .chip-wrap {
   margin-top: 1.2rem;
   display: flex;
@@ -563,6 +567,10 @@ h3 {
 .section-desc {
   width: 100%;
   color: var(--muted);
+}
+
+body:not([data-theme="light"]) #archive .section-desc strong {
+  color: #fff;
 }
 
 .panel {
@@ -2095,6 +2103,10 @@ body[data-theme="light"] .mini-card {
   text-align: center;
   font-weight: 100;
   background: color-mix(in srgb, var(--chip-bg) 82%, transparent);
+}
+
+body:not([data-theme="light"]) .process-principle-chip {
+  background: #000000;
 }
 
 .process-phase {

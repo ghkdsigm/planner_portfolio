@@ -556,8 +556,17 @@
         "name": "Portfolios",
         "items": [
           {
+            "title": "2026 인터베터리 박람회 동화일렉트로라이트 전시장 운영 키오스크 기획",
+            "content": "동화일렉트로라이트 인터베터리2026 부스 운영 키오스크 제작 기획 지원",
+            "time": "2026.03.10 - 2026.03.13",
+            "party": "100%",
+            "tag": "#기획",
+            "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img40_1.jpg",
+            "url": ""
+          },
+          {
             "title": "동화기업 보드 수요 예측 시스템 구축",
-            "content": "동화기업 보드 사업부 통계 자료 분석 기반 수요 예측 시스템 신규 구축",
+            "content": "동화기업 보드 사업부 통계 자료 분석 기반 수요 예측 시스템 신규 구축 시스템 설계",
             "time": "2025.03 - 2025.06",
             "party": "100%",
             "tag": "#프론트개발 #퍼블리싱",

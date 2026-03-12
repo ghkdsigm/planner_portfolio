@@ -28,6 +28,7 @@ import com06 from "./assets/images/com06.jpg";
 import com07 from "./assets/images/com07.jpg";
 import com10 from "./assets/images/com10.jpg";
 import com11 from "./assets/images/com11.jpg";
+import project01Slide01 from "./assets/images/deep/pj01_01.jpg";
 import project04Slide01 from "./assets/images/r01.jpg";
 import project04Slide02 from "./assets/images/r02.jpg";
 import project04Slide03 from "./assets/images/r03.jpg";
@@ -227,9 +228,12 @@ const isProjectPopupOpen = ref(false);
 const isProjectPopupClosing = ref(false);
 const activePopupProjectKey = ref("");
 const activePopupTabId = ref(projectPopupTabItems[0].id);
+const isPopupAutoplayPaused = ref(false);
 const popupTabProgress = ref(0);
+const popupTabElapsedMs = ref(0);
 let popupTabTimer = null;
 let popupCloseTimer = null;
+let popupTabStartTime = 0;
 
 const popupProjects = computed(() =>
   (portfolio.references.items || []).map((item, index) => {
@@ -297,6 +301,13 @@ const activePopupTabContent = computed(() => {
   return project.tabs.find((tab) => tab.id === activePopupTabId.value) || project.tabs[0];
 });
 
+const popupVisualImageSrc = computed(() => {
+  if (activePopupProjectKey.value === "project-1" && activePopupTabId.value === "overview") {
+    return project01Slide01;
+  }
+  return "";
+});
+
 const clearPopupTabTimer = () => {
   if (popupTabTimer) {
     clearInterval(popupTabTimer);
@@ -314,26 +325,55 @@ const getPopupTabProgress = (tabId) => {
   return popupTabProgress.value;
 };
 
-const startPopupTabTimer = () => {
+const startPopupTabTimer = ({ reset = false } = {}) => {
   clearPopupTabTimer();
-  const start = performance.now();
-  popupTabProgress.value = 0;
+  if (reset) {
+    popupTabElapsedMs.value = 0;
+    popupTabProgress.value = 0;
+  }
+  if (isPopupAutoplayPaused.value) return;
+  popupTabStartTime = performance.now();
   popupTabTimer = setInterval(() => {
-    const elapsed = performance.now() - start;
+    const elapsed = popupTabElapsedMs.value + (performance.now() - popupTabStartTime);
     const ratio = Math.min(elapsed / PROJECT_POPUP_TAB_DURATION, 1);
     popupTabProgress.value = Math.round(ratio * 100);
     if (ratio >= 1) {
       const currentIndex = getPopupTabIndex(activePopupTabId.value);
       const nextIndex = (currentIndex + 1) % projectPopupTabItems.length;
       activePopupTabId.value = projectPopupTabItems[nextIndex].id;
-      startPopupTabTimer();
+      popupTabElapsedMs.value = 0;
+      popupTabProgress.value = 0;
+      popupTabStartTime = performance.now();
     }
   }, 40);
+};
+
+const pausePopupAutoplay = () => {
+  if (!isProjectPopupOpen.value || isPopupAutoplayPaused.value) return;
+  popupTabElapsedMs.value += performance.now() - popupTabStartTime;
+  isPopupAutoplayPaused.value = true;
+  clearPopupTabTimer();
+};
+
+const resumePopupAutoplay = () => {
+  if (!isProjectPopupOpen.value || !isPopupAutoplayPaused.value) return;
+  isPopupAutoplayPaused.value = false;
+  startPopupTabTimer();
+};
+
+const togglePopupAutoplay = () => {
+  if (isPopupAutoplayPaused.value) {
+    resumePopupAutoplay();
+    return;
+  }
+  pausePopupAutoplay();
 };
 
 const activatePopupTab = (tabId) => {
   if (!isProjectPopupOpen.value || activePopupTabId.value === tabId) return;
   activePopupTabId.value = tabId;
+  popupTabElapsedMs.value = 0;
+  popupTabProgress.value = 0;
   startPopupTabTimer();
 };
 
@@ -344,9 +384,11 @@ const openProjectPopup = (index) => {
   isProjectPopupClosing.value = false;
   activePopupProjectKey.value = target.key;
   activePopupTabId.value = projectPopupTabItems[0].id;
+  isPopupAutoplayPaused.value = false;
+  popupTabElapsedMs.value = 0;
   popupTabProgress.value = 0;
   isProjectPopupOpen.value = true;
-  startPopupTabTimer();
+  startPopupTabTimer({ reset: true });
 };
 
 const closeProjectPopup = () => {
@@ -358,6 +400,8 @@ const closeProjectPopup = () => {
     isProjectPopupClosing.value = false;
     activePopupProjectKey.value = "";
     activePopupTabId.value = projectPopupTabItems[0].id;
+    isPopupAutoplayPaused.value = false;
+    popupTabElapsedMs.value = 0;
     popupTabProgress.value = 0;
   }, 260);
 };
@@ -1473,14 +1517,24 @@ onUnmounted(() => {
         @click.self="closeProjectPopup"
       >
         <div class="project-popup-stack">
+          <div class="project-popup-controls">
+            <button
+              type="button"
+              class="project-popup-control-btn project-popup-autoplay-toggle"
+              :aria-label="isPopupAutoplayPaused ? '슬라이드 자동재생 시작' : '슬라이드 자동재생 일시정지'"
+              @click="togglePopupAutoplay"
+            >
+              {{ isPopupAutoplayPaused ? "▶" : "Ⅱ" }}
+            </button>
           <button
             type="button"
-            class="project-popup-close"
+            class="project-popup-control-btn project-popup-close"
             aria-label="팝업 닫기"
             @click="closeProjectPopup"
           >
             ×
           </button>
+          </div>
 
           <section
             class="project-popup-panel"
@@ -1515,15 +1569,14 @@ onUnmounted(() => {
 
             <transition name="project-popup-content-slide" mode="out-in">
               <article v-if="activePopupTabContent" :key="activePopupTabContent.id" class="project-popup-content">
-                <div class="project-popup-copy">
-                  <p class="project-popup-section">{{ activePopupTabContent.heading }}</p>
-                  <p class="project-popup-body">{{ activePopupTabContent.body }}</p>
-                  <ul class="project-popup-bullets">
-                    <li v-for="point in activePopupTabContent.bullets" :key="point">{{ point }}</li>
-                  </ul>
-                </div>
                 <figure class="project-popup-visual project-popup-visual--ppt">
-                  <div class="project-popup-placeholder">
+                  <img
+                    v-if="popupVisualImageSrc"
+                    :src="popupVisualImageSrc"
+                    alt="DW-Brain 프로젝트 첫 슬라이드"
+                    loading="lazy"
+                  />
+                  <div v-else class="project-popup-placeholder">
                     <strong>준비중입니다.</strong>
                   </div>
                 </figure>

@@ -2507,7 +2507,7 @@ body[data-theme="light"] .process-card {
 
 .project-popup-visual {
   margin: 0;
-  min-height: min(46dvh, 520px);
+  /* min-height: min(46dvh, 520px); */
   border: 1px solid var(--stroke);
   border-radius: 1rem;
   overflow: hidden;
@@ -2516,7 +2516,7 @@ body[data-theme="light"] .process-card {
 
 .project-popup-visual--ppt {
   /* aspect-ratio: 21 / 9; */
-  min-height: auto;
+  /* min-height: auto; */
   /* max-height: min(58vh, 610px); */
   background: #0f141c;
 }

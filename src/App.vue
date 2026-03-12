@@ -213,10 +213,10 @@ const referenceMainSlideIndex = ref(0);
 const REFERENCE_MAIN_SLIDE_INTERVAL = 2500;
 let referenceMainSlideTimer = null;
 const projectPopupTabItems = [
-  { id: "overview", label: "01. 비지니스 접근 방식" },
-  { id: "problem", label: "02. Pain Points 발굴 및 정의" },
-  { id: "solution", label: "03. 문제 파악 및 해결" },
-  { id: "result", label: "04. PRD작성/프로토타이핑 협업" },
+  { id: "overview", label: "01. 전략 정의" },
+  { id: "problem", label: "02. 문제 정의" },
+  { id: "solution", label: "03. 해결 전략 설계 " },
+  { id: "result", label: "04. 실행" },
 ];
 const PROJECT_POPUP_TAB_DURATION = 10000;
 const projectPopupVisualSets = [
@@ -245,44 +245,53 @@ const popupProjects = computed(() =>
       tabs: [
         {
           id: "overview",
-          heading: "비지니스 접근 방식",
-          body: `${item.period} 진행 프로젝트로, 핵심 문제를 빠르게 구조화하고 실행 가능한 설계까지 연결한 프로젝트입니다.`,
+          heading: "전략 정의",
+          body: `${item.period} 진행 프로젝트로, 비즈니스 목표와 기대 효과를 기준으로 문제 해결 방향을 설정하고 실행 가능한 서비스 설계까지 연결한 프로젝트입니다.`,
           bullets: [
             `프로젝트명: ${item.name}`,
-            "핵심 가치: 문제 구조화 -> 실행 가능한 산출물 전환",
-            "테스트 이미지 영역(추후 실제 스크린샷 교체 가능)",
+            "비즈니스 목표 및 적용 범위 정의",
+            "성과 지표(KPI) 및 기대 효과 설정",
+            "AI/자동화 적용 가능 영역 검토",
           ],
           image: visuals[0],
         },
+
         {
           id: "problem",
-          heading: "Pain Points 발굴 및 정의",
+          heading: "문제 정의",
           body: item.problem,
           bullets: [
-            "기존 운영 흐름의 병목 구간 식별",
-            "사용자/실무자 관점의 불편 요소 정리",
-            "우선 해결 과제 도출",
+            "현행 프로세스 및 운영 흐름 분석",
+            "사용자 / 실무자 Pain Point 도출",
+            "데이터 흐름 및 병목 구간 식별",
+            "우선 해결해야 할 핵심 문제 정의",
           ],
           image: visuals[1],
         },
+
         {
           id: "solution",
-          heading: "문제 파악 및 해결",
+          heading: "해결 전략 설계",
           body: item.solution,
           bullets: [
-            "문제 단위로 기능 설계",
-            "실행 단계별 프로세스와 검증 기준 설정",
-            "운영 가능한 형태로 정리 및 전달",
+            "문제 단위 기반 서비스 구조 설계",
+            "기능 / 정책 / UX 흐름 정의",
+            "AI 적용 방식 및 처리 로직 설계",
+            "실행 가능한 단계별 구현 전략 수립",
           ],
           image: visuals[2],
         },
+
         {
           id: "result",
-          heading: "PRD작성/프로토타이핑 협업",
-          body: "측정 가능한 개선 지표를 기반으로 성과를 검증하고, 다음 확장 포인트를 정리했습니다.",
+          heading: "실행",
+          body:
+            "PRD 작성, 프로토타이핑, 개발 협업을 통해 실제 서비스로 구현하고, 측정 가능한 지표 기반으로 성과를 검증했습니다.",
           bullets: [
             ...(item.impact || []),
-            "회고: 고도화 우선순위를 기반으로 다음 스프린트 계획 수립",
+            "기능 명세 / PRD / Flow 문서 작성",
+            "디자인 및 개발 협업 진행",
+            "운영 적용 후 개선 포인트 도출",
           ],
           image: visuals[3],
         },

@@ -1714,7 +1714,7 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
 .project04-slider {
   display: grid;
   gap: 1rem;
-  width: 80%;
+  width: 87%;
   margin: 0 auto;
 }
 

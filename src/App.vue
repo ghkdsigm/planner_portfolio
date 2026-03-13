@@ -34,6 +34,11 @@ import project04Slide02 from "./assets/images/r02.jpg";
 import project04Slide03 from "./assets/images/r03.jpg";
 import project04Slide04 from "./assets/images/r04.jpg";
 import daopSlide01 from "./assets/images/daop01.png";
+import daopSlide02 from "./assets/images/daop02.png";
+import daopSlide03 from "./assets/images/daop03.png";
+import daopSlide04 from "./assets/images/daop04.png";
+import daopSlide05 from "./assets/images/daop05.png";
+import daopSlide06 from "./assets/images/daop06.jpg";
 
 const imageMap = {
   heroCover,
@@ -49,6 +54,11 @@ const project04ImageMap = {
   "r03.jpg": project04Slide03,
   "r04.jpg": project04Slide04,
   "daop01.png": daopSlide01,
+  "daop02.png": daopSlide02,
+  "daop03.png": daopSlide03,
+  "daop04.png": daopSlide04,
+  "daop05.png": daopSlide05,
+  "daop06.jpg": daopSlide06,
 };
 
 const navItems = [
@@ -70,6 +80,7 @@ const donutFocusAnimated = ref({});
 const mobileMenuOpen = ref(false);
 const isMobileViewport = ref(false);
 const focusedDisplayIndex = ref(-1);
+const daopAccordionIndex = ref(0);
 
 const METER_ANIM_DURATION = 1300;
 const DONUT_ANIM_DURATION = 1700;
@@ -207,6 +218,7 @@ const project04CurrentIndex = ref(0);
 const project04Progress = ref(0);
 const PROJECT04_SLIDE_INTERVAL = 8000;
 let project04Timer = null;
+const daopSlides = [daopSlide01, daopSlide02, daopSlide03, daopSlide04, daopSlide05, daopSlide06];
 const referenceMainSlides = [m01, m02, m03, m04, m05, m06, m07, m08, m09];
 const careerMasonryPhotos = [com01, com02, com04, com05, com06, com07, com10, com11];
 const referenceMainSlideIndex = ref(0);
@@ -1218,10 +1230,20 @@ onUnmounted(() => {
                       @click.stop="toggleDisplayFocus(index)"
                     >
                       <div class="pc-screen">
-                        <img
-                          :src="item.name.includes('DAOP') ? daopSlide01 : getImage(item.imageKey)"
-                          :alt="item.name"
-                        />
+                        <template v-if="item.name.includes('DAOP')">
+                          <div class="daop-accordion-slider" @mouseleave="daopAccordionIndex = 0">
+                            <figure
+                              v-for="(slide, slideIdx) in daopSlides"
+                              :key="`daop-accordion-${slideIdx}`"
+                              class="daop-accordion-panel"
+                              :class="{ active: daopAccordionIndex === slideIdx }"
+                              @mouseenter="daopAccordionIndex = slideIdx"
+                            >
+                              <img :src="slide" :alt="`${item.name} 화면 ${slideIdx + 1}`" loading="lazy" />
+                            </figure>
+                          </div>
+                        </template>
+                        <img v-else :src="getImage(item.imageKey)" :alt="item.name" />
                       </div>
                     </figure>
                   </div>

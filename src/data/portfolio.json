@@ -877,7 +877,7 @@
     ],
     "portfolios": [
       {
-        "title": "동화기업 보드 수요 예측 시스템 구축",
+        "title": "동화기업 보드 수요 예측 시스템 개편",
         "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img39_2.png",
         "innerImage": [
           "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/sb_01.png",
@@ -887,7 +887,7 @@
           "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/sb_05.png",
           "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/site/sb_06.png"
         ],
-        "sub": "동화기업 보드 사업부 통계 자료 분석 수요 예측 시스템 구축",
+        "sub": "동화기업 보드 사업부 통계 자료 분석 수요 예측 시스템 개편",
         "url": "",
         "tag": "#프론트개발 #퍼블리싱",
         "articles": "",

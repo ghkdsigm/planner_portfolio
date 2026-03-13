@@ -60,6 +60,23 @@ const project04ImageMap = {
   "daop05.png": daopSlide05,
   "daop06.jpg": daopSlide06,
 };
+const skillIconModules = import.meta.glob("./assets/images/ico/*.{png,jpg,jpeg,svg,webp}", {
+  eager: true,
+  import: "default",
+});
+const skillIcons = Object.entries(skillIconModules)
+  .map(([path, src]) => {
+    const fileName = path.split("/").pop() || "";
+    const label = fileName
+      .replace(/\.[^/.]+$/, "")
+      .replace(/\s+\d+$/, "")
+      .replace(/[_-]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    return { src, label, fileName };
+  })
+  .sort((a, b) => a.fileName.localeCompare(b.fileName));
 
 const navItems = [
   { id: "cover", label: "HOME" },
@@ -1045,6 +1062,11 @@ onUnmounted(() => {
                 </div>
               </div>
             </article>
+          </div>
+          <div class="panel skill-icon-wall" data-reveal>
+            <figure v-for="icon in skillIcons" :key="icon.fileName" class="skill-icon-item">
+              <img :src="icon.src" :alt="`${icon.label} icon`" loading="lazy" />
+            </figure>
           </div>
 
           <div v-if="remainingSkillMeters.length" class="meter-list">

@@ -590,7 +590,7 @@ body:not([data-theme="light"]) #archive .section-desc strong {
   margin: 1rem 0 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
-  gap: 0.7rem;
+  gap: 1rem;
   border: none;
   background: none;
 }

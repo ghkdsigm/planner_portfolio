@@ -140,7 +140,157 @@
   "research": {
     "label": "FIELD RESEARCH",
     "title": "Survey & In-depth Interview",
-    "description": "실무자 64명을 대상으로 2주간 설문과 심층인터뷰를 진행해, AI 기능 도입 시 신뢰/검증/업무적합성 관점의 핵심 과제를 도출했습니다.",
+    "description": "2025년 11월 전사 설문(168명)을 통해 AI 도입기에서 확산기로 전환되는 인식 변화를 확인하고, 2026년 자동화 중심 전략 수립을 위한 핵심 요구를 정리했습니다.",
+    "aiSurvey2025": {
+      "title": "AI 활용 설문 결과 핵심 요약 (2025.11 조사)",
+      "purposeTitle": "1. 조사 목적",
+      "purposeText": "3월 1차 조사 이후 진행된 AI 교육(9~10월)과 과제 수행에 따른 구성원 인식 변화를 확인하고, 2026년 AI 추진 전략 수립을 위한 기초 데이터 확보를 위해 설문을 진행했습니다.",
+      "meta": [
+        "기간: 2025.11.11 ~ 11.21",
+        "대상: 국내 전 사업장 임직원",
+        "응답: 168명 (3월 160명 -> 소폭 증가)",
+        "직군/직무 전반 고르게 참여"
+      ],
+      "metaNote": "현업 중심 의견이 충분히 반영된 조사",
+      "executiveTitle": "2. Executive Summary",
+      "executiveHeadline": "AI 도입기 -> 확산기 진입",
+      "executivePoints": [
+        "핵심은 툴 제공이 아니라 자동화와 업무 생태계 구축",
+        "AI 활용률: 3월 64% -> 11월 85.7%",
+        "IT / R&D 활용률 100%, 긍정 인식 83%",
+        "외부 AI 도구 사용 급증 (Gemini, NotebookLM, Gamma 등)",
+        "단순 챗봇 사용에서 업무 자동화 요구로 전환"
+      ],
+      "kpiCards": [
+        {
+          "label": "AI 활용률",
+          "value": "85.7%",
+          "detail": "3월 64% -> 11월 85.7%"
+        },
+        {
+          "label": "긍정 인식 전환",
+          "value": "83%",
+          "detail": "교육 + 실무 효과 체감"
+        },
+        {
+          "label": "IT / R&D",
+          "value": "100%",
+          "detail": "핵심 지식직군 완전 정착"
+        },
+        {
+          "label": "응답자",
+          "value": "168명",
+          "detail": "전 사업장 고른 참여"
+        }
+      ],
+      "usageTitle": "3. 활용 현황 요약",
+      "usageBars": [
+        {
+          "label": "전체 AI 사용률",
+          "value": 85.7,
+          "caption": "3월 64% -> 11월 85.7%"
+        },
+        {
+          "label": "지식직군 사용률",
+          "value": 95,
+          "caption": "90~100% 수준"
+        },
+        {
+          "label": "현장직군 사용률",
+          "value": 65,
+          "caption": "60~70% 수준"
+        },
+        {
+          "label": "긍정 인식",
+          "value": 83,
+          "caption": "전환 비율"
+        }
+      ],
+      "topUseCases": [
+        "검색 / 요약",
+        "문서 작성",
+        "데이터 분석",
+        "번역",
+        "학습",
+        "코딩",
+        "콘텐츠 제작",
+        "자동화 (초기 단계)"
+      ],
+      "toolsTitle": "외부 AI 사용 증가",
+      "tools": [
+        "ChatGPT",
+        "Gemini",
+        "NotebookLM",
+        "Gamma",
+        "Claude",
+        "Perplexity",
+        "Cursor"
+      ],
+      "insightTitle": "핵심 변화",
+      "insightQuoteBefore": "\"AI 써볼까?\"",
+      "insightQuoteAfter": "\"AI를 제대로 쓰고 싶다\"",
+      "successTitle": "5. 성공 경험 / 어려움",
+      "successes": [
+        "시간 단축",
+        "문서 품질 향상",
+        "아이디어 확장",
+        "PoC 속도 개선",
+        "협업 파트너 역할 체감"
+      ],
+      "challenges": [
+        "정확도",
+        "자동화 한계",
+        "프롬프트 작성 난이도",
+        "보안",
+        "데이터 준비"
+      ],
+      "needsTitle": "6. 가장 큰 니즈",
+      "needs": [
+        "Text Automation: 회의록 / 보고서 / 메일 / 문서 자동화",
+        "Data Automation: Excel / 분석 / 대시보드 / ERP 데이터 활용",
+        "내부 데이터 연동",
+        "보안 가이드",
+        "실험 환경(Playground / Sandbox)",
+        "직무별 심화 교육 및 전문가 지원"
+      ],
+      "directionTitle": "8. 2026 방향 (핵심 정리)",
+      "directions": [
+        {
+          "name": "System",
+          "items": [
+            "데이터 연동",
+            "Agent 도입",
+            "문서 자동화",
+            "분석 자동화"
+          ]
+        },
+        {
+          "name": "Education",
+          "items": [
+            "기초 -> 직무별 심화",
+            "문서 / 데이터 / R&D / PPT 과정"
+          ]
+        },
+        {
+          "name": "Infrastructure",
+          "items": [
+            "AI Playground",
+            "Sandbox",
+            "보안 정책",
+            "유료툴 지원"
+          ]
+        },
+        {
+          "name": "Field",
+          "items": [
+            "현장 AI",
+            "모바일 AI",
+            "설비 / 안전 / 품질 AI"
+          ]
+        }
+      ],
+      "finalSummary": "AI 도입 단계는 끝났고, 이제는 내부 데이터와 연결된 자동화 중심의 AI 업무 생태계를 구축해야 하는 단계입니다."
+    },
     "insightBlocks": [
       {
         "tag": "도입장벽",

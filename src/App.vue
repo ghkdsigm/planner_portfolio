@@ -39,6 +39,7 @@ import daopSlide03 from "./assets/images/daop03.png";
 import daopSlide04 from "./assets/images/daop04.png";
 import daopSlide05 from "./assets/images/daop05.png";
 import daopSlide06 from "./assets/images/daop06.jpg";
+import surveyImage from "./assets/images/survey.png";
 
 const imageMap = {
   heroCover,
@@ -98,9 +99,12 @@ const mobileMenuOpen = ref(false);
 const isMobileViewport = ref(false);
 const focusedDisplayIndex = ref(-1);
 const daopAccordionIndex = ref(0);
+const isSurveyPopupOpen = ref(false);
 
 const METER_ANIM_DURATION = 1300;
 const DONUT_ANIM_DURATION = 1700;
+const RESEARCH_KPI_ANIM_DURATION = 1800;
+const RESEARCH_USAGE_ANIM_DURATION = 2200;
 const MOBILE_NAV_BREAKPOINT = 700;
 
 function animateMeter(label, score) {
@@ -121,6 +125,111 @@ const getDonutKey = (item, index) => `${item.tag}-${index}`;
 const formatPercent = (value) => {
   const rounded = Math.round(value * 10) / 10;
   return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+};
+
+const EXTERNAL_AI_ICON_MAP = {
+  ChatGPT: "https://cdn.simpleicons.org/openai",
+  Gemini: "https://cdn.simpleicons.org/googlegemini",
+  NotebookLM: "https://cdn.simpleicons.org/googlenotebooklm",
+  Gamma: "https://cdn.simpleicons.org/gamma",
+  Claude: "https://cdn.simpleicons.org/anthropic",
+  Perplexity: "https://cdn.simpleicons.org/perplexity",
+  Cursor: "https://cdn.simpleicons.org/cursor",
+};
+const brokenToolIcons = ref({});
+
+const externalAiTools = computed(() => {
+  const rawTools = portfolio.research?.aiSurvey2025?.tools || [];
+  return rawTools
+    .map((tool) => {
+      if (typeof tool === "string") {
+        return {
+          name: tool,
+          icon: EXTERNAL_AI_ICON_MAP[tool] || "",
+        };
+      }
+
+      const name = tool?.name || tool?.label || "";
+      return {
+        name,
+        icon: tool?.icon || EXTERNAL_AI_ICON_MAP[name] || "",
+      };
+    })
+    .filter((tool) => tool.name);
+});
+
+const markToolIconBroken = (toolName) => {
+  brokenToolIcons.value = { ...brokenToolIcons.value, [toolName]: true };
+};
+
+const getToolInitial = (toolName) => {
+  const cleaned = String(toolName || "")
+    .replace(/[^\p{L}\p{N}]/gu, "")
+    .trim();
+  return cleaned ? cleaned.charAt(0).toUpperCase() : "?";
+};
+
+const researchKpiAnimated = ref({});
+const researchUsageAnimated = ref({});
+const hasAnimatedResearchInfographic = ref(false);
+
+const parseNumericValue = (value) => Number(String(value ?? "").replace(/[^0-9.]/g, "")) || 0;
+const getDecimalPlaces = (value) => {
+  const match = String(value ?? "").match(/\.(\d+)/);
+  return match ? match[1].length : 0;
+};
+const getValueSuffix = (value) => String(value ?? "").replace(/[0-9.,\s]/g, "") || "";
+const hasPercentSuffix = (value) => String(value ?? "").includes("%");
+
+const formatAnimatedKpiValue = (card) => {
+  const target = card?.value ?? "";
+  const numeric = researchKpiAnimated.value[card?.label] ?? 0;
+  const decimals = getDecimalPlaces(target);
+  const suffix = getValueSuffix(target);
+  const rounded = decimals > 0 ? numeric.toFixed(decimals) : String(Math.round(numeric));
+  return `${rounded}${suffix}`;
+};
+
+const animateResearchValue = (stateRef, key, targetValue, duration) => {
+  const startValue = Number(stateRef.value[key] ?? 0);
+  const start = performance.now();
+  const step = (now) => {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - (1 - t) ** 3;
+    const current = startValue + (targetValue - startValue) * eased;
+    stateRef.value = { ...stateRef.value, [key]: current };
+    if (t < 1) {
+      requestAnimationFrame(step);
+    }
+  };
+  requestAnimationFrame(step);
+};
+
+const startResearchInfographicAnimation = () => {
+  if (hasAnimatedResearchInfographic.value) return;
+  const survey = portfolio.research?.aiSurvey2025;
+  if (!survey) return;
+  hasAnimatedResearchInfographic.value = true;
+
+  (survey.kpiCards || []).forEach((card) => {
+    const target = parseNumericValue(card.value);
+    if (target <= 0) return;
+    animateResearchValue(researchKpiAnimated, card.label, target, RESEARCH_KPI_ANIM_DURATION);
+  });
+
+  (survey.usageBars || []).forEach((bar) => {
+    const target = Number(bar.value) || 0;
+    if (target <= 0) return;
+    animateResearchValue(researchUsageAnimated, bar.label, target, RESEARCH_USAGE_ANIM_DURATION);
+  });
+};
+
+const openSurveyPopup = () => {
+  isSurveyPopupOpen.value = true;
+};
+
+const closeSurveyPopup = () => {
+  isSurveyPopupOpen.value = false;
 };
 
 function animateDonut(key, focusValue) {
@@ -814,12 +923,16 @@ const handleGlobalKeydown = (event) => {
       clearDisplayFocus();
       return;
     }
+    if (isSurveyPopupOpen.value) {
+      closeSurveyPopup();
+      return;
+    }
     closeProjectPopup();
   }
 };
 
-watch(isProjectPopupOpen, (isOpen) => {
-  if (isOpen) {
+watch([isProjectPopupOpen, isSurveyPopupOpen], ([isProjectOpen, isSurveyOpen]) => {
+  if (isProjectOpen || isSurveyOpen) {
     document.body.style.overflow = "hidden";
   } else {
     document.body.style.overflow = "";
@@ -858,6 +971,9 @@ onMounted(() => {
               const focus = Number(donutItem.dataset.donutFocus) || 0;
               animateDonut(key, focus);
             });
+          }
+          if (entry.target.classList.contains("research-infographic")) {
+            startResearchInfographicAnimation();
           }
           observer.unobserve(entry.target);
         }
@@ -1164,6 +1280,192 @@ onUnmounted(() => {
               </div>
             </div>
           </div>
+          <article v-if="portfolio.research.aiSurvey2025" class="panel research-infographic" data-reveal>
+            <div class="research-info-head">
+              <p class="mini-head">Survey & In-depth Interview</p>
+              <div class="research-info-title-row">
+                <h3>{{ portfolio.research.aiSurvey2025.title }}</h3>
+                <button
+                  type="button"
+                  class="research-survey-btn"
+                  @click="openSurveyPopup"
+                >
+                  설문보기
+                </button>
+              </div>
+            </div>
+
+            <div class="research-purpose">
+              <p class="mini-head">{{ portfolio.research.aiSurvey2025.purposeTitle }}</p>
+              <p>{{ portfolio.research.aiSurvey2025.purposeText }}</p>
+              <div class="research-meta-chips">
+                <span
+                  v-for="meta in portfolio.research.aiSurvey2025.meta"
+                  :key="meta"
+                  class="chip"
+                >
+                  {{ meta }}
+                </span>
+              </div>
+              <p class="research-meta-note">👉 {{ portfolio.research.aiSurvey2025.metaNote }}</p>
+            </div>
+
+            <div class="research-executive">
+              <p class="mini-head">{{ portfolio.research.aiSurvey2025.executiveTitle }}</p>
+              <p class="accent-line">{{ portfolio.research.aiSurvey2025.executiveHeadline }}</p>
+              <ul class="research-bullet-list">
+                <li
+                  v-for="point in portfolio.research.aiSurvey2025.executivePoints"
+                  :key="point"
+                >
+                  {{ point }}
+                </li>
+              </ul>
+            </div>
+
+            <div class="research-kpi-grid">
+              <article
+                v-for="card in portfolio.research.aiSurvey2025.kpiCards"
+                :key="card.label"
+                class="research-kpi-card"
+              >
+                <p>{{ card.label }}</p>
+                <strong>{{ formatAnimatedKpiValue(card) }}</strong>
+                <span>{{ card.detail }}</span>
+              </article>
+            </div>
+
+            <div class="research-infographic-grid">
+              <section class="research-chart-card">
+                <p class="mini-head">{{ portfolio.research.aiSurvey2025.usageTitle }}</p>
+                <div class="research-bars">
+                  <div
+                    v-for="bar in portfolio.research.aiSurvey2025.usageBars"
+                    :key="bar.label"
+                    class="research-bar-row"
+                  >
+                    <div class="research-bar-head">
+                      <span>{{ bar.label }}</span>
+                      <strong>
+                        {{ formatPercent(researchUsageAnimated[bar.label] ?? 0) }}{{ hasPercentSuffix(bar.value) ? "" : "%" }}
+                      </strong>
+                    </div>
+                    <div class="research-bar-track">
+                      <span
+                        class="research-bar-fill"
+                        :style="{ width: `${Math.max(0, Math.min(100, researchUsageAnimated[bar.label] ?? 0))}%` }"
+                      />
+                    </div>
+                    <small>{{ bar.caption }}</small>
+                  </div>
+                </div>
+              </section>
+
+              <section class="research-chart-card">
+                <p class="mini-head">활용 용도 (Top)</p>
+                <div class="research-pill-list">
+                  <span
+                    v-for="useCase in portfolio.research.aiSurvey2025.topUseCases"
+                    :key="useCase"
+                    class="research-pill"
+                  >
+                    {{ useCase }}
+                  </span>
+                </div>
+
+                <p class="mini-head research-tools-title">{{ portfolio.research.aiSurvey2025.toolsTitle }}</p>
+                <div class="research-pill-list">
+                  <span
+                    v-for="tool in externalAiTools"
+                    :key="tool.name"
+                    class="research-pill tool"
+                  >
+                    <span class="research-tool-icon">
+                      <img
+                        v-if="tool.icon && !brokenToolIcons[tool.name]"
+                        :src="tool.icon"
+                        :alt="`${tool.name} icon`"
+                        loading="lazy"
+                        @error="markToolIconBroken(tool.name)"
+                      />
+                      <span v-else>{{ getToolInitial(tool.name) }}</span>
+                    </span>
+                    {{ tool.name }}
+                  </span>
+                </div>
+              </section>
+            </div>
+
+            <div class="research-insight-shift">
+              <p class="mini-head">{{ portfolio.research.aiSurvey2025.insightTitle }}</p>
+              <p>
+                <span class="before">{{ portfolio.research.aiSurvey2025.insightQuoteBefore }}</span>
+                <span class="arrow">→</span>
+                <span class="after">{{ portfolio.research.aiSurvey2025.insightQuoteAfter }}</span>
+              </p>
+            </div>
+
+            <div class="research-sd-grid">
+              <section class="mini-card">
+                <p class="mini-head">{{ portfolio.research.aiSurvey2025.successTitle }}</p>
+                <div class="research-sd-list">
+                  <div>
+                    <strong>성공</strong>
+                    <ul class="research-bullet-list compact">
+                      <li
+                        v-for="success in portfolio.research.aiSurvey2025.successes"
+                        :key="success"
+                      >
+                        {{ success }}
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <strong>어려움</strong>
+                    <ul class="research-bullet-list compact">
+                      <li
+                        v-for="challenge in portfolio.research.aiSurvey2025.challenges"
+                        :key="challenge"
+                      >
+                        {{ challenge }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+
+              <section class="mini-card">
+                <p class="mini-head">{{ portfolio.research.aiSurvey2025.needsTitle }}</p>
+                <ul class="research-bullet-list compact">
+                  <li v-for="need in portfolio.research.aiSurvey2025.needs" :key="need">
+                    {{ need }}
+                  </li>
+                </ul>
+              </section>
+            </div>
+
+            <div class="research-direction">
+              <p class="mini-head">{{ portfolio.research.aiSurvey2025.directionTitle }}</p>
+              <div class="research-direction-grid">
+                <article
+                  v-for="direction in portfolio.research.aiSurvey2025.directions"
+                  :key="direction.name"
+                  class="research-direction-card"
+                >
+                  <h4>{{ direction.name }}</h4>
+                  <ul class="research-bullet-list compact">
+                    <li v-for="item in direction.items" :key="item">{{ item }}</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+
+            <p class="research-final-summary">
+              <span class="research-summary-alert" aria-hidden="true">!</span>
+              {{ portfolio.research.aiSurvey2025.finalSummary }}
+            </p>
+          </article>
+          
         </div>
       </section>
 
@@ -1637,6 +1939,31 @@ onUnmounted(() => {
             </transition>
           </section>
         </div>
+      </div>
+    </transition>
+
+    <transition name="survey-popup-fade">
+      <div
+        v-if="isSurveyPopupOpen"
+        class="survey-popup-overlay"
+        @click.self="closeSurveyPopup"
+      >
+        <section class="survey-popup-panel" role="dialog" aria-modal="true" aria-label="AI 활용 설문 이미지">
+          <div class="survey-popup-head">
+            <h3>AI 활용 설문 결과 (2025.11)</h3>
+            <button
+              type="button"
+              class="survey-popup-close"
+              aria-label="설문 팝업 닫기"
+              @click="closeSurveyPopup"
+            >
+              ×
+            </button>
+          </div>
+          <figure class="survey-popup-visual">
+            <img :src="surveyImage" alt="AI 활용 설문 결과 이미지" loading="lazy" />
+          </figure>
+        </section>
       </div>
     </transition>
 

@@ -1,6 +1,7 @@
 <script setup>
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import portfolio from "./data/portfolio.json";
+import ShaderAnimation from "./components/ShaderAnimation.vue";
 
 import heroCover from "./assets/images/hero-cover.svg";
 import bgImage from "./assets/images/bg.png";
@@ -1138,7 +1139,8 @@ onUnmounted(() => {
               </span>
             </div>
           </div>
-          <div class="about-image" style="border:none; background: #1b2028; overflow: hidden; border-radius: 1.4rem;" data-reveal>
+          <div class="about-image shader-lines-bg" data-reveal>
+            <ShaderAnimation />
             <img :src="getImage('profilePortrait')" alt="profile visual" />
           </div>
         </div>

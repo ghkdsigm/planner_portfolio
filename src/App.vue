@@ -1766,11 +1766,13 @@ onUnmounted(() => {
           </div>
 
           <div class="career-masonry-wrap" data-reveal>
-            <p class="mini-head">With colleagues</p>
+            <p class="mini-head" style="padding-top: 3rem;">With colleagues</p>
             <p class="paragraph">
-              프론트엔드 개발 및 디자인 실무 경험을 바탕으로 유관 부서의 고충을 깊이 이해하며, 수많은 동료들과
-              다수의 프로젝트를 성공적으로 완수해 낸 '실전형 AI 서비스 기획자'입니다. 세밀한 디테일까지
-              실무자의 언어로 명확히 소통하여 커뮤니케이션 비용을 최소화하고 최상의 팀워크를 이끌어냅니다.
+              <strong>프론트엔드 개발 및 디자인 실무 경험</strong>을 바탕으로
+              <strong>유관 부서의 고충을 깊이 이해</strong>하며, 수많은 동료들과 다수의 프로젝트를
+              <strong>성공적으로 완수해 낸 '실전형 AI 서비스 기획자'</strong>입니다. <br/>세밀한 디테일까지
+              <strong>실무자의 언어로 명확히 소통</strong>하여 <strong>커뮤니케이션 비용을 최소화</strong>하고
+              <strong>최상의 팀워크</strong>를 이끌어냅니다.
             </p>
             <div class="career-masonry">
               <figure

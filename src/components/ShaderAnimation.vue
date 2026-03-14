@@ -1,4 +1,5 @@
 <script setup>
+import * as THREE from "three";
 import { onMounted, onUnmounted, ref } from "vue";
 
 const containerRef = ref(null);
@@ -11,48 +12,21 @@ let material = null;
 let geometry = null;
 let uniforms = null;
 let resizeHandler = null;
-
-let threeLoadPromise = null;
-
-const loadThree = () => {
-  if (window.THREE) return Promise.resolve(window.THREE);
-  if (threeLoadPromise) return threeLoadPromise;
-
-  threeLoadPromise = new Promise((resolve, reject) => {
-    const existingScript = document.querySelector('script[data-threejs-cdn="true"]');
-    if (existingScript) {
-      existingScript.addEventListener("load", () => resolve(window.THREE), { once: true });
-      existingScript.addEventListener("error", reject, { once: true });
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/89/three.min.js";
-    script.async = true;
-    script.dataset.threejsCdn = "true";
-    script.onload = () => resolve(window.THREE);
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
-
-  return threeLoadPromise;
-};
+let resizeObserver = null;
 
 const initThreeJS = () => {
   const container = containerRef.value;
-  if (!container || !window.THREE) return;
-
-  const THREE = window.THREE;
+  if (!container) return;
   container.innerHTML = "";
 
   camera = new THREE.Camera();
   camera.position.z = 1;
 
   scene = new THREE.Scene();
-  geometry = new THREE.PlaneBufferGeometry(2, 2);
+  geometry = new THREE.PlaneGeometry(2, 2);
   uniforms = {
-    time: { type: "f", value: 1.0 },
-    resolution: { type: "v2", value: new THREE.Vector2() },
+    time: { value: 1.0 },
+    resolution: { value: new THREE.Vector2() },
   };
 
   const vertexShader = `
@@ -107,7 +81,7 @@ const initThreeJS = () => {
   mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
 
-  renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   container.appendChild(renderer.domElement);
 
@@ -115,12 +89,15 @@ const initThreeJS = () => {
     const rect = container.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
     renderer.setSize(rect.width, rect.height, false);
-    uniforms.resolution.value.x = renderer.domElement.width;
-    uniforms.resolution.value.y = renderer.domElement.height;
+    const drawingBufferSize = new THREE.Vector2();
+    renderer.getDrawingBufferSize(drawingBufferSize);
+    uniforms.resolution.value.copy(drawingBufferSize);
   };
 
   resizeHandler();
   window.addEventListener("resize", resizeHandler, false);
+  resizeObserver = new ResizeObserver(resizeHandler);
+  resizeObserver.observe(container);
 
   const animate = () => {
     animationId = requestAnimationFrame(animate);
@@ -131,13 +108,8 @@ const initThreeJS = () => {
   animate();
 };
 
-onMounted(async () => {
-  try {
-    await loadThree();
-    initThreeJS();
-  } catch (error) {
-    console.error("Failed to load Three.js for ShaderAnimation:", error);
-  }
+onMounted(() => {
+  initThreeJS();
 });
 
 onUnmounted(() => {
@@ -148,6 +120,10 @@ onUnmounted(() => {
   if (resizeHandler) {
     window.removeEventListener("resize", resizeHandler, false);
     resizeHandler = null;
+  }
+  if (resizeObserver) {
+    resizeObserver.disconnect();
+    resizeObserver = null;
   }
   if (mesh && scene) {
     scene.remove(mesh);
@@ -179,8 +155,8 @@ onUnmounted(() => {
 }
 
 .shader-three-canvas canvas {
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
 }
 </style>
 

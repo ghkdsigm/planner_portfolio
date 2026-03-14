@@ -177,5 +177,10 @@ onUnmounted(() => {
   z-index: 0;
   pointer-events: none;
 }
+
+.shader-three-canvas canvas {
+    width: 100%;
+    height: 100%;
+}
 </style>
 

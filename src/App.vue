@@ -83,8 +83,9 @@ const navItems = [
   { id: "cover", label: "HOME" },
   { id: "about", label: "ABOUT" },
   { id: "skills", label: "SkILLS" },
-  { id: "career", label: "CAREER" },
+  { id: "research", label: "RESEARCH" },
   { id: "references", label: "REFERENCES" },
+  { id: "career", label: "CAREER" },
   { id: "archive", label: "ARCHIVE" },
   { id: "contact", label: "CONTACT" },
 ];
@@ -1206,7 +1207,7 @@ onUnmounted(() => {
         </div>
       </section>
 
-      <section class="section">
+      <section id="research" class="section">
         <div class="container">
           <div class="section-head" data-reveal>
             <p class="section-label">{{ portfolio.research.label }}</p>

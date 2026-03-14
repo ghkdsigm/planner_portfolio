@@ -823,6 +823,7 @@ body:not([data-theme="light"]) #archive .section-desc strong {
   padding-bottom: 0.5rem;
   min-height: 10rem;
   margin:0 1rem;
+  border-radius: 1rem;
 }
 
 .voice-roll-track {

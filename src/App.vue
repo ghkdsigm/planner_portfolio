@@ -30,6 +30,8 @@ import com07 from "./assets/images/com07.jpg";
 import com10 from "./assets/images/com10.jpg";
 import com11 from "./assets/images/com11.jpg";
 import project01Slide01 from "./assets/images/deep/pj01_01.jpg";
+import project01Slide02 from "./assets/images/deep/pj01_02.jpg";
+import project01Slide03 from "./assets/images/deep/pj01_03.jpg";
 import project04Slide01 from "./assets/images/r01.jpg";
 import project04Slide02 from "./assets/images/r02.jpg";
 import project04Slide03 from "./assets/images/r03.jpg";
@@ -102,6 +104,7 @@ const isMobileViewport = ref(false);
 const focusedDisplayIndex = ref(-1);
 const daopAccordionIndex = ref(0);
 const isSurveyPopupOpen = ref(false);
+const isProjectImageZoomOpen = ref(false);
 
 const METER_ANIM_DURATION = 1300;
 const DONUT_ANIM_DURATION = 1700;
@@ -234,6 +237,15 @@ const closeSurveyPopup = () => {
   isSurveyPopupOpen.value = false;
 };
 
+const openProjectImageZoom = () => {
+  if (!popupVisualImageSrc.value) return;
+  isProjectImageZoomOpen.value = true;
+};
+
+const closeProjectImageZoom = () => {
+  isProjectImageZoomOpen.value = false;
+};
+
 function animateDonut(key, focusValue) {
   if (!key) return;
   const targetFocus = Number(focusValue) || 0;
@@ -359,10 +371,9 @@ const projectPopupTabItems = [
   { id: "result", label: "04. 실행" },
 ];
 const PROJECT_POPUP_TAB_DURATION = 10000;
+const project01PopupSlides = [project01Slide01, project01Slide02, project01Slide03];
 const projectPopupVisualSets = [
-  [project04Slide01, project04Slide02, project04Slide03, project04Slide04],
-  [project04Slide02, project04Slide03, project04Slide04, project04Slide01],
-  [project04Slide03, project04Slide04, project04Slide01, project04Slide02],
+  project01PopupSlides,
 ];
 const isProjectPopupOpen = ref(false);
 const isProjectPopupClosing = ref(false);
@@ -377,7 +388,7 @@ let popupTabStartTime = 0;
 
 const popupProjects = computed(() =>
   (portfolio.references.items || []).map((item, index) => {
-    const visuals = projectPopupVisualSets[index] || projectPopupVisualSets[0];
+    const visuals = projectPopupVisualSets[index] || [];
     return {
       key: `project-${index + 1}`,
       name: item.name,
@@ -451,10 +462,7 @@ const activePopupTabContent = computed(() => {
 });
 
 const popupVisualImageSrc = computed(() => {
-  if (activePopupProjectKey.value === "project-1" && activePopupTabId.value === "overview") {
-    return project01Slide01;
-  }
-  return "";
+  return activePopupTabContent.value?.image || "";
 });
 
 const clearPopupTabTimer = () => {
@@ -531,6 +539,7 @@ const openProjectPopup = (index) => {
   if (!target) return;
   if (popupCloseTimer) clearTimeout(popupCloseTimer);
   isProjectPopupClosing.value = false;
+  isProjectImageZoomOpen.value = false;
   activePopupProjectKey.value = target.key;
   activePopupTabId.value = projectPopupTabItems[0].id;
   isPopupAutoplayPaused.value = false;
@@ -543,6 +552,7 @@ const openProjectPopup = (index) => {
 const closeProjectPopup = () => {
   if (!isProjectPopupOpen.value || isProjectPopupClosing.value) return;
   isProjectPopupClosing.value = true;
+  isProjectImageZoomOpen.value = false;
   clearPopupTabTimer();
   popupCloseTimer = setTimeout(() => {
     isProjectPopupOpen.value = false;
@@ -929,15 +939,25 @@ const handleGlobalKeydown = (event) => {
       closeSurveyPopup();
       return;
     }
+    if (isProjectImageZoomOpen.value) {
+      closeProjectImageZoom();
+      return;
+    }
     closeProjectPopup();
   }
 };
 
-watch([isProjectPopupOpen, isSurveyPopupOpen], ([isProjectOpen, isSurveyOpen]) => {
-  if (isProjectOpen || isSurveyOpen) {
+watch([isProjectPopupOpen, isSurveyPopupOpen, isProjectImageZoomOpen], ([isProjectOpen, isSurveyOpen, isImageZoomOpen]) => {
+  if (isProjectOpen || isSurveyOpen || isImageZoomOpen) {
     document.body.style.overflow = "hidden";
   } else {
     document.body.style.overflow = "";
+  }
+});
+
+watch(popupVisualImageSrc, (src) => {
+  if (!src) {
+    isProjectImageZoomOpen.value = false;
   }
 });
 
@@ -1940,6 +1960,8 @@ onUnmounted(() => {
                     :src="popupVisualImageSrc"
                     alt="DW-Brain 프로젝트 첫 슬라이드"
                     loading="lazy"
+                    class="project-popup-visual-image"
+                    @click="openProjectImageZoom"
                   />
                   <div v-else class="project-popup-placeholder">
                     <strong>준비중입니다.</strong>
@@ -1949,6 +1971,26 @@ onUnmounted(() => {
             </transition>
           </section>
         </div>
+      </div>
+    </transition>
+
+    <transition name="project-image-zoom">
+      <div
+        v-if="isProjectImageZoomOpen && popupVisualImageSrc"
+        class="project-image-zoom-overlay"
+        @click.self="closeProjectImageZoom"
+      >
+        <button
+          type="button"
+          class="project-image-zoom-close"
+          aria-label="확대 이미지 닫기"
+          @click="closeProjectImageZoom"
+        >
+          ×
+        </button>
+        <figure class="project-image-zoom-figure">
+          <img :src="popupVisualImageSrc" :alt="`${activePopupProject?.name || '프로젝트'} 확대 이미지`" loading="lazy" />
+        </figure>
       </div>
     </transition>
 

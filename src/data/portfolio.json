@@ -720,7 +720,7 @@
             "content": "동화기업 보드 사업부 통계 자료 분석 기반 수요 예측 시스템 신규 구축 시스템 설계",
             "time": "2025.03 - 2025.06",
             "party": "100%",
-            "tag": "#프론트개발 #퍼블리싱",
+            "tag": "#프론트개발 #퍼블리싱 #서비스 기획",
             "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img39_2.png",
             "url": ""
           },
@@ -729,7 +729,7 @@
             "content": "다국어(I18N)와 SEO 기반의 글로벌 웹사이트 신규 구축",
             "time": "2024.03 - 2024.08",
             "party": "100%",
-            "tag": "#프론트개발 #퍼블리싱",
+            "tag": "#프론트개발 #퍼블리싱 #서비스 기획",
             "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img39_1.png",
             "url": "https://www.dongwhavietnam.com/"
           },
@@ -738,7 +738,7 @@
             "content": "코드, 성능/정비,  입/출고, 주차포인트, 시설, 임대, 관리비(일반/수선/수도/법정/폐기물/기타 등, 전시장 관리 까지 엠파크 매매단지 전사 통합 운영 시스템 구축 설계 및 운영",
             "time": "2023.12 - Present",
             "party": "100%",
-            "tag": "#프론트개발 #마크업",
+            "tag": "#프론트개발 #마크업 #서비스 기획",
             "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img38_1.png",
             "url": "https://ums.online.m-park.co.kr/"
           },
@@ -747,7 +747,7 @@
             "content": "대한민국 1위 인테리어 자재 브랜드 웹 서비스 운영/개선",
             "time": "2023.10 - Present",
             "party": "100%",
-            "tag": "#프론트개발 #마크업",
+            "tag": "#프론트개발 #마크업 #서비스 기획",
             "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img37_1.PNG",
             "url": "https://www.greendongwha.com/"
           },
@@ -756,7 +756,7 @@
             "content": "동화기업 계열사 자동차 유통 허브/임대 사업 매매 운영 플랫폼, KB차차차 + 케이카 등 국내 중고자동차 API연동 및 인프라 구성",
             "time": "2023.10 ~ ",
             "party": "100%",
-            "tag": "#프론트개발 #마크업",
+            "tag": "#프론트개발 #마크업 #서비스 기획",
             "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img37_2.png",
             "url": "https://www.m-park.co.kr/"
           },
@@ -765,7 +765,7 @@
             "content": "아이템베이 아이템 거래 플랫폼 회원관리, 입출금관리, 통계관리, 서비스관리, 상담관리 등 통합관리자시스템 구축",
             "time": "2022.11 ~ 2023.10",
             "party": "100%",
-            "tag": "#프론트개발",
+            "tag": "#프론트개발 #서비스 기획",
             "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img33_1.png",
             "url": ""
           },
@@ -774,7 +774,7 @@
             "content": "거래 포털 플랫폼 웹 & 모바일웹 수정 요청 사항 반영, edm 이메일 통합 관리, 계정 및 거래 페이지, 마이페이지, 포인트 및 마일리지 상품권 페이지, 메인페이지, 충전페이지, 아이템 거래 페이지 퍼블리싱",
             "time": "2022.11 ~ 2023.10",
             "party": "100%",
-            "tag": "#퍼블리싱 #프론트개발",
+            "tag": "#퍼블리싱 #프론트개발 #서비스 기획",
             "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img29_1.png",
             "url": "https://www.itembay.com/main"
           },
@@ -783,7 +783,7 @@
             "content": "아이템베이 아이템 거래 플랫폼 이용 유저 프로모션 혜택 제공을 위한 인터렉티브 웹 & 모바일웹 게임 이벤트 페이지 정기 구축 (룰렛 뽑기, 부르마블, 랜덤카드뽑기, 초성검색, 아이템강화, 상자뽑기 등)",
             "time": "2022.11 ~ 2023.10",
             "party": "100%",
-            "tag": "#퍼블리싱 #프론트개발",
+            "tag": "#퍼블리싱 #프론트개발 #서비스 기획",
             "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img030_1.png",
             "url": "https://www.itembay.com/event/eventMainView"
           },
@@ -792,7 +792,7 @@
             "content": "기존 NFT거래소와의 차별화를 위한 통합 마켓플레이스, 메신저 기능을 활성화하며 COLLECTION 구분 및 게임 인프라를 구축하여 플랫폼 이용 수요 제고 UI/UX 기획 및 프론트 개발",
             "time": "2022.05 ~ 2022.11",
             "party": "100%",
-            "tag": "#퍼블리싱 #프론트개발 #기획",
+            "tag": "#퍼블리싱 #프론트개발 #서비스 기획",
             "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img24_1.png",
             "url": "https://gxg.style/"
           },
@@ -801,7 +801,7 @@
             "content": "독자적인 NFT 기술 기반의 시스템 GotG 생태계의 인프라, 정보 전달을 위한 User 친화적 설계 및 다국어 페이지 제작 및 해외 거래소 Api활용 실시간 시세 반영시 cors 문제발생 해결을 위한 프록시 서버 구축 등의 내용 학습",
             "time": "2022.05 ~ 2022.06",
             "party": "100%",
-            "tag": "#퍼블리싱 #프론트개발",
+            "tag": "#퍼블리싱 #프론트개발 #서비스 기획",
             "image": "https://raw.githubusercontent.com/ghkdsigm/new-portfolio-2022-v3/main/src/assets/images/works/img23_1.png",
             "url": "https://www.gotg.world/"
           },

@@ -1,6 +1,7 @@
 <script setup>
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import portfolio from "./data/portfolio.json";
+import ShaderAnimation from "./components/ShaderAnimation.vue";
 
 import heroCover from "./assets/images/hero-cover.svg";
 import bgImage from "./assets/images/bg.png";
@@ -29,6 +30,8 @@ import com07 from "./assets/images/com07.jpg";
 import com10 from "./assets/images/com10.jpg";
 import com11 from "./assets/images/com11.jpg";
 import project01Slide01 from "./assets/images/deep/pj01_01.jpg";
+import project01Slide02 from "./assets/images/deep/pj01_02.jpg";
+import project01Slide03 from "./assets/images/deep/pj01_03.jpg";
 import project04Slide01 from "./assets/images/r01.jpg";
 import project04Slide02 from "./assets/images/r02.jpg";
 import project04Slide03 from "./assets/images/r03.jpg";
@@ -39,6 +42,7 @@ import daopSlide03 from "./assets/images/daop03.png";
 import daopSlide04 from "./assets/images/daop04.png";
 import daopSlide05 from "./assets/images/daop05.png";
 import daopSlide06 from "./assets/images/daop06.jpg";
+import surveyImage from "./assets/images/survey.png";
 
 const imageMap = {
   heroCover,
@@ -60,13 +64,31 @@ const project04ImageMap = {
   "daop05.png": daopSlide05,
   "daop06.jpg": daopSlide06,
 };
+const skillIconModules = import.meta.glob("./assets/images/ico/*.{png,jpg,jpeg,svg,webp}", {
+  eager: true,
+  import: "default",
+});
+const skillIcons = Object.entries(skillIconModules)
+  .map(([path, src]) => {
+    const fileName = path.split("/").pop() || "";
+    const label = fileName
+      .replace(/\.[^/.]+$/, "")
+      .replace(/\s+\d+$/, "")
+      .replace(/[_-]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    return { src, label, fileName };
+  })
+  .sort((a, b) => a.fileName.localeCompare(b.fileName));
 
 const navItems = [
   { id: "cover", label: "HOME" },
   { id: "about", label: "ABOUT" },
   { id: "skills", label: "SkILLS" },
-  { id: "career", label: "CAREER" },
+  { id: "research", label: "RESEARCH" },
   { id: "references", label: "REFERENCES" },
+  { id: "career", label: "CAREER" },
   { id: "archive", label: "ARCHIVE" },
   { id: "contact", label: "CONTACT" },
 ];
@@ -81,9 +103,13 @@ const mobileMenuOpen = ref(false);
 const isMobileViewport = ref(false);
 const focusedDisplayIndex = ref(-1);
 const daopAccordionIndex = ref(0);
+const isSurveyPopupOpen = ref(false);
+const isProjectImageZoomOpen = ref(false);
 
 const METER_ANIM_DURATION = 1300;
 const DONUT_ANIM_DURATION = 1700;
+const RESEARCH_KPI_ANIM_DURATION = 1800;
+const RESEARCH_USAGE_ANIM_DURATION = 2200;
 const MOBILE_NAV_BREAKPOINT = 700;
 
 function animateMeter(label, score) {
@@ -104,6 +130,120 @@ const getDonutKey = (item, index) => `${item.tag}-${index}`;
 const formatPercent = (value) => {
   const rounded = Math.round(value * 10) / 10;
   return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+};
+
+const EXTERNAL_AI_ICON_MAP = {
+  ChatGPT: "https://cdn.simpleicons.org/openai",
+  Gemini: "https://cdn.simpleicons.org/googlegemini",
+  NotebookLM: "https://cdn.simpleicons.org/googlenotebooklm",
+  Gamma: "https://cdn.simpleicons.org/gamma",
+  Claude: "https://cdn.simpleicons.org/anthropic",
+  Perplexity: "https://cdn.simpleicons.org/perplexity",
+  Cursor: "https://cdn.simpleicons.org/cursor",
+};
+const brokenToolIcons = ref({});
+
+const externalAiTools = computed(() => {
+  const rawTools = portfolio.research?.aiSurvey2025?.tools || [];
+  return rawTools
+    .map((tool) => {
+      if (typeof tool === "string") {
+        return {
+          name: tool,
+          icon: EXTERNAL_AI_ICON_MAP[tool] || "",
+        };
+      }
+
+      const name = tool?.name || tool?.label || "";
+      return {
+        name,
+        icon: tool?.icon || EXTERNAL_AI_ICON_MAP[name] || "",
+      };
+    })
+    .filter((tool) => tool.name);
+});
+
+const markToolIconBroken = (toolName) => {
+  brokenToolIcons.value = { ...brokenToolIcons.value, [toolName]: true };
+};
+
+const getToolInitial = (toolName) => {
+  const cleaned = String(toolName || "")
+    .replace(/[^\p{L}\p{N}]/gu, "")
+    .trim();
+  return cleaned ? cleaned.charAt(0).toUpperCase() : "?";
+};
+
+const researchKpiAnimated = ref({});
+const researchUsageAnimated = ref({});
+const hasAnimatedResearchInfographic = ref(false);
+
+const parseNumericValue = (value) => Number(String(value ?? "").replace(/[^0-9.]/g, "")) || 0;
+const getDecimalPlaces = (value) => {
+  const match = String(value ?? "").match(/\.(\d+)/);
+  return match ? match[1].length : 0;
+};
+const getValueSuffix = (value) => String(value ?? "").replace(/[0-9.,\s]/g, "") || "";
+const hasPercentSuffix = (value) => String(value ?? "").includes("%");
+
+const formatAnimatedKpiValue = (card) => {
+  const target = card?.value ?? "";
+  const numeric = researchKpiAnimated.value[card?.label] ?? 0;
+  const decimals = getDecimalPlaces(target);
+  const suffix = getValueSuffix(target);
+  const rounded = decimals > 0 ? numeric.toFixed(decimals) : String(Math.round(numeric));
+  return `${rounded}${suffix}`;
+};
+
+const animateResearchValue = (stateRef, key, targetValue, duration) => {
+  const startValue = Number(stateRef.value[key] ?? 0);
+  const start = performance.now();
+  const step = (now) => {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - (1 - t) ** 3;
+    const current = startValue + (targetValue - startValue) * eased;
+    stateRef.value = { ...stateRef.value, [key]: current };
+    if (t < 1) {
+      requestAnimationFrame(step);
+    }
+  };
+  requestAnimationFrame(step);
+};
+
+const startResearchInfographicAnimation = () => {
+  if (hasAnimatedResearchInfographic.value) return;
+  const survey = portfolio.research?.aiSurvey2025;
+  if (!survey) return;
+  hasAnimatedResearchInfographic.value = true;
+
+  (survey.kpiCards || []).forEach((card) => {
+    const target = parseNumericValue(card.value);
+    if (target <= 0) return;
+    animateResearchValue(researchKpiAnimated, card.label, target, RESEARCH_KPI_ANIM_DURATION);
+  });
+
+  (survey.usageBars || []).forEach((bar) => {
+    const target = Number(bar.value) || 0;
+    if (target <= 0) return;
+    animateResearchValue(researchUsageAnimated, bar.label, target, RESEARCH_USAGE_ANIM_DURATION);
+  });
+};
+
+const openSurveyPopup = () => {
+  isSurveyPopupOpen.value = true;
+};
+
+const closeSurveyPopup = () => {
+  isSurveyPopupOpen.value = false;
+};
+
+const openProjectImageZoom = () => {
+  if (!popupVisualImageSrc.value) return;
+  isProjectImageZoomOpen.value = true;
+};
+
+const closeProjectImageZoom = () => {
+  isProjectImageZoomOpen.value = false;
 };
 
 function animateDonut(key, focusValue) {
@@ -231,10 +371,9 @@ const projectPopupTabItems = [
   { id: "result", label: "04. 실행" },
 ];
 const PROJECT_POPUP_TAB_DURATION = 10000;
+const project01PopupSlides = [project01Slide01, project01Slide02, project01Slide03];
 const projectPopupVisualSets = [
-  [project04Slide01, project04Slide02, project04Slide03, project04Slide04],
-  [project04Slide02, project04Slide03, project04Slide04, project04Slide01],
-  [project04Slide03, project04Slide04, project04Slide01, project04Slide02],
+  project01PopupSlides,
 ];
 const isProjectPopupOpen = ref(false);
 const isProjectPopupClosing = ref(false);
@@ -249,7 +388,7 @@ let popupTabStartTime = 0;
 
 const popupProjects = computed(() =>
   (portfolio.references.items || []).map((item, index) => {
-    const visuals = projectPopupVisualSets[index] || projectPopupVisualSets[0];
+    const visuals = projectPopupVisualSets[index] || [];
     return {
       key: `project-${index + 1}`,
       name: item.name,
@@ -323,10 +462,7 @@ const activePopupTabContent = computed(() => {
 });
 
 const popupVisualImageSrc = computed(() => {
-  if (activePopupProjectKey.value === "project-1" && activePopupTabId.value === "overview") {
-    return project01Slide01;
-  }
-  return "";
+  return activePopupTabContent.value?.image || "";
 });
 
 const clearPopupTabTimer = () => {
@@ -403,6 +539,7 @@ const openProjectPopup = (index) => {
   if (!target) return;
   if (popupCloseTimer) clearTimeout(popupCloseTimer);
   isProjectPopupClosing.value = false;
+  isProjectImageZoomOpen.value = false;
   activePopupProjectKey.value = target.key;
   activePopupTabId.value = projectPopupTabItems[0].id;
   isPopupAutoplayPaused.value = false;
@@ -415,6 +552,7 @@ const openProjectPopup = (index) => {
 const closeProjectPopup = () => {
   if (!isProjectPopupOpen.value || isProjectPopupClosing.value) return;
   isProjectPopupClosing.value = true;
+  isProjectImageZoomOpen.value = false;
   clearPopupTabTimer();
   popupCloseTimer = setTimeout(() => {
     isProjectPopupOpen.value = false;
@@ -797,15 +935,29 @@ const handleGlobalKeydown = (event) => {
       clearDisplayFocus();
       return;
     }
+    if (isSurveyPopupOpen.value) {
+      closeSurveyPopup();
+      return;
+    }
+    if (isProjectImageZoomOpen.value) {
+      closeProjectImageZoom();
+      return;
+    }
     closeProjectPopup();
   }
 };
 
-watch(isProjectPopupOpen, (isOpen) => {
-  if (isOpen) {
+watch([isProjectPopupOpen, isSurveyPopupOpen, isProjectImageZoomOpen], ([isProjectOpen, isSurveyOpen, isImageZoomOpen]) => {
+  if (isProjectOpen || isSurveyOpen || isImageZoomOpen) {
     document.body.style.overflow = "hidden";
   } else {
     document.body.style.overflow = "";
+  }
+});
+
+watch(popupVisualImageSrc, (src) => {
+  if (!src) {
+    isProjectImageZoomOpen.value = false;
   }
 });
 
@@ -841,6 +993,9 @@ onMounted(() => {
               const focus = Number(donutItem.dataset.donutFocus) || 0;
               animateDonut(key, focus);
             });
+          }
+          if (entry.target.classList.contains("research-infographic")) {
+            startResearchInfographicAnimation();
           }
           observer.unobserve(entry.target);
         }
@@ -1004,7 +1159,8 @@ onUnmounted(() => {
               </span>
             </div>
           </div>
-          <div class="about-image" style="border:none; background: #1b2028; overflow: hidden; border-radius: 1.4rem;" data-reveal>
+          <div class="about-image shader-lines-bg" data-reveal>
+            <ShaderAnimation />
             <img :src="getImage('profilePortrait')" alt="profile visual" />
           </div>
         </div>
@@ -1046,6 +1202,11 @@ onUnmounted(() => {
               </div>
             </article>
           </div>
+          <div class="panel skill-icon-wall" data-reveal>
+            <figure v-for="icon in skillIcons" :key="icon.fileName" class="skill-icon-item">
+              <img :src="icon.src" :alt="`${icon.label} icon`" loading="lazy" />
+            </figure>
+          </div>
 
           <div v-if="remainingSkillMeters.length" class="meter-list">
             <article
@@ -1068,7 +1229,7 @@ onUnmounted(() => {
         </div>
       </section>
 
-      <section class="section">
+      <section id="research" class="section">
         <div class="container">
           <div class="section-head" data-reveal>
             <p class="section-label">{{ portfolio.research.label }}</p>
@@ -1142,6 +1303,192 @@ onUnmounted(() => {
               </div>
             </div>
           </div>
+          <article v-if="portfolio.research.aiSurvey2025" class="panel research-infographic" data-reveal>
+            <div class="research-info-head">
+              <p class="mini-head">Survey & In-depth Interview</p>
+              <div class="research-info-title-row">
+                <h3>{{ portfolio.research.aiSurvey2025.title }}</h3>
+                <button
+                  type="button"
+                  class="research-survey-btn"
+                  @click="openSurveyPopup"
+                >
+                  설문보기
+                </button>
+              </div>
+            </div>
+
+            <div class="research-purpose">
+              <p class="mini-head">{{ portfolio.research.aiSurvey2025.purposeTitle }}</p>
+              <p>{{ portfolio.research.aiSurvey2025.purposeText }}</p>
+              <div class="research-meta-chips">
+                <span
+                  v-for="meta in portfolio.research.aiSurvey2025.meta"
+                  :key="meta"
+                  class="chip"
+                >
+                  {{ meta }}
+                </span>
+              </div>
+              <p class="research-meta-note">👉 {{ portfolio.research.aiSurvey2025.metaNote }}</p>
+            </div>
+
+            <div class="research-executive">
+              <p class="mini-head">{{ portfolio.research.aiSurvey2025.executiveTitle }}</p>
+              <p class="accent-line">{{ portfolio.research.aiSurvey2025.executiveHeadline }}</p>
+              <ul class="research-bullet-list">
+                <li
+                  v-for="point in portfolio.research.aiSurvey2025.executivePoints"
+                  :key="point"
+                >
+                  {{ point }}
+                </li>
+              </ul>
+            </div>
+
+            <div class="research-kpi-grid">
+              <article
+                v-for="card in portfolio.research.aiSurvey2025.kpiCards"
+                :key="card.label"
+                class="research-kpi-card"
+              >
+                <p>{{ card.label }}</p>
+                <strong>{{ formatAnimatedKpiValue(card) }}</strong>
+                <span>{{ card.detail }}</span>
+              </article>
+            </div>
+
+            <div class="research-infographic-grid">
+              <section class="research-chart-card">
+                <p class="mini-head">{{ portfolio.research.aiSurvey2025.usageTitle }}</p>
+                <div class="research-bars">
+                  <div
+                    v-for="bar in portfolio.research.aiSurvey2025.usageBars"
+                    :key="bar.label"
+                    class="research-bar-row"
+                  >
+                    <div class="research-bar-head">
+                      <span>{{ bar.label }}</span>
+                      <strong>
+                        {{ formatPercent(researchUsageAnimated[bar.label] ?? 0) }}{{ hasPercentSuffix(bar.value) ? "" : "%" }}
+                      </strong>
+                    </div>
+                    <div class="research-bar-track">
+                      <span
+                        class="research-bar-fill"
+                        :style="{ width: `${Math.max(0, Math.min(100, researchUsageAnimated[bar.label] ?? 0))}%` }"
+                      />
+                    </div>
+                    <small>{{ bar.caption }}</small>
+                  </div>
+                </div>
+              </section>
+
+              <section class="research-chart-card">
+                <p class="mini-head">활용 용도 (Top)</p>
+                <div class="research-pill-list">
+                  <span
+                    v-for="useCase in portfolio.research.aiSurvey2025.topUseCases"
+                    :key="useCase"
+                    class="research-pill"
+                  >
+                    {{ useCase }}
+                  </span>
+                </div>
+
+                <p class="mini-head research-tools-title">{{ portfolio.research.aiSurvey2025.toolsTitle }}</p>
+                <div class="research-pill-list">
+                  <span
+                    v-for="tool in externalAiTools"
+                    :key="tool.name"
+                    class="research-pill tool"
+                  >
+                    <span class="research-tool-icon">
+                      <img
+                        v-if="tool.icon && !brokenToolIcons[tool.name]"
+                        :src="tool.icon"
+                        :alt="`${tool.name} icon`"
+                        loading="lazy"
+                        @error="markToolIconBroken(tool.name)"
+                      />
+                      <span v-else>{{ getToolInitial(tool.name) }}</span>
+                    </span>
+                    {{ tool.name }}
+                  </span>
+                </div>
+              </section>
+            </div>
+
+            <div class="research-insight-shift">
+              <p class="mini-head">{{ portfolio.research.aiSurvey2025.insightTitle }}</p>
+              <p>
+                <span class="before">{{ portfolio.research.aiSurvey2025.insightQuoteBefore }}</span>
+                <span class="arrow">→</span>
+                <span class="after">{{ portfolio.research.aiSurvey2025.insightQuoteAfter }}</span>
+              </p>
+            </div>
+
+            <div class="research-sd-grid">
+              <section class="mini-card">
+                <p class="mini-head">{{ portfolio.research.aiSurvey2025.successTitle }}</p>
+                <div class="research-sd-list">
+                  <div>
+                    <strong>성공</strong>
+                    <ul class="research-bullet-list compact">
+                      <li
+                        v-for="success in portfolio.research.aiSurvey2025.successes"
+                        :key="success"
+                      >
+                        {{ success }}
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <strong>어려움</strong>
+                    <ul class="research-bullet-list compact">
+                      <li
+                        v-for="challenge in portfolio.research.aiSurvey2025.challenges"
+                        :key="challenge"
+                      >
+                        {{ challenge }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+
+              <section class="mini-card">
+                <p class="mini-head">{{ portfolio.research.aiSurvey2025.needsTitle }}</p>
+                <ul class="research-bullet-list compact">
+                  <li v-for="need in portfolio.research.aiSurvey2025.needs" :key="need">
+                    {{ need }}
+                  </li>
+                </ul>
+              </section>
+            </div>
+
+            <div class="research-direction">
+              <p class="mini-head">{{ portfolio.research.aiSurvey2025.directionTitle }}</p>
+              <div class="research-direction-grid">
+                <article
+                  v-for="direction in portfolio.research.aiSurvey2025.directions"
+                  :key="direction.name"
+                  class="research-direction-card"
+                >
+                  <h4>{{ direction.name }}</h4>
+                  <ul class="research-bullet-list compact">
+                    <li v-for="item in direction.items" :key="item">{{ item }}</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+
+            <p class="research-final-summary">
+              <span class="research-summary-alert" aria-hidden="true">!</span>
+              {{ portfolio.research.aiSurvey2025.finalSummary }}
+            </p>
+          </article>
+          
         </div>
       </section>
 
@@ -1439,7 +1786,14 @@ onUnmounted(() => {
           </div>
 
           <div class="career-masonry-wrap" data-reveal>
-            <p class="mini-head">Companions</p>
+            <p class="mini-head" style="padding-top: 3rem;">With colleagues</p>
+            <p class="paragraph">
+              <strong>프론트엔드 개발 및 디자인 실무 경험</strong>을 바탕으로
+              <strong>유관 부서의 고충을 깊이 이해</strong>하며, 수많은 동료들과 다수의 프로젝트를
+              <strong>성공적으로 완수해 낸 '실전형 AI 서비스 기획자'</strong>입니다. <br/>세밀한 디테일까지
+              <strong>실무자의 언어로 명확히 소통</strong>하여 <strong>커뮤니케이션 비용을 최소화</strong>하고
+              <strong>최상의 팀워크</strong>를 이끌어냅니다.
+            </p>
             <div class="career-masonry">
               <figure
                 v-for="(photo, index) in careerMasonryPhotos"
@@ -1606,6 +1960,8 @@ onUnmounted(() => {
                     :src="popupVisualImageSrc"
                     alt="DW-Brain 프로젝트 첫 슬라이드"
                     loading="lazy"
+                    class="project-popup-visual-image"
+                    @click="openProjectImageZoom"
                   />
                   <div v-else class="project-popup-placeholder">
                     <strong>준비중입니다.</strong>
@@ -1615,6 +1971,51 @@ onUnmounted(() => {
             </transition>
           </section>
         </div>
+      </div>
+    </transition>
+
+    <transition name="project-image-zoom">
+      <div
+        v-if="isProjectImageZoomOpen && popupVisualImageSrc"
+        class="project-image-zoom-overlay"
+        @click.self="closeProjectImageZoom"
+      >
+        <button
+          type="button"
+          class="project-image-zoom-close"
+          aria-label="확대 이미지 닫기"
+          @click="closeProjectImageZoom"
+        >
+          ×
+        </button>
+        <figure class="project-image-zoom-figure">
+          <img :src="popupVisualImageSrc" :alt="`${activePopupProject?.name || '프로젝트'} 확대 이미지`" loading="lazy" />
+        </figure>
+      </div>
+    </transition>
+
+    <transition name="survey-popup-fade">
+      <div
+        v-if="isSurveyPopupOpen"
+        class="survey-popup-overlay"
+        @click.self="closeSurveyPopup"
+      >
+        <section class="survey-popup-panel" role="dialog" aria-modal="true" aria-label="AI 활용 설문 이미지">
+          <div class="survey-popup-head">
+            <h3>AI 활용 설문 결과 (2025.11)</h3>
+            <button
+              type="button"
+              class="survey-popup-close"
+              aria-label="설문 팝업 닫기"
+              @click="closeSurveyPopup"
+            >
+              ×
+            </button>
+          </div>
+          <figure class="survey-popup-visual">
+            <img :src="surveyImage" alt="AI 활용 설문 결과 이미지" loading="lazy" />
+          </figure>
+        </section>
       </div>
     </transition>
 

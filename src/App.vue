@@ -2020,7 +2020,7 @@ onUnmounted(() => {
     </transition>
 
     <footer class="site-footer">
-      <p class="footer-copy">{{ new Date().getFullYear() }}. 0{{ new Date().getMonth() + 1 }}. AI 서비스 전략 기획 황승현.</p>
+      <p class="footer-copy">{{ new Date().getFullYear() }}. {{ String(new Date().getMonth() + 1).padStart(2, '0') }}. AI 서비스 전략 기획 황승현.</p>
     </footer>
 
     <button

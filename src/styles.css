@@ -1444,7 +1444,7 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
   position: relative;
   min-height: 36rem;
   overflow: hidden;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  /* border-top: 1px solid rgba(255, 255, 255, 0.08); */
   width: min(1420px, 92vw);
   margin: 0 auto;
   padding: 3.2rem 4.2rem;
@@ -1965,11 +1965,11 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
   z-index: 1;
 }
 
-.scene-1 {
+/* .scene-1 {
   background: #020202;
-}
+} */
 
-.scene-1::before {
+/* .scene-1::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -1977,7 +1977,7 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
     radial-gradient(circle at 61% 71%, var(--reference-scene1-radial) 0 14%, rgba(57, 255, 20, 0) 31%),
   linear-gradient(180deg, rgba(2, 2, 2, 0.68), rgba(2, 2, 2, 0.9));
   opacity: 0.92;
-}
+} */
 
 .scene-1 .scene-grid {
   grid-template-columns: 1fr;
@@ -2079,7 +2079,7 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
   max-height: 88vh;
   padding: 0.7rem 0.7rem 1.2rem;
   transform: translate3d(-50%, -50%, 0) scale(1.06);
-  border-color: rgba(255, 255, 255, 0.3);
+  /* border-color: rgba(255, 255, 255, 0.3); */
   box-shadow:
     0 0 0 100vmax rgba(3, 5, 10, 0.68),
     0 42px 110px rgba(0, 0, 0, 0.55),
@@ -2107,7 +2107,7 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
 .project04-showcase {
   width: min(1420px, 92vw);
   margin: 0 auto;
-  padding: 3.2rem 3.4rem 3.6rem;
+  padding: 3.2rem 3.4rem 8.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 

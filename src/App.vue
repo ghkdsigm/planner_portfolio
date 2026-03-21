@@ -98,8 +98,8 @@ const navItems = [
   { id: "research", label: "RESEARCH", page: "04 PAGE", description: "사전 인터뷰&리서치" },
   { id: "references", label: "REFERENCES", page: "05 PAGE", description: "AI 대표 프로젝트 사례" },
   { id: "career", label: "CAREER", page: "06 PAGE", description: "커리어 타임라인" },
-  { id: "archive", label: "ARCHIVE", page: "07 PAGE", description: "프로젝트 아카이브" },
-  { id: "contact", label: "CONTACT", page: "08 PAGE", description: "협업과 연락 안내" },
+  { id: "archive", label: "ARCHIVE", page: "07 PAGE", description: "수행 프로젝트 아카이브" },
+  { id: "contact", label: "CONTACT", page: "08 PAGE", description: "연락 안내" },
 ];
 
 const activeSection = ref("cover");

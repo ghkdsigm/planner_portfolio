@@ -914,6 +914,10 @@ const getDonutStyle = (segments = [], donutKey = "") => {
 const THEME_STORAGE_KEY = "planner-theme";
 const isDarkMode = ref(true);
 const showTopButton = ref(false);
+const isNavHidden = ref(false);
+const NAV_HIDE_START = 140;
+const NAV_SCROLL_DELTA = 4;
+let lastScrollY = 0;
 
 const applyTheme = () => {
   const theme = isDarkMode.value ? "dark" : "light";
@@ -952,6 +956,36 @@ const updateTopButtonVisibility = () => {
   showTopButton.value = window.scrollY > 360;
 };
 
+const updateNavVisibility = () => {
+  const currentScrollY = window.scrollY;
+
+  if (
+    mobileMenuOpen.value ||
+    isProjectPopupOpen.value ||
+    isSurveyPopupOpen.value ||
+    isProjectImageZoomOpen.value
+  ) {
+    isNavHidden.value = false;
+    lastScrollY = currentScrollY;
+    return;
+  }
+
+  if (currentScrollY <= NAV_HIDE_START) {
+    isNavHidden.value = false;
+    lastScrollY = currentScrollY;
+    return;
+  }
+
+  const delta = currentScrollY - lastScrollY;
+  if (delta > NAV_SCROLL_DELTA) {
+    isNavHidden.value = true;
+  } else if (delta < -NAV_SCROLL_DELTA) {
+    isNavHidden.value = false;
+  }
+
+  lastScrollY = currentScrollY;
+};
+
 const updateActiveSection = () => {
   const y = window.scrollY + 180;
   let current = "cover";
@@ -964,6 +998,12 @@ const updateActiveSection = () => {
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+const handleWindowScroll = () => {
+  updateTopButtonVisibility();
+  updateActiveSection();
+  updateNavVisibility();
 };
 
 const handleWindowResize = () => {
@@ -1003,6 +1043,11 @@ watch(popupVisualImageSrc, (src) => {
   }
 });
 
+watch([mobileMenuOpen, isProjectPopupOpen, isSurveyPopupOpen, isProjectImageZoomOpen], () => {
+  isNavHidden.value = false;
+  lastScrollY = window.scrollY;
+});
+
 onMounted(() => {
   ensureSplineViewerScript().catch((error) => {
     console.error(error);
@@ -1014,10 +1059,9 @@ onMounted(() => {
   }
   applyTheme();
   syncMobileNavState();
-  updateTopButtonVisibility();
-  updateActiveSection();
-  window.addEventListener("scroll", updateTopButtonVisibility, { passive: true });
-  window.addEventListener("scroll", updateActiveSection, { passive: true });
+  lastScrollY = window.scrollY;
+  handleWindowScroll();
+  window.addEventListener("scroll", handleWindowScroll, { passive: true });
   window.addEventListener("resize", handleWindowResize);
   window.addEventListener("keydown", handleGlobalKeydown);
 
@@ -1066,8 +1110,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  window.removeEventListener("scroll", updateTopButtonVisibility);
-  window.removeEventListener("scroll", updateActiveSection);
+  window.removeEventListener("scroll", handleWindowScroll);
   window.removeEventListener("resize", handleWindowResize);
   window.removeEventListener("resize", updateVoiceRollOffsets);
   window.removeEventListener("keydown", handleGlobalKeydown);
@@ -1082,7 +1125,7 @@ onUnmounted(() => {
 
 <template>
   <div class="page-shell">
-    <header class="floating-nav" data-reveal>
+    <header class="floating-nav" :class="{ 'is-nav-hidden': isNavHidden }">
       <div class="nav-top-row">
         <div class="brand">
           <span>{{ portfolio.meta.role }}</span>

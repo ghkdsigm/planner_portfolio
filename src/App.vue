@@ -37,6 +37,10 @@ import project02Slide01 from "./assets/images/deep/pj02_01.jpg";
 import project02Slide02 from "./assets/images/deep/pj02_02.jpg";
 import project02Slide03 from "./assets/images/deep/pj02_03.jpg";
 import project02Slide04 from "./assets/images/deep/pj02_04.jpg";
+import project03Slide01 from "./assets/images/deep/pj03_01.jpg";
+import project03Slide02 from "./assets/images/deep/pj03_02.jpg";
+import project03Slide03 from "./assets/images/deep/pj03_03.jpg";
+import project03Slide04 from "./assets/images/deep/pj03_04.jpg";
 import project04Slide01 from "./assets/images/r01.jpg";
 import project04Slide02 from "./assets/images/r02.jpg";
 import project04Slide03 from "./assets/images/r03.jpg";
@@ -378,9 +382,11 @@ const projectPopupTabItems = [
 const PROJECT_POPUP_TAB_DURATION = 10000;
 const project01PopupSlides = [project01Slide01, project01Slide02, project01Slide03, project01Slide04];
 const project02PopupSlides = [project02Slide01, project02Slide02, project02Slide03, project02Slide04];
+const project03PopupSlides = [project03Slide01, project03Slide02, project03Slide03, project03Slide04];
 const projectPopupVisualSets = [
   project01PopupSlides,
   project02PopupSlides,
+  project03PopupSlides,
 ];
 const isProjectPopupOpen = ref(false);
 const isProjectPopupClosing = ref(false);

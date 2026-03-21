@@ -1544,14 +1544,24 @@ onUnmounted(() => {
                           </span>
                         </button>
                       </h3>
-                      <button
-                        v-if="index === 0 || index === 3"
-                        type="button"
-                        class="project-demo-btn"
-                        @click.stop="openProjectDemo(index === 0 ? 'project01' : 'project04')"
-                      >
-                        MVP보기
-                      </button>
+                      <div v-if="index <= 2 || index === 3" class="scene-title-actions">
+                        <button
+                          v-if="index <= 2"
+                          type="button"
+                          class="project-demo-btn"
+                          @click.stop="openProjectPopup(index)"
+                        >
+                          자세히 보기
+                        </button>
+                        <button
+                          v-if="index === 0 || index === 3"
+                          type="button"
+                          class="project-demo-btn"
+                          @click.stop="openProjectDemo(index === 0 ? 'project01' : 'project04')"
+                        >
+                          MVP보기
+                        </button>
+                      </div>
                     </div>
                     <p class="scene-line"><strong style="display: block;">Problem.</strong> {{ item.problem }}</p>
                     <p class="scene-line"><strong style="display: block;">Solution.</strong> {{ item.solution }}</p>

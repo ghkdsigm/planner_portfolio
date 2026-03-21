@@ -1459,6 +1459,13 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
   gap: 0.75rem;
 }
 
+.scene-title-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .project-title-trigger {
   border: 0;
   padding: 0;
@@ -3391,6 +3398,10 @@ body[data-theme="light"] .process-card {
     align-items: flex-start;
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .scene-title-actions {
+    flex-wrap: wrap;
   }
 
   .scene-1 .scene-grid {

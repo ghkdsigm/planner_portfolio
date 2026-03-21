@@ -120,6 +120,35 @@ const DONUT_ANIM_DURATION = 1700;
 const RESEARCH_KPI_ANIM_DURATION = 1800;
 const RESEARCH_USAGE_ANIM_DURATION = 2200;
 const MOBILE_NAV_BREAKPOINT = 700;
+const SPLINE_SCENE_URL = "https://prod.spline.design/vWgo3nPWne8AUrmU/scene.splinecode";
+const SPLINE_VIEWER_SCRIPT_ID = "spline-viewer-script";
+const SPLINE_VIEWER_SCRIPT_SRC = "https://unpkg.com/@splinetool/viewer/build/spline-viewer.js";
+
+const ensureSplineViewerScript = () => {
+  if (typeof window === "undefined" || customElements.get("spline-viewer")) {
+    return Promise.resolve();
+  }
+
+  const existingScript = document.getElementById(SPLINE_VIEWER_SCRIPT_ID);
+  if (existingScript) {
+    return new Promise((resolve, reject) => {
+      existingScript.addEventListener("load", () => resolve(), { once: true });
+      existingScript.addEventListener("error", () => reject(new Error("Failed to load spline-viewer")), {
+        once: true,
+      });
+    });
+  }
+
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.id = SPLINE_VIEWER_SCRIPT_ID;
+    script.type = "module";
+    script.src = SPLINE_VIEWER_SCRIPT_SRC;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error("Failed to load spline-viewer"));
+    document.head.appendChild(script);
+  });
+};
 
 function animateMeter(label, score) {
   if (meterAnimated.value[label] === score) return;
@@ -975,6 +1004,10 @@ watch(popupVisualImageSrc, (src) => {
 });
 
 onMounted(() => {
+  ensureSplineViewerScript().catch((error) => {
+    console.error(error);
+  });
+
   const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
   if (savedTheme === "light") {
     isDarkMode.value = false;
@@ -1115,6 +1148,7 @@ onUnmounted(() => {
     <main>
       <section id="cover" class="section cover">
         <!-- <img class="cover-bg" :src="getImage('heroCover')" alt="portfolio cover visual" /> -->
+        <!--
         <picture style="
           position: absolute;
           top: 0;
@@ -1136,6 +1170,15 @@ onUnmounted(() => {
             }"
           >
         </picture>
+        -->
+        <div class="cover-spline" aria-hidden="true">
+          <spline-viewer
+            class="cover-spline-viewer"
+            :url="SPLINE_SCENE_URL"
+            loading-anim-type="none"
+            events-target="local"
+          />
+        </div>
         <div class="overlay" />
         <div class="container cover-content" data-reveal>
           <p class="mini-badge">{{ portfolio.hero.badge }}</p>

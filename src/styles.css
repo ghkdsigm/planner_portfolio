@@ -390,6 +390,21 @@ nav {
   isolation: isolate;
 }
 
+.cover-spline {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.cover-spline-viewer {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  transform: scale(1.06);
+}
+
 .cover-bg {
   position: absolute;
   inset: 0;
@@ -405,9 +420,7 @@ nav {
 .overlay {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(180deg, var(--overlay-top), var(--overlay-bottom)),
-    radial-gradient(circle at 72% 22%, var(--overlay-accent), var(--overlay-fade) 42%);
+  background:linear-gradient(180deg, var(--overlay-top), var(--overlay-bottom)), radial-gradient(circle at 72% 22%, rgb(157 157 157 / 22%), var(--overlay-fade) 42%);
   z-index: -1;
 }
 
@@ -504,7 +517,7 @@ nav {
 
 .grid-about {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.9fr);
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 1.3fr);
   gap: 2rem;
   align-items: center;
 }
@@ -531,6 +544,7 @@ h3 {
 .paragraph {
   color: var(--paragraph-text);
   margin-top: 0.85rem;
+  font-size: 1.2rem;
 }
 
 body:not([data-theme="light"]) .paragraph strong {

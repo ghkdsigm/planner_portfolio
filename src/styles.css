@@ -571,10 +571,10 @@ body:not([data-theme="light"]) .paragraph strong {
 .about-image {
   position: relative;
   overflow: hidden;
-  border-radius: 1.4rem;
   background: #1b2028;
   isolation: isolate;
   overflow: hidden;
+  border-radius: 100% !important;
 }
 
 .shader-lines-bg::after {

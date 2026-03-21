@@ -344,7 +344,7 @@ nav {
   position: absolute;
   left: 0;
   top: 50%;
-  height: 1.85rem;
+  height: 0;
   border-radius: 16px;
   background: var(--accent-soft);
   pointer-events: none;
@@ -382,6 +382,102 @@ nav {
   color: #000;
   font-weight: 100;
   background: var(--reference-strong);
+}
+
+.section-plot {
+  position: fixed;
+  top: 50%;
+  right: clamp(0.9rem, 2vw, 1.4rem);
+  z-index: 34;
+  transform: translateY(-50%);
+  display: grid;
+  gap: 0.7rem;
+  width: min(14rem, 18vw);
+  padding-left: 1.25rem;
+}
+
+.section-plot::before {
+  content: "";
+  position: absolute;
+  left: 0.32rem;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 1px;
+  background: color-mix(in srgb, var(--stroke) 74%, var(--accent) 26%);
+  opacity: 0.72;
+}
+
+.section-plot-item {
+  position: relative;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 0.1rem 0 0.1rem 0.8rem;
+  cursor: pointer;
+  opacity: 0.48;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.section-plot-item::before {
+  content: "";
+  position: absolute;
+  left: -0.94rem;
+  top: 0.5rem;
+  width: 0.52rem;
+  height: 0.52rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--stroke) 68%, var(--accent) 32%);
+  background: var(--bg);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--bg) 72%, transparent);
+}
+
+.section-plot-item:hover {
+  opacity: 0.9;
+  transform: translateX(-2px);
+}
+
+.section-plot-item.active {
+  opacity: 1;
+}
+
+.section-plot-item.active::before {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.section-plot-page,
+.section-plot-desc {
+  display: block;
+  color: var(--muted);
+}
+
+.section-plot-page {
+  font-size: 0.56rem;
+  letter-spacing: 0.18em;
+}
+
+.section-plot-title {
+  display: block;
+  margin-top: 0.18rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  line-height: 1.15;
+}
+
+.section-plot-desc {
+  margin-top: 0.14rem;
+  font-size: 0.68rem;
+  line-height: 1.3;
+}
+
+.section-plot-item.active .section-plot-page,
+.section-plot-item.active .section-plot-desc,
+.section-plot-item:hover .section-plot-page,
+.section-plot-item:hover .section-plot-desc {
+  color: var(--text);
 }
 
 .cover {
@@ -3368,6 +3464,10 @@ body[data-theme="light"] .process-card {
   .nav-btn:hover,
   .nav-btn.active:hover {
     background: color-mix(in srgb, var(--reference-strong) 82%, #fff 18%);
+  }
+
+  .section-plot {
+    display: none;
   }
 
   .section {

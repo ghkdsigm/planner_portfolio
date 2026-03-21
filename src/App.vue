@@ -92,14 +92,14 @@ const skillIcons = Object.entries(skillIconModules)
   .sort((a, b) => a.fileName.localeCompare(b.fileName));
 
 const navItems = [
-  { id: "cover", label: "HOME" },
-  { id: "about", label: "ABOUT" },
-  { id: "skills", label: "SkILLS" },
-  { id: "research", label: "RESEARCH" },
-  { id: "references", label: "REFERENCES" },
-  { id: "career", label: "CAREER" },
-  { id: "archive", label: "ARCHIVE" },
-  { id: "contact", label: "CONTACT" },
+  { id: "cover", label: "HOME", page: "01 PAGE", description: "Intro" },
+  { id: "about", label: "ABOUT", page: "02 PAGE", description: "프로필과 관점 소개" },
+  { id: "skills", label: "SKILLS", page: "03 PAGE", description: "핵심 역량과 툴셋" },
+  { id: "research", label: "RESEARCH", page: "04 PAGE", description: "사전 인터뷰&리서치" },
+  { id: "references", label: "REFERENCES", page: "05 PAGE", description: "AI 대표 프로젝트 사례" },
+  { id: "career", label: "CAREER", page: "06 PAGE", description: "커리어 타임라인" },
+  { id: "archive", label: "ARCHIVE", page: "07 PAGE", description: "프로젝트 아카이브" },
+  { id: "contact", label: "CONTACT", page: "08 PAGE", description: "협업과 연락 안내" },
 ];
 
 const activeSection = ref("cover");
@@ -359,10 +359,11 @@ const remainingSkillMeters = computed(() => {
 const indicatorStyle = computed(() => {
   resizeKey.value;
   const el = buttonRefs.value[activeSection.value];
-  if (!el) return { transform: "translate(0, -50%)", width: "0px", opacity: 0 };
+  if (!el) return { transform: "translate(0, -50%)", width: "0px", height: "0px", opacity: 0 };
   return {
     transform: `translate(${el.offsetLeft}px, -50%)`,
     width: `${el.offsetWidth}px`,
+    height: `${el.offsetHeight}px`,
     opacity: 1,
   };
 });
@@ -1188,6 +1189,21 @@ onUnmounted(() => {
       </nav>
     </header>
 
+    <aside class="section-plot" aria-label="섹션 플롯">
+      <button
+        v-for="item in navItems"
+        :key="`plot-${item.id}`"
+        type="button"
+        class="section-plot-item"
+        :class="{ active: activeSection === item.id }"
+        @click="smoothScroll(item.id)"
+      >
+        <span class="section-plot-page">{{ item.page }}</span>
+        <strong class="section-plot-title">{{ item.label }}</strong>
+        <span class="section-plot-desc">{{ item.description }}</span>
+      </button>
+    </aside>
+
     <main>
       <section id="cover" class="section cover">
         <!-- <img class="cover-bg" :src="getImage('heroCover')" alt="portfolio cover visual" /> -->
@@ -1714,7 +1730,7 @@ onUnmounted(() => {
                 />
                 <div class="ia-overlay" />
                 <div class="ia-structure">
-                  <p class="ia-title">IA Structure Example</p>
+                  <p class="ia-title">DW-BRAIN IA Structure 예시</p>
                   <div class="ia-column-grid">
                     <article
                       v-for="column in iaTreeColumns"

@@ -2,6 +2,8 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import portfolio from "./data/portfolio.json";
 import ShaderAnimation from "./components/ShaderAnimation.vue";
+import PortfolioChatWidget from "./components/chat/PortfolioChatWidget.vue";
+import ChatPageView from "./views/ChatPageView.vue";
 
 import heroCover from "./assets/images/hero-cover.svg";
 import bgImage from "./assets/images/bg.png";
@@ -916,9 +918,28 @@ const THEME_STORAGE_KEY = "planner-theme";
 const isDarkMode = ref(true);
 const showTopButton = ref(false);
 const isNavHidden = ref(false);
+const isChatPage = ref(false);
 const NAV_HIDE_START = 140;
 const NAV_SCROLL_DELTA = 4;
+const CHAT_PAGE_HASH = "#/chat";
 let lastScrollY = 0;
+
+const syncChatPageState = () => {
+  if (typeof window === "undefined") return;
+  isChatPage.value = window.location.hash === CHAT_PAGE_HASH;
+};
+
+const openChatPage = () => {
+  if (typeof window === "undefined") return;
+  window.location.hash = CHAT_PAGE_HASH;
+  syncChatPageState();
+};
+
+const closeChatPage = () => {
+  if (typeof window === "undefined") return;
+  window.location.hash = "#cover";
+  syncChatPageState();
+};
 
 const applyTheme = () => {
   const theme = isDarkMode.value ? "dark" : "light";
@@ -1050,6 +1071,7 @@ watch([mobileMenuOpen, isProjectPopupOpen, isSurveyPopupOpen, isProjectImageZoom
 });
 
 onMounted(() => {
+  syncChatPageState();
   ensureSplineViewerScript().catch((error) => {
     console.error(error);
   });
@@ -1065,6 +1087,7 @@ onMounted(() => {
   window.addEventListener("scroll", handleWindowScroll, { passive: true });
   window.addEventListener("resize", handleWindowResize);
   window.addEventListener("keydown", handleGlobalKeydown);
+  window.addEventListener("hashchange", syncChatPageState);
 
   const reveals = document.querySelectorAll("[data-reveal]");
   const observer = new IntersectionObserver(
@@ -1115,6 +1138,7 @@ onUnmounted(() => {
   window.removeEventListener("resize", handleWindowResize);
   window.removeEventListener("resize", updateVoiceRollOffsets);
   window.removeEventListener("keydown", handleGlobalKeydown);
+  window.removeEventListener("hashchange", syncChatPageState);
   if (rollTimer) clearInterval(rollTimer);
   if (project04Timer) clearInterval(project04Timer);
   if (referenceMainSlideTimer) clearInterval(referenceMainSlideTimer);
@@ -1125,7 +1149,9 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="page-shell">
+  <ChatPageView v-if="isChatPage" @close="closeChatPage" />
+
+  <div v-show="!isChatPage" class="page-shell">
     <header class="floating-nav" :class="{ 'is-nav-hidden': isNavHidden }">
       <div class="nav-top-row">
         <div class="brand">
@@ -2147,6 +2173,8 @@ onUnmounted(() => {
     <footer class="site-footer">
       <p class="footer-copy">{{ new Date().getFullYear() }}. {{ String(new Date().getMonth() + 1).padStart(2, '0') }}. AI 서비스 전략 기획 황승현.</p>
     </footer>
+
+    <PortfolioChatWidget @open-fullscreen="openChatPage" />
 
     <button
       v-show="showTopButton"

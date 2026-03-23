@@ -1,0 +1,259 @@
+{
+  "candidate": {
+    "name": "황승현",
+    "englishName": "Seunghyun Hwang",
+    "role": "AI/AX Service Planner",
+    "headline": "문제를 구조화해 실행 가능한 AI 경험으로 전환하는 서비스 전략 기획자",
+    "positioning": "리서치 인사이트, 제품 전략, 데이터/AI 구조 설계, 프로토타입 제작, MVP 검증, 운영 고도화를 직접 연결하는 실행형 AI 서비스 기획자",
+    "tone": ["전문적", "구체적", "과장 없음", "근거 중심", "실무형"],
+    "guardrails": [
+      "황승현 지원자와 직접 관련된 정보만 답변합니다.",
+      "포트폴리오와 지식 JSON에 없는 내용은 사실처럼 단정하지 않습니다.",
+      "답변은 면접 답변처럼 짧고 명확하게 구성하되, 필요 시 프로젝트 근거를 덧붙입니다.",
+      "성과를 말할 때는 가능한 한 수치와 프로젝트명을 함께 언급합니다.",
+      "질문 의도가 애매하면 의도를 추론하되 추측을 과도하게 확장하지 않습니다."
+    ]
+  },
+  "intentRules": [
+    {
+      "id": "strength",
+      "description": "강점, 차별점, 핵심 역량 질문",
+      "keywords": ["강점", "차별점", "장점", "잘하는", "역량", "핵심역량", "why you", "fit", "적합", "왜 뽑아야"]
+    },
+    {
+      "id": "project",
+      "description": "대표 프로젝트, 수행 경험, 성과 질문",
+      "keywords": ["프로젝트", "경험", "성과", "대표", "레퍼런스", "case", "dw-brain", "카메이트", "daop", "엠파크", "파노라마"]
+    },
+    {
+      "id": "motivation",
+      "description": "지원 동기, 커리어 방향, 왜 AI 기획자인지",
+      "keywords": ["지원동기", "왜", "동기", "커리어", "목표", "비전", "가고싶", "이직", "ai 기획자", "이유"]
+    },
+    {
+      "id": "technical",
+      "description": "기술 이해도, 개발 협업, RAG/LLM/아키텍처 질문",
+      "keywords": ["기술", "개발", "rag", "llm", "아키텍처", "api", "데이터", "prompt", "mvp", "prototype", "프로토타입"]
+    },
+    {
+      "id": "collaboration",
+      "description": "협업, 커뮤니케이션, 리딩 방식 질문",
+      "keywords": ["협업", "커뮤니케이션", "조율", "리딩", "이해관계자", "개발자", "디자이너", "조직", "운영", "회의"]
+    },
+    {
+      "id": "career",
+      "description": "경력, 회사별 역할, 연차 질문",
+      "keywords": ["경력", "커리어", "회사", "이력", "timeline", "연차", "이직", "경험요약"]
+    }
+  ],
+  "sampleQuestions": [
+    "황승현 지원자의 가장 큰 강점은 무엇인가요?",
+    "왜 황승현은 AI 서비스 기획자 역할에 적합한가요?",
+    "대표 프로젝트를 3개만 요약해 주세요.",
+    "RAG나 LLM 기능을 실제 서비스에 어떻게 연결했나요?",
+    "개발자, 디자이너와 어떻게 협업하나요?",
+    "엠파크에서 어떤 AI 프로젝트를 했나요?"
+  ],
+  "chunks": [
+    {
+      "id": "summary-positioning",
+      "title": "지원자 포지셔닝 요약",
+      "category": "summary",
+      "intent": "strength",
+      "tags": ["강점", "차별점", "포지셔닝", "실행형", "builder"],
+      "questionHints": ["가장 큰 강점", "차별점", "왜 적합한가", "한 줄 소개"],
+      "priority": 5,
+      "content": "황승현은 문제를 구조화하고 이를 실제 제품 경험과 AI 기능으로 연결하는 실행형 AI/AX 서비스 기획자입니다. 정성/정량 리서치, 문제 정의, 서비스 설계, 데이터/AI 구조 설계, 프로토타입 제작, MVP 검증, 운영 고도화를 하나의 흐름으로 수행할 수 있다는 점이 핵심 경쟁력입니다."
+    },
+    {
+      "id": "summary-builder",
+      "title": "기획과 구현을 함께 가져가는 빌더형 역량",
+      "category": "strength",
+      "intent": "strength",
+      "tags": ["빌더형", "프로토타입", "개발이해", "mvp", "실행력"],
+      "questionHints": ["실행력", "프로토타입", "직접 구현", "빌더형"],
+      "priority": 5,
+      "content": "황승현은 기획에만 머무르지 않고 개발 경험을 바탕으로 PoC와 MVP를 빠르게 구현해 검증하는 타입입니다. 프론트엔드 개발 경험과 기술 아키텍처 이해를 갖고 있어 개발자와의 핸드오프 품질이 높고, 기능 개념을 실제 동작 가능한 인터페이스와 검증 흐름으로 빠르게 전환할 수 있습니다."
+    },
+    {
+      "id": "skills-problem-framing",
+      "title": "핵심 역량: 문제 프레이밍과 AI 기능 기획",
+      "category": "skills",
+      "intent": "strength",
+      "tags": ["problem framing", "ai feature planning", "ux writing", "delivery"],
+      "questionHints": ["핵심 역량", "어떤 역량이 강한가", "기획 능력"],
+      "priority": 4,
+      "content": "포트폴리오에서 제시한 핵심 역량 수치는 Problem Framing 95, AI Feature Planning 92, Delivery Management 93, Technical Architecture Understanding 91, Rapid Prototyping 94 수준입니다. 즉 황승현은 사용자의 문제를 정의하고 AI 기능으로 번역한 뒤 실제 출시 가능한 형태로 정리하는 데 강점이 있습니다."
+    },
+    {
+      "id": "motivation-ai-planner",
+      "title": "왜 AI 서비스 기획자인가",
+      "category": "motivation",
+      "intent": "motivation",
+      "tags": ["지원동기", "ai 기획", "사용자 가치", "비즈니스 가치"],
+      "questionHints": ["왜 ai 서비스 기획자", "지원 동기", "커리어 방향"],
+      "priority": 5,
+      "content": "황승현은 기술 자체보다 사용자의 행동 변화와 실질적인 비즈니스 가치에 초점을 맞춥니다. 단순 기능 추가가 아니라 사용자의 과업 흐름 속에 AI를 어떻게 개입시켜 시간 절감, 품질 향상, 자동화 확산 같은 결과를 만들지 설계하는 데 관심이 크며, 이를 위해 리서치와 실행을 연결하는 커리어를 쌓아왔습니다."
+    },
+    {
+      "id": "motivation-career-direction",
+      "title": "커리어 방향성",
+      "category": "motivation",
+      "intent": "motivation",
+      "tags": ["ax", "automation", "서비스전략", "조직생산성"],
+      "questionHints": ["앞으로 하고 싶은 일", "커리어 목표", "비전"],
+      "priority": 4,
+      "content": "황승현의 방향성은 AI를 단일 챗봇 기능으로 소비하는 것이 아니라, 조직의 실제 업무와 데이터를 연결한 자동화 생태계로 확장하는 것입니다. 그래서 리서치 인사이트, 내부 데이터 연동, 프롬프트 UX, 운영 지표 설계를 함께 보며 AI 도입기에서 확산기로 넘어가는 제품 전략에 강한 관심을 두고 있습니다."
+    },
+    {
+      "id": "career-overview",
+      "title": "커리어 요약",
+      "category": "career",
+      "intent": "career",
+      "tags": ["엠파크", "동화기업", "아이템베이", "frontend", "service planner"],
+      "questionHints": ["경력 요약", "회사 이력", "커리어 소개"],
+      "priority": 5,
+      "content": "황승현은 최근에는 엠파크에서 AI Service Planner로 AX 전환 프로젝트와 RAG 기반 업무 도우미, AI IoT 파노라마 생성기 등을 기획/개발했고, 이전에는 동화기업에서 AI Service Planner & Builder Developer로 PoC와 상용화 프로젝트를 추진했습니다. 그 이전에는 아이템베이, HYPERNEST, 유엔비즈 등에서 프론트엔드 개발과 서비스 기획을 함께 수행하며 제품 실행 경험을 축적했습니다."
+    },
+    {
+      "id": "career-frontend-origin",
+      "title": "프론트엔드 출신 배경",
+      "category": "career",
+      "intent": "technical",
+      "tags": ["프론트엔드", "개발자 출신", "기술 이해", "실행형"],
+      "questionHints": ["개발 경험", "프론트엔드 출신", "기술 이해도"],
+      "priority": 4,
+      "content": "황승현은 프론트엔드 개발 및 디자인 실무 경험을 바탕으로 서비스 기획으로 확장한 케이스입니다. 이 배경 덕분에 IA, 화면 플로우, 인터랙션, 구현 제약, 백엔드 연동 포인트를 함께 이해하며 기획 문서와 실제 구현 사이의 간극을 줄일 수 있습니다."
+    },
+    {
+      "id": "project-dw-brain",
+      "title": "대표 프로젝트: DW-Brain",
+      "category": "project",
+      "intent": "project",
+      "tags": ["dw-brain", "협업채팅", "ai 개입", "브레인스토밍", "문서자동화"],
+      "questionHints": ["대표 프로젝트", "dw-brain", "협업 ai"],
+      "priority": 5,
+      "content": "DW-Brain은 AI가 브레인스토밍 협업 채팅에 직접 개입해 아이디어 정리, 기술 구조 제안, 실행 스펙 초안 생성을 도와주는 프로젝트입니다. 대화 로그를 아이디어, 문서, 스펙, 실행 흐름으로 전환하는 구조를 설계했고, 결과적으로 아이디어에서 실행 스펙으로 정리되는 시간을 약 65% 단축하고, 회의 후 추가 논의 횟수를 평균 2.4회에서 1.1회 수준으로 줄였습니다."
+    },
+    {
+      "id": "project-panorama",
+      "title": "대표 프로젝트: AI 360 파노라마 인테리어 제너레이터",
+      "category": "project",
+      "intent": "project",
+      "tags": ["파노라마", "생성형 ai", "360", "인테리어", "자동화"],
+      "questionHints": ["파노라마 프로젝트", "생성형 ai 프로젝트", "콘텐츠 자동화"],
+      "priority": 5,
+      "content": "AI 360 파노라마 인테리어 제너레이터는 360도 공간 촬영 이미지를 기반으로 벽과 바닥 영역을 자동 분석하고 제품 텍스처를 합성해 인테리어 시뮬레이션 콘텐츠를 빠르게 만드는 프로젝트입니다. 기존 2~3일 걸리던 제작 시간을 30분 이내로 줄이고 제작 비용을 약 80% 절감해, AI 기반 자동 콘텐츠 생성의 실질적 효율성을 검증했습니다."
+    },
+    {
+      "id": "project-carmate",
+      "title": "대표 프로젝트: 엠파크 AI 스마트 에이전트 카메이트",
+      "category": "project",
+      "intent": "project",
+      "tags": ["카메이트", "rag", "상담 ai", "중고차", "엠파크"],
+      "questionHints": ["엠파크 ai", "rag 상담", "카메이트"],
+      "priority": 5,
+      "content": "카메이트는 중고차 딜러와 상사를 위한 B2B RAG 상담 시스템입니다. 차량 정보, 옵션, 시세, 금융 안내를 자연어 기반으로 빠르게 검색하고 상담에 활용할 수 있도록 설계했으며, 토큰 비용 문제로 불특정 다수 B2C가 아닌 내부 고객용 B2B 구독형 모델로 전략을 전환한 점이 특징입니다. 이 프로젝트로 차량 상담 준비 시간 약 40~60% 단축, 상담 중 정보 조회 시간 약 70% 감소를 목표 성과로 제시했습니다."
+    },
+    {
+      "id": "project-daop",
+      "title": "대표 프로젝트: DAOP",
+      "category": "project",
+      "intent": "project",
+      "tags": ["daop", "orchestration", "agent", "automation", "플랫폼"],
+      "questionHints": ["daop", "에이전트 플랫폼", "오케스트레이션"],
+      "priority": 5,
+      "content": "DAOP은 전사 구성원이 데이터 리소스, 정책, 행동 양식을 조합해 직접 에이전트를 만들고 자동화 프로그램을 생성/운영할 수 있게 하는 AI 오케스트레이션 플랫폼입니다. 단일 챗봇 기능이 아니라 데이터, 정책, 액션을 조립하는 셀프서비스 자동화 구조를 기획했다는 점에서 조직 확장성과 플랫폼 사고를 보여주는 프로젝트입니다."
+    },
+    {
+      "id": "technical-rag-thinking",
+      "title": "RAG와 LLM 기능 기획 관점",
+      "category": "technical",
+      "intent": "technical",
+      "tags": ["rag", "llm", "검색", "정확도", "신뢰도"],
+      "questionHints": ["rag를 어떻게 이해하나", "llm 기능 기획", "정확도"],
+      "priority": 5,
+      "content": "황승현은 RAG를 단순 검색 기능이 아니라 신뢰 가능한 답변 경험을 만드는 구조로 이해합니다. 사용자의 질문 의도를 해석하고, 내부 데이터나 도메인 문맥을 관련도 높은 단위로 검색한 뒤, 그 문맥을 LLM에 주입해 환각을 줄이고 실무 반영 가능한 답변을 만드는 흐름을 중요하게 봅니다."
+    },
+    {
+      "id": "technical-architecture",
+      "title": "기술 아키텍처 이해도",
+      "category": "technical",
+      "intent": "technical",
+      "tags": ["api", "backend flow", "deployment", "cloud", "architecture"],
+      "questionHints": ["기술 이해도", "아키텍처 이해", "백엔드 협업"],
+      "priority": 4,
+      "content": "황승현은 시스템 구조 설계 이해, API/Backend Flow 설계, Cloud & Deployment 구조 이해, AI 서비스 인프라 구조 설계 역량을 강점으로 제시합니다. 즉 개발자의 구현 언어로 요구사항을 정리하고, 프론트/백엔드/데이터 흐름을 함께 보며 기능 설계와 운영 고려사항을 동시에 맞출 수 있습니다."
+    },
+    {
+      "id": "technical-prototype",
+      "title": "프로토타입과 MVP 실행 방식",
+      "category": "technical",
+      "intent": "technical",
+      "tags": ["prototype", "mvp", "실험", "ab test", "event tracking"],
+      "questionHints": ["프로토타입", "mvp 검증", "실험 방식"],
+      "priority": 4,
+      "content": "황승현의 업무 프로세스는 문제 프레이밍 -> 가치/데이터 전략 설계 -> 서비스 시나리오와 프로토타입 -> MVP 실험 -> 출시/도입 -> 운영 최적화 순서입니다. 특히 이벤트 트래킹, A/B 테스트, 품질 평가, CS/리서치 피드백을 연결해 학습 루프를 설계하는 점이 특징입니다."
+    },
+    {
+      "id": "collaboration-style",
+      "title": "협업 방식",
+      "category": "collaboration",
+      "intent": "collaboration",
+      "tags": ["협업", "커뮤니케이션", "개발자", "디자이너", "이해관계자"],
+      "questionHints": ["어떻게 협업하나", "커뮤니케이션 방식", "조율"],
+      "priority": 5,
+      "content": "황승현은 디자이너, 개발자, 운영팀, 경영진 사이에서 요구를 번역하고 정렬하는 역할에 강합니다. 디자인 싱크, 개발 요구사항 명세, 운영팀 매뉴얼 문서화, 경영진 보고까지 경험이 있고, 실무자의 언어로 세밀하게 소통해 커뮤니케이션 비용을 줄이는 점을 자신의 협업 강점으로 설명합니다."
+    },
+    {
+      "id": "collaboration-colleague-story",
+      "title": "동료 협업 스토리",
+      "category": "collaboration",
+      "intent": "collaboration",
+      "tags": ["동료", "팀워크", "실무자 언어", "협업 효율"],
+      "questionHints": ["동료와의 협업", "팀워크", "갈등 조율"],
+      "priority": 4,
+      "content": "포트폴리오에서는 황승현을 프론트엔드 개발 및 디자인 실무 경험을 바탕으로 유관 부서의 고충을 깊이 이해하고, 실무자의 언어로 명확히 소통해 최상의 팀워크를 이끄는 사람으로 소개합니다. 즉 기능을 제안할 때도 사용자의 니즈와 개발 현실을 동시에 고려하는 편입니다."
+    },
+    {
+      "id": "research-ai-adoption",
+      "title": "AI 리서치 인사이트",
+      "category": "research",
+      "intent": "project",
+      "tags": ["리서치", "설문", "ai 도입", "자동화", "인사이트"],
+      "questionHints": ["리서치 경험", "ai 도입 인사이트", "조사 경험"],
+      "priority": 3,
+      "content": "2025년 전사 설문 168명을 통해 AI 활용률이 64%에서 85.7%로 증가했고, 조직의 니즈가 단순 챗봇 사용에서 내부 데이터 연동과 자동화 중심으로 이동하고 있음을 도출했습니다. 이는 황승현이 기술 도입보다 운영 가능한 AI 업무 생태계 구축에 집중하는 배경이 됩니다."
+    },
+    {
+      "id": "mpark-impact",
+      "title": "엠파크에서의 성과",
+      "category": "career",
+      "intent": "project",
+      "tags": ["엠파크", "성과", "업무효율", "내부고객", "ax"],
+      "questionHints": ["엠파크에서 한 일", "엠파크 성과", "최근 성과"],
+      "priority": 5,
+      "content": "엠파크에서는 AX 전환 프로젝트를 기획/개발하며 RAG 기반 내부 고객 업무 도우미와 AI IoT 360 차량 파노라마 생성기를 추진했습니다. 포트폴리오상 내부 고객 업무 효율성 31% 개선, 브레인스토밍 효율 제고 및 업무 문의 처리 42% 단축 같은 성과를 강조하고 있습니다."
+    },
+    {
+      "id": "dongwha-impact",
+      "title": "동화기업에서의 성과",
+      "category": "career",
+      "intent": "career",
+      "tags": ["동화기업", "poc", "상용화", "운영개선"],
+      "questionHints": ["동화기업 경험", "상용화 경험", "poc"],
+      "priority": 4,
+      "content": "동화기업에서는 AI Service Planner & Builder Developer로서 신규 AI 서비스 기획과 PoC 개발, 건장재 프론트/백오피스 운영 개선을 담당했습니다. PoC 5건 진행과 2건 상용화, 현업 협업 효과성 42% 단축, 내부 운영툴 개선으로 리드타임 28% 절감 같은 실행 성과가 있습니다."
+    },
+    {
+      "id": "fit-why-company",
+      "title": "채용 적합성 요약",
+      "category": "summary",
+      "intent": "strength",
+      "tags": ["적합성", "채용", "why hire", "ai planner"],
+      "questionHints": ["왜 채용해야 하나", "왜 적합한가", "fit"],
+      "priority": 5,
+      "content": "황승현은 AI 서비스 기획에서 자주 부족한 세 가지를 동시에 갖춘 인물로 볼 수 있습니다. 첫째, 사용자와 현업의 문제를 정의하는 리서치/전략 역량, 둘째, 이를 실제 기능과 데이터 흐름으로 바꾸는 제품/기술 이해, 셋째, 프로토타입과 MVP를 통해 빠르게 검증하는 실행력입니다. 따라서 추상적인 AI 아이디어를 실제 서비스 가치로 전환해야 하는 포지션에 적합합니다."
+    }
+  ]
+}

@@ -1,20 +1,28 @@
 <script setup>
 import ChatPanel from "./ChatPanel.vue";
 
-const emit = defineEmits(["open-fullscreen"]);
+const emit = defineEmits(["open-fullscreen", "collapse"]);
 </script>
 
 <template>
   <aside class="portfolio-chat-widget" aria-label="포트폴리오 챗봇 배너">
+    <div class="widget-ambient widget-ambient-a" aria-hidden="true" />
+    <div class="widget-ambient widget-ambient-b" aria-hidden="true" />
     <div class="portfolio-chat-widget-inner">
       <div class="widget-vertical-copy">
-        <span>HSH</span>
-        <span>AI</span>
-        <span>COPILOT</span>
+        <span class="widget-status-dot" aria-hidden="true" />
+        <strong>HSH AI</strong>
+        <p>Interview copilot</p>
       </div>
 
       <div class="widget-panel-wrap">
-        <ChatPanel compact @open-fullscreen="emit('open-fullscreen')" />
+        <ChatPanel
+          compact
+          :show-close-action="true"
+          close-label="사이드 챗봇 접기"
+          @open-fullscreen="emit('open-fullscreen')"
+          @close="emit('collapse')"
+        />
       </div>
     </div>
   </aside>
@@ -27,48 +35,71 @@ const emit = defineEmits(["open-fullscreen"]);
   left: 1rem;
   z-index: 45;
   transform: translateY(-50%);
-  width: min(360px, calc(100vw - 2rem));
+  width: min(392px, calc(100vw - 2rem));
   pointer-events: none;
 }
 
 .portfolio-chat-widget-inner {
+  position: relative;
   display: grid;
-  grid-template-columns: 54px minmax(0, 1fr);
-  gap: 0.85rem;
-  min-height: 74vh;
-  max-height: 760px;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 1.1rem;
+  min-height: 76vh;
+  max-height: 800px;
+  padding: 0.35rem;
   pointer-events: auto;
 }
 
 .widget-vertical-copy {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.9rem;
-  padding: 1rem 0.35rem;
-  border-radius: 18px;
-  background: linear-gradient(180deg, #0c3a27, #00694d 45%, #00ad50);
-  color: #ffffff;
-  box-shadow: 0 20px 40px rgba(12, 58, 39, 0.28);
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 0.9rem;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #284842;
+  box-shadow:
+    0 24px 60px rgba(112, 171, 154, 0.16),
+    inset 0 0 0 1px rgba(162, 201, 189, 0.22);
 }
 
-.widget-vertical-copy span {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
+.widget-status-dot {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 999px;
+  background: #20bb91;
+  box-shadow:
+    0 0 0 0.35rem rgba(99, 226, 190, 0.16),
+    0 8px 20px rgba(53, 192, 147, 0.24);
+}
+
+.widget-vertical-copy strong {
+  font-size: 0.88rem;
   font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.widget-vertical-copy p {
+  margin: 0;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: #67817a;
 }
 
 .widget-panel-wrap {
   min-height: 0;
 }
 
+.widget-ambient {
+  display: none;
+}
+
 @media (max-width: 1400px) {
   .portfolio-chat-widget {
     left: 0.7rem;
-    width: min(330px, calc(100vw - 1.4rem));
+    width: min(360px, calc(100vw - 1.4rem));
   }
 }
 
@@ -91,14 +122,10 @@ const emit = defineEmits(["open-fullscreen"]);
 
   .widget-vertical-copy {
     flex-direction: row;
-    gap: 0.5rem;
-    padding: 0.65rem 0.9rem;
+    gap: 0.7rem;
+    padding: 0.75rem 0.95rem;
     justify-content: flex-start;
-  }
-
-  .widget-vertical-copy span {
-    writing-mode: initial;
-    transform: none;
+    align-items: center;
   }
 }
 

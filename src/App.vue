@@ -2,7 +2,7 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import portfolio from "./data/portfolio.json";
 import ShaderAnimation from "./components/ShaderAnimation.vue";
-import PortfolioChatWidget from "./components/chat/PortfolioChatWidget.vue";
+import PortfolioChatLauncher from "./components/chat/PortfolioChatLauncher.vue";
 import ChatPageView from "./views/ChatPageView.vue";
 
 import heroCover from "./assets/images/hero-cover.svg";
@@ -2174,7 +2174,9 @@ onUnmounted(() => {
       <p class="footer-copy">{{ new Date().getFullYear() }}. {{ String(new Date().getMonth() + 1).padStart(2, '0') }}. AI 서비스 전략 기획 황승현.</p>
     </footer>
 
-    <PortfolioChatWidget @open-fullscreen="openChatPage" />
+    <PortfolioChatLauncher
+      @open-fullscreen="openChatPage"
+    />
 
     <button
       v-show="showTopButton"

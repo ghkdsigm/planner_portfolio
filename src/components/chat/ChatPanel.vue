@@ -249,9 +249,10 @@ onMounted(() => {
       @scroll="onViewportScroll"
     >
       <div class="chat-intent-strip" :class="{ floating: props.fullscreen }">
-        <span>
+        <!-- <span>
           {{ props.fullscreen ? "Portfolio Interview Copilot" : "면접 답변 / 프로젝트 설명 / 강점 정리 / 기술 이해도" }}
-        </span>
+        </span> -->
+        <span>황승현지원자 관련하여 질문을 시작해보세요!</span>
       </div>
 
       <article

@@ -28,12 +28,9 @@ const emit = defineEmits(["open-fullscreen"]);
   gap: 0.5rem;
   padding: 0.7rem 0.75rem;
   border: 0;
-  background: rgba(255, 255, 255, 0.92);
+  background: transparent;
   border-radius: 24px;
-  box-shadow:
-    0 16px 36px rgba(16, 24, 22, 0.12),
-    inset 0 0 0 1px rgba(141, 168, 160, 0.18);
-  backdrop-filter: blur(10px);
+  
   cursor: pointer;
 }
 
@@ -43,8 +40,7 @@ const emit = defineEmits(["open-fullscreen"]);
   border-radius: 22px;
   display: grid;
   place-items: center;
-  background: #111111;
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.2);
+  background: #262525;
 }
 
 .chat-launcher-core {
@@ -61,12 +57,11 @@ const emit = defineEmits(["open-fullscreen"]);
 }
 
 .chat-launcher-label {
-  color: #18231f;
+  color: #fff;
   font-size: 0.78rem;
   font-weight: 600;
   line-height: 1.35;
   text-align: center;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 :global(body[data-theme="dark"]) .chat-launcher-button {

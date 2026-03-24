@@ -30,12 +30,12 @@ npm install
 npm run dev
 ```
 
-기본 주소는 `http://localhost:3001`입니다.
+기본 주소는 `http://localhost:3011`입니다.
 
 `.env.example`를 참고해서 `backend/.env`를 만들면 OpenAI API를 실제로 연결할 수 있습니다.
 
 ```env
-PORT=3001
+PORT=3011
 FRONTEND_ORIGIN=http://localhost:4000
 OPENAI_API_KEY=sk-your-openai-key
 OPENAI_MODEL=gpt-4.1-mini
@@ -47,7 +47,7 @@ OPENAI_MODEL=gpt-4.1-mini
 
 - 메인 포트폴리오 화면 좌측에 세로형 챗봇 배너가 표시됩니다.
 - `전체화면 보기`를 누르거나 `#/chat`으로 이동하면 전체화면 챗 페이지가 열립니다.
-- 프론트는 `/api/chat` 요청을 Vite 프록시로 백엔드 `http://localhost:3001/chat`에 연결합니다.
+- 프론트는 `/api/chat` 요청을 Vite 프록시로 백엔드 `http://localhost:3011/chat`에 연결합니다.
 
 ## 빌드
 

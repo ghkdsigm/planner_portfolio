@@ -25,7 +25,7 @@ async function bootstrap() {
     credentials: false,
   });
 
-  const port = Number(process.env.PORT || 3001);
+  const port = Number(process.env.PORT || 3011);
   await app.listen(port);
   console.log(`Portfolio chat backend listening on http://localhost:${port}`);
 }

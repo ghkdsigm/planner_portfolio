@@ -17,7 +17,7 @@ const emit = defineEmits(["close"]);
 
         <ChatPanel
           fullscreen
-          title="Something AI"
+          title="AI Interview Assistant"
           description="포트폴리오 기반 인터뷰 답변 도우미"
           placeholder="Ask me anything..."
           :show-fullscreen-action="false"
@@ -38,12 +38,7 @@ const emit = defineEmits(["close"]);
   min-height: 100vh;
   padding: 1.5rem;
   background:
-    radial-gradient(circle at 16% 14%, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0) 24%),
-    radial-gradient(circle at 84% 16%, rgba(220, 230, 255, 0.74), rgba(220, 230, 255, 0) 28%),
-    radial-gradient(circle at 76% 80%, rgba(233, 221, 255, 0.62), rgba(233, 221, 255, 0) 24%),
-    radial-gradient(circle at 18% 82%, rgba(214, 240, 236, 0.5), rgba(214, 240, 236, 0) 22%),
-    linear-gradient(180deg, #f6f4fb 0%, #eef2fb 100%);
-}
+  radial-gradient(circle at 16% 14%, rgb(255 255 255 / 0%), rgb(89 27 113 / 0%) 24%), radial-gradient(circle at 84% 16%, rgb(249 235 255 / 86%), rgba(220, 230, 255, 0) 28%), radial-gradient(circle at 76% 80%, rgb(233 221 255), rgba(233, 221, 255, 0) 24%), radial-gradient(circle at 18% 82%, rgb(251 222 255 / 92%), rgba(214, 240, 236, 0) 22%), linear-gradient(180deg, #f6f4fb 0%, #ffffff 100%)}
 
 .chat-page-shell {
   width: min(1180px, 100%);

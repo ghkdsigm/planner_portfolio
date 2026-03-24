@@ -75,6 +75,8 @@ export function usePortfolioChat() {
         content: data.answer,
         citations: data.citations || [],
         intent: data.intent || "general",
+        projectCards: data.projectCards || [],
+        peopleCards: data.peopleCards || [],
       });
       state.relatedQuestions = data.relatedQuestions?.length ? data.relatedQuestions : starterPrompts;
       state.llmEnabled = Boolean(data.llmEnabled);
@@ -86,6 +88,8 @@ export function usePortfolioChat() {
         content:
           "현재 챗봇 응답을 생성하지 못했습니다. 백엔드 서버 실행 여부와 OpenAI API 설정을 확인한 뒤 다시 시도해 주세요.",
         citations: [],
+        projectCards: [],
+        peopleCards: [],
       });
     } finally {
       state.isLoading = false;

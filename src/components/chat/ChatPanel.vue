@@ -1,6 +1,7 @@
 <script setup>
 import { computed, nextTick, onMounted, ref, watch } from "vue";
 
+import { resolveChatPeopleVisual, resolveChatProjectVisual } from "../../data/chat-showcase-assets";
 import { usePortfolioChat } from "../../composables/usePortfolioChat";
 
 const props = defineProps({
@@ -54,6 +55,8 @@ const emit = defineEmits(["open-fullscreen", "close"]);
 
 const { state, starterPrompts, sendMessage, resetConversation } = usePortfolioChat();
 const messageViewportRef = ref(null);
+const inputRef = ref(null);
+const showScrollToLatest = ref(false);
 
 const visiblePrompts = computed(() => state.relatedQuestions?.length ? state.relatedQuestions : starterPrompts);
 
@@ -65,6 +68,88 @@ const sendStarter = async (prompt) => {
   await sendMessage(prompt);
 };
 
+const applyCitationToInput = async (citationTitle) => {
+  state.input = citationTitle;
+  await nextTick();
+  inputRef.value?.focus();
+  const length = inputRef.value?.value?.length ?? 0;
+  inputRef.value?.setSelectionRange?.(length, length);
+};
+
+const getProjectThumbnail = (card) => card.thumbnailUrl || resolveChatProjectVisual(card.id).thumbnail || "";
+const getProjectSlides = (card) => card.slides?.length ? card.slides : resolveChatProjectVisual(card.id).slides || [];
+const getPeopleImage = (card) => card.imageUrl || resolveChatPeopleVisual(card.id);
+const hasShowcase = (message) => Boolean(message.projectCards?.length || message.peopleCards?.length);
+
+const getProjectActionLinks = (card) => {
+  const links = [...(card.links || [])];
+  const previewUrl = getProjectThumbnail(card) || getProjectSlides(card)[0] || "";
+
+  if (previewUrl) {
+    links.unshift({ label: "이미지 보기", url: previewUrl });
+  }
+
+  return links.filter((item, index, array) => item?.url && array.findIndex((target) => target.url === item.url) === index);
+};
+
+const openExternalLink = (url) => {
+  if (!url || typeof window === "undefined") return;
+  window.open(url, "_blank", "noopener,noreferrer");
+};
+
+const dragScrollState = {
+  active: false,
+  moved: false,
+  startX: 0,
+  startScrollLeft: 0,
+  pointerId: null,
+  element: null,
+};
+
+const onDragScrollStart = (event) => {
+  if (event.pointerType === "mouse" && event.button !== 0) return;
+
+  dragScrollState.active = true;
+  dragScrollState.moved = false;
+  dragScrollState.startX = event.clientX;
+  dragScrollState.startScrollLeft = event.currentTarget.scrollLeft;
+  dragScrollState.pointerId = event.pointerId;
+  dragScrollState.element = event.currentTarget;
+  dragScrollState.element.classList.add("is-dragging");
+  dragScrollState.element.setPointerCapture?.(event.pointerId);
+};
+
+const onDragScrollMove = (event) => {
+  if (!dragScrollState.active || dragScrollState.element !== event.currentTarget) return;
+
+  const deltaX = event.clientX - dragScrollState.startX;
+  if (Math.abs(deltaX) > 4) {
+    dragScrollState.moved = true;
+  }
+
+  event.currentTarget.scrollLeft = dragScrollState.startScrollLeft - deltaX;
+};
+
+const onDragScrollEnd = (event) => {
+  if (dragScrollState.element !== event.currentTarget) return;
+
+  event.currentTarget.classList.remove("is-dragging");
+  event.currentTarget.releasePointerCapture?.(dragScrollState.pointerId);
+  dragScrollState.active = false;
+  dragScrollState.pointerId = null;
+  dragScrollState.element = null;
+
+  window.setTimeout(() => {
+    dragScrollState.moved = false;
+  }, 0);
+};
+
+const onDragScrollClick = (event) => {
+  if (!dragScrollState.moved) return;
+  event.preventDefault();
+  event.stopPropagation();
+};
+
 const onKeydown = async (event) => {
   if (event.key === "Enter" && !event.shiftKey) {
     event.preventDefault();
@@ -72,11 +157,27 @@ const onKeydown = async (event) => {
   }
 };
 
+const updateScrollToLatestVisibility = () => {
+  const el = messageViewportRef.value;
+  if (!el) return;
+
+  const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+  showScrollToLatest.value = distanceFromBottom > 120;
+};
+
+const onViewportScroll = () => {
+  updateScrollToLatestVisibility();
+};
+
 const scrollToBottom = async () => {
   await nextTick();
   const el = messageViewportRef.value;
   if (!el) return;
-  el.scrollTop = el.scrollHeight;
+  el.scrollTo({
+    top: el.scrollHeight,
+    behavior: "smooth",
+  });
+  showScrollToLatest.value = false;
 };
 
 watch(
@@ -95,6 +196,7 @@ watch(
 
 onMounted(() => {
   scrollToBottom();
+  updateScrollToLatestVisibility();
 });
 </script>
 
@@ -109,7 +211,7 @@ onMounted(() => {
 
     <header class="chat-panel-header">
       <div class="chat-panel-brand">
-        <span class="chat-panel-badge">AI</span>
+        <!-- <span class="chat-panel-badge">AI</span> -->
         <div class="chat-panel-brand-copy">
           <span class="chat-panel-kicker">Interview copilot</span>
           <strong>{{ title }}</strong>
@@ -141,7 +243,11 @@ onMounted(() => {
       </div>
     </header>
 
-    <div ref="messageViewportRef" class="chat-message-viewport">
+    <div
+      ref="messageViewportRef"
+      class="chat-message-viewport"
+      @scroll="onViewportScroll"
+    >
       <div class="chat-intent-strip" :class="{ floating: props.fullscreen }">
         <span>
           {{ props.fullscreen ? "Portfolio Interview Copilot" : "면접 답변 / 프로젝트 설명 / 강점 정리 / 기술 이해도" }}
@@ -157,21 +263,94 @@ onMounted(() => {
         <div class="chat-message-avatar" aria-hidden="true">
           {{ message.role === "assistant" ? "AI" : "YOU" }}
         </div>
-        <div class="chat-message-stack">
+        <div class="chat-message-stack" :class="{ 'has-showcase': hasShowcase(message) }">
           <span class="chat-message-role">
-            {{ message.role === "assistant" ? "Something AI" : "You" }}
+            {{ message.role === "assistant" ? "AI Interview Assistant" : "You" }}
           </span>
           <div class="chat-message-bubble">
             <p>{{ message.content }}</p>
             <div v-if="message.citations?.length" class="chat-citation-list">
-              <span
+              <button
                 v-for="citation in message.citations"
                 :key="citation.id"
+                type="button"
                 class="chat-citation-pill"
+                @click="applyCitationToInput(citation.title)"
               >
                 {{ citation.title }}
-              </span>
+              </button>
             </div>
+          </div>
+          <div
+            v-if="message.projectCards?.length"
+            class="chat-showcase-list drag-scroll-surface"
+            @pointerdown="onDragScrollStart"
+            @pointermove="onDragScrollMove"
+            @pointerup="onDragScrollEnd"
+            @pointercancel="onDragScrollEnd"
+            @pointerleave="onDragScrollEnd"
+            @click.capture="onDragScrollClick"
+          >
+            <article
+              v-for="card in message.projectCards"
+              :key="card.id"
+              class="chat-showcase-card"
+            >
+              <img
+                v-if="getProjectThumbnail(card)"
+                :src="getProjectThumbnail(card)"
+                :alt="card.title"
+                class="chat-showcase-thumb"
+                loading="lazy"
+              />
+              <div class="chat-showcase-body">
+                <div class="chat-showcase-meta">
+                  <span v-if="card.period" class="chat-showcase-period">{{ card.period }}</span>
+                  <div v-if="card.tags?.length" class="chat-showcase-tags">
+                    <span v-for="tag in card.tags.slice(0, 4)" :key="`${card.id}-${tag}`" class="chat-showcase-tag">
+                      {{ tag }}
+                    </span>
+                  </div>
+                </div>
+                <strong class="chat-showcase-title">{{ card.title }}</strong>
+                <div v-if="getProjectActionLinks(card).length" class="chat-showcase-actions">
+                  <button
+                    v-for="link in getProjectActionLinks(card)"
+                    :key="`${card.id}-${link.url}`"
+                    type="button"
+                    class="chat-showcase-link"
+                    @click="openExternalLink(link.url)"
+                  >
+                    {{ link.label }}
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div
+            v-if="message.peopleCards?.length"
+            class="chat-people-strip drag-scroll-surface"
+            @pointerdown="onDragScrollStart"
+            @pointermove="onDragScrollMove"
+            @pointerup="onDragScrollEnd"
+            @pointercancel="onDragScrollEnd"
+            @pointerleave="onDragScrollEnd"
+            @click.capture="onDragScrollClick"
+          >
+            <button
+              v-for="card in message.peopleCards"
+              :key="card.id"
+              type="button"
+              class="chat-people-card"
+              @click="openExternalLink(getPeopleImage(card))"
+            >
+              <img
+                v-if="getPeopleImage(card)"
+                :src="getPeopleImage(card)"
+                :alt="card.label"
+                loading="lazy"
+              />
+            </button>
           </div>
         </div>
       </article>
@@ -179,7 +358,7 @@ onMounted(() => {
       <article v-if="state.isLoading" class="chat-message assistant">
         <div class="chat-message-avatar" aria-hidden="true">AI</div>
         <div class="chat-message-stack">
-          <span class="chat-message-role">Something AI</span>
+          <span class="chat-message-role">AI Interview Assistant</span>
           <div class="chat-message-bubble loading">
             <span class="chat-dot" />
             <span class="chat-dot" />
@@ -187,6 +366,15 @@ onMounted(() => {
           </div>
         </div>
       </article>
+
+      <button
+        v-if="showScrollToLatest"
+        type="button"
+        class="chat-scroll-latest-btn"
+        @click="scrollToBottom"
+      >
+        최신 채팅으로 이동
+      </button>
     </div>
 
     <div v-if="props.showPromptList" class="chat-prompt-list">
@@ -208,6 +396,7 @@ onMounted(() => {
     <footer class="chat-input-shell">
       <label class="chat-input-wrap">
         <textarea
+          ref="inputRef"
           v-model="state.input"
           class="chat-input"
           :rows="props.fullscreen ? 1 : compact ? 2 : 3"
@@ -251,7 +440,7 @@ onMounted(() => {
   grid-template-rows: auto minmax(0, 1fr) auto auto;
   gap: 0.85rem;
   padding: 1.2rem 1.4rem 1.35rem;
-  border: 1px solid rgba(255, 255, 255, 0.54);
+  
   border-radius: 34px;
   
   
@@ -452,6 +641,29 @@ onMounted(() => {
   background-clip: padding-box;
 }
 
+.chat-scroll-latest-btn {
+  position: sticky;
+  left: 50%;
+  bottom: 0.9rem;
+  z-index: 3;
+  align-self: center;
+  min-height: 38px;
+  padding: 0.58rem 0.95rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0, 105, 77, 0.94);
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 14px 28px rgba(0, 105, 77, 0.24);
+}
+
+.chat-scroll-latest-btn:hover {
+  transform: translateY(-1px);
+}
+
 .chat-intent-strip {
   align-self: flex-start;
   padding: 0.55rem 0.9rem;
@@ -491,7 +703,7 @@ onMounted(() => {
 }
 
 .portfolio-chat-panel.fullscreen .chat-message.user {
-  justify-content: flex-end;
+  justify-content: end;
   flex-direction: row-reverse;
 }
 
@@ -549,6 +761,11 @@ onMounted(() => {
 .portfolio-chat-panel.fullscreen .chat-message-stack {
   gap: 0.38rem;
   max-width: min(72%, 680px);
+}
+
+.chat-message-stack.has-showcase,
+.portfolio-chat-panel.fullscreen .chat-message-stack.has-showcase {
+  max-width: min(92%, 980px);
 }
 
 .chat-message.user .chat-message-stack {
@@ -616,7 +833,7 @@ onMounted(() => {
 }
 
 .portfolio-chat-panel.fullscreen .chat-message-bubble p {
-  color: #4f5668;
+  color: #202020;
   font-size: 0.98rem;
   line-height: 1.65;
 }
@@ -630,17 +847,23 @@ onMounted(() => {
 
 .chat-citation-pill {
   padding: 0.28rem 0.58rem;
+  border: 0;
   border-radius: 999px;
   background: rgba(82, 193, 164, 0.12);
   color: #279877;
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 400;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .portfolio-chat-panel.fullscreen .chat-citation-pill {
-  background: rgba(255, 255, 255, 0.86);
-  color: #7c82a0;
-  box-shadow: inset 0 0 0 1px rgba(214, 216, 234, 0.9);
+  background: rgb(220 224 255 / 86%);
+  color: #000000;
+  /* box-shadow: inset 0 0 0 1px rgba(214, 216, 234, 0.9); */
 }
 
 .chat-message.user .chat-citation-pill {
@@ -651,6 +874,133 @@ onMounted(() => {
 .portfolio-chat-panel.fullscreen .chat-message.user .chat-citation-pill {
   background: rgba(255, 255, 255, 0.86);
   color: #7c82a0;
+}
+
+.chat-citation-pill:hover {
+  transform: translateY(-1px);
+  background: rgba(82, 193, 164, 0.2);
+}
+
+.chat-showcase-list,
+.chat-people-strip {
+  display: flex;
+  gap: 0.85rem;
+  overflow-x: auto;
+  padding-bottom: 0.2rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.chat-showcase-list::-webkit-scrollbar,
+.chat-people-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.drag-scroll-surface {
+  cursor: grab;
+  user-select: none;
+}
+
+.drag-scroll-surface.is-dragging {
+  cursor: grabbing;
+}
+
+.drag-scroll-surface.is-dragging * {
+  cursor: grabbing !important;
+}
+
+.chat-showcase-card {
+  min-width: min(360px, 78vw);
+  max-width: 420px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow:
+    0 16px 36px rgba(155, 195, 183, 0.18),
+    inset 0 0 0 1px rgba(170, 205, 194, 0.16);
+}
+
+.portfolio-chat-panel.fullscreen .chat-showcase-card {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.chat-showcase-thumb {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background: #eef5f2;
+}
+
+.chat-showcase-body {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem;
+}
+
+.chat-showcase-meta,
+.chat-showcase-tags,
+.chat-showcase-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.chat-showcase-period,
+.chat-showcase-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(0, 105, 77, 0.08);
+  color: #00694d;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.chat-showcase-title {
+  color: #262626;
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.chat-showcase-link,
+.chat-showcase-slide,
+.chat-people-card {
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.chat-showcase-link {
+  min-height: 34px;
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  background: #00694d;
+  color: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.chat-people-card {
+  flex: 0 0 auto;
+  width: 148px;
+  height: 188px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow:
+    0 14px 30px rgba(155, 195, 183, 0.18),
+    inset 0 0 0 1px rgba(170, 205, 194, 0.16);
+}
+
+.chat-people-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .chat-message-bubble.loading {

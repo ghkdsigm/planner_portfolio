@@ -889,6 +889,7 @@ onMounted(() => {
   padding-bottom: 0.2rem;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  padding-top: 1rem;
 }
 
 .chat-showcase-list::-webkit-scrollbar,

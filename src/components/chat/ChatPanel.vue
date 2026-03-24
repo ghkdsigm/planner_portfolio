@@ -585,10 +585,9 @@ onMounted(() => {
 
 .portfolio-chat-panel.fullscreen .chat-header-btn {
   min-height: 34px;
-  padding: 0.5rem 0.82rem;
-  background: rgba(255, 255, 255, 0.76);
-  color: #5e667a;
-  box-shadow: 0 10px 20px rgba(185, 186, 214, 0.18);
+  padding: 0.2rem 0.82rem;
+  background: rgb(153 160 173 / 68%);
+  color: #fff;
 }
 
 .chat-header-btn.secondary,
@@ -652,13 +651,13 @@ onMounted(() => {
   padding: 0.58rem 0.95rem;
   border: 0;
   border-radius: 999px;
-  background: rgba(0, 105, 77, 0.94);
+  background: rgb(153 160 173);
   color: #ffffff;
   font: inherit;
   font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 14px 28px rgba(0, 105, 77, 0.24);
+  box-shadow: 0 14px 28px rgba(96, 113, 202, 0.24);
 }
 
 .chat-scroll-latest-btn:hover {

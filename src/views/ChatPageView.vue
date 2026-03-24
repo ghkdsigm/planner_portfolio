@@ -76,14 +76,11 @@ const emit = defineEmits(["close"]);
 .chat-page-topline-badge {
   padding: 0.38rem 0.8rem;
   border-radius: 999px;
-  background: rgb(158 157 157 / 68%);
+  background: rgb(153 160 173 / 68%);
   color: #fff;
   font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: -0.01em;
-  box-shadow:
-    0 10px 24px rgba(183, 184, 211, 0.18),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.86);
 }
 
 @media (max-width: 960px) {

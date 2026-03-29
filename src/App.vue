@@ -4,6 +4,7 @@ import portfolio from "./data/portfolio.json";
 import ShaderAnimation from "./components/ShaderAnimation.vue";
 
 import heroCover from "./assets/images/hero-cover.svg";
+import portfolioPdf from "./assets/portfolio.pdf";
 import bgImage from "./assets/images/bg.png";
 import profilePortrait from "./assets/images/profile-portrait.png";
 import projectRoutine from "./assets/images/project-routine.svg";
@@ -101,6 +102,54 @@ const navItems = [
   { id: "archive", label: "ARCHIVE", page: "07 PAGE", description: "수행 프로젝트 아카이브" },
   { id: "contact", label: "CONTACT", page: "08 PAGE", description: "연락 안내" },
 ];
+const DECK_QUERY_KEY = "view";
+const DECK_QUERY_VALUE = "deck";
+
+const getBasePathname = () => {
+  if (typeof window === "undefined") return "/";
+  const pathname = window.location.pathname || "/";
+  const normalized = pathname.replace(/\/+$/, "") || "/";
+  return normalized.endsWith("/deck") ? normalized.slice(0, -5) || "/" : normalized;
+};
+
+const isDeckRoute = () => {
+  if (typeof window === "undefined") return false;
+  const url = new URL(window.location.href);
+  return (
+    url.searchParams.get(DECK_QUERY_KEY) === DECK_QUERY_VALUE ||
+    (url.pathname.replace(/\/+$/, "") || "/").endsWith("/deck")
+  );
+};
+
+const isDeckView = ref(isDeckRoute());
+const portfolioPdfEmbedSrc = `${portfolioPdf}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`;
+
+const navigateToView = (showDeck) => {
+  if (typeof window === "undefined") return;
+  const url = new URL(window.location.href);
+  url.pathname = getBasePathname();
+  if (showDeck) {
+    url.searchParams.set(DECK_QUERY_KEY, DECK_QUERY_VALUE);
+  } else {
+    url.searchParams.delete(DECK_QUERY_KEY);
+  }
+  url.hash = "";
+  window.history.pushState({ view: showDeck ? DECK_QUERY_VALUE : "home" }, "", `${url.pathname}${url.search}`);
+  isDeckView.value = showDeck;
+  window.scrollTo({ top: 0, left: 0 });
+};
+
+const openDeckView = () => {
+  navigateToView(true);
+};
+
+const goHome = () => {
+  navigateToView(false);
+};
+
+const syncViewWithLocation = () => {
+  isDeckView.value = isDeckRoute();
+};
 
 const activeSection = ref("cover");
 const buttonRefs = ref({});
@@ -1065,6 +1114,7 @@ onMounted(() => {
   window.addEventListener("scroll", handleWindowScroll, { passive: true });
   window.addEventListener("resize", handleWindowResize);
   window.addEventListener("keydown", handleGlobalKeydown);
+  window.addEventListener("popstate", syncViewWithLocation);
 
   const reveals = document.querySelectorAll("[data-reveal]");
   const observer = new IntersectionObserver(
@@ -1115,6 +1165,7 @@ onUnmounted(() => {
   window.removeEventListener("resize", handleWindowResize);
   window.removeEventListener("resize", updateVoiceRollOffsets);
   window.removeEventListener("keydown", handleGlobalKeydown);
+  window.removeEventListener("popstate", syncViewWithLocation);
   if (rollTimer) clearInterval(rollTimer);
   if (project04Timer) clearInterval(project04Timer);
   if (referenceMainSlideTimer) clearInterval(referenceMainSlideTimer);
@@ -1126,7 +1177,7 @@ onUnmounted(() => {
 
 <template>
   <div class="page-shell">
-    <header class="floating-nav" :class="{ 'is-nav-hidden': isNavHidden }">
+    <header v-show="!isDeckView" class="floating-nav" :class="{ 'is-nav-hidden': isNavHidden }">
       <div class="nav-top-row">
         <div class="brand">
           <span>{{ portfolio.meta.role }}</span>
@@ -1189,7 +1240,7 @@ onUnmounted(() => {
       </nav>
     </header>
 
-    <aside class="section-plot" aria-label="섹션 플롯">
+    <aside v-show="!isDeckView" class="section-plot" aria-label="섹션 플롯">
       <button
         v-for="item in navItems"
         :key="`plot-${item.id}`"
@@ -1204,7 +1255,49 @@ onUnmounted(() => {
       </button>
     </aside>
 
-    <main>
+    <main v-show="isDeckView" class="deck-page">
+      <section class="deck-shell">
+        <header class="deck-topbar">
+          <button type="button" class="deck-home-btn" @click="goHome">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M14.75 5.75 8.5 12l6.25 6.25"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+              />
+            </svg>
+            <span>Home</span>
+          </button>
+
+          <a class="deck-download-btn" :href="portfolioPdf" download="portfolio.pdf">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 4.75v9.5m0 0 3.5-3.5M12 14.25l-3.5-3.5M5 18.25h14"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+              />
+            </svg>
+            <span>다운로드</span>
+          </a>
+        </header>
+
+        <div class="deck-frame-wrap">
+          <iframe
+            class="deck-frame"
+            :src="portfolioPdfEmbedSrc"
+            title="Portfolio Deck"
+          />
+        </div>
+      </section>
+    </main>
+
+    <main v-show="!isDeckView">
       <section id="cover" class="section cover">
         <!-- <img class="cover-bg" :src="getImage('heroCover')" alt="portfolio cover visual" /> -->
         <!--
@@ -1258,6 +1351,11 @@ onUnmounted(() => {
               <p class="stat-value">{{ stat.value }}</p>
               <p class="stat-label">{{ stat.label }}</p>
             </article>
+          </div>
+          <div class="cover-actions">
+            <button type="button" class="cover-portfolio-btn" @click="openDeckView">
+              포트폴리오 보기
+            </button>
           </div>
         </div>
       </section>
@@ -2144,12 +2242,12 @@ onUnmounted(() => {
       </div>
     </transition>
 
-    <footer class="site-footer">
+    <footer v-show="!isDeckView" class="site-footer">
       <p class="footer-copy">{{ new Date().getFullYear() }}. {{ String(new Date().getMonth() + 1).padStart(2, '0') }}. AI 서비스 전략 기획 황승현.</p>
     </footer>
 
     <button
-      v-show="showTopButton"
+      v-show="!isDeckView && showTopButton"
       type="button"
       class="top-btn"
       aria-label="페이지 상단으로 이동"

@@ -47,6 +47,8 @@ const peopleGallery = buildPeopleGallery();
 
 @Injectable()
 export class ChatService {
+  private readonly limitExceededMessage =
+    "사용횟수가 초과되었습니다. 지원자가 더 궁금하시다면 면접장에서 황승현 지원자의 역량을 확인해주세요!";
   private readonly openai = process.env.OPENAI_API_KEY
     ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
     : null;
@@ -55,6 +57,18 @@ export class ChatService {
 
   isLlmEnabled() {
     return Boolean(this.openai);
+  }
+
+  buildLimitExceededResponse() {
+    return {
+      answer: this.limitExceededMessage,
+      intent: "limit",
+      citations: [],
+      relatedQuestions: [],
+      projectCards: [],
+      peopleCards: [],
+      llmEnabled: this.isLlmEnabled(),
+    };
   }
 
   async answer(body: ChatRequestDto) {

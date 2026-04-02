@@ -17,7 +17,7 @@ const initialMessages = [
     id: createId(),
     role: "assistant",
     content:
-      "안녕하세요. 저는 황승현 지원자 전용 포트폴리오 AI입니다.\n\n면접관처럼 질문하시면 강점, 프로젝트, 기술 이해도, 협업 방식까지 포트폴리오 근거를 바탕으로 답변드릴게요.",
+      "안녕하세요. 저는 황승현 지원자 전용 포트폴리오 AI입니다.\n\질문하시면 강점, 프로젝트, 기술 이해도, 협업 방식까지 포트폴리오 근거를 바탕으로 답변드릴게요.",
     citations: [
       { id: "summary-positioning", title: "지원자 포지셔닝 요약", category: "summary" },
       { id: "fit-why-company", title: "채용 적합성 요약", category: "summary" },

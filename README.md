@@ -1,30 +1,64 @@
-# AI/AX Service Planner Portfolio (Vue 3)
+# AI/AX Service Planner Portfolio
 
-원페이지 형태의 AI/AX 서비스 기획자 포트폴리오 템플릿입니다.
+황승현 지원자 포트폴리오와 전용 RAG 챗봇이 함께 들어간 Vue 3 + Vite 프론트엔드, NestJS 백엔드 프로젝트입니다.
+
+## 구성
+
+- 프론트 포트폴리오: `src/App.vue`
+- 챗봇 컴포넌트: `src/components/chat`
+- 챗봇 전체화면 페이지: `src/views/ChatPageView.vue`
+- 프론트 데이터: `src/data/portfolio.json`
+- 백엔드: `backend`
+- RAG 지식 JSON: `backend/src/data/portfolio-rag.json`
 
 ## 실행
+
+### 1. 프론트엔드
 
 ```bash
 npm install
 npm run dev
 ```
 
-## 구성
+기본 주소는 `http://localhost:4000`입니다.
 
-- 텍스트 데이터: `src/data/portfolio.json`
-- 이미지 에셋: `src/assets/images`
-- 메인 페이지: `src/App.vue`
-- 스타일: `src/styles.css`
+### 2. 백엔드
 
-## 내 정보로 교체하는 방법
+```bash
+cd backend
+npm install
+npm run dev
+```
 
-1. `src/data/portfolio.json`의 텍스트/수치/커리어/프로젝트 내용을 수정합니다.
-2. `src/assets/images` 안의 SVG 파일을 본인 이미지로 교체합니다.
-3. 프로젝트 이미지 키를 바꾸고 싶으면 `src/App.vue`의 `imageMap`에 파일을 연결하면 됩니다.
+기본 주소는 `http://localhost:3011`입니다.
+
+`.env.example`를 참고해서 `backend/.env`를 만들면 OpenAI API를 실제로 연결할 수 있습니다.
+
+```env
+PORT=3011
+FRONTEND_ORIGIN=http://localhost:4000
+OPENAI_API_KEY=sk-your-openai-key
+OPENAI_MODEL=gpt-4.1-mini
+```
+
+`OPENAI_API_KEY`가 없으면 챗봇은 데모 모드로 동작하며, JSON RAG 문맥 기반의 로컬 응답을 반환합니다.
+
+## 사용 방법
+
+- 메인 포트폴리오 화면 좌측에 세로형 챗봇 배너가 표시됩니다.
+- `전체화면 보기`를 누르거나 `#/chat`으로 이동하면 전체화면 챗 페이지가 열립니다.
+- 프론트는 `/api/chat` 요청을 Vite 프록시로 백엔드 `http://localhost:3011/chat`에 연결합니다.
 
 ## 빌드
 
+### 프론트
+
 ```bash
 npm run build
-npm run preview
+```
+
+### 백엔드
+
+```bash
+npm run build:backend
 ```

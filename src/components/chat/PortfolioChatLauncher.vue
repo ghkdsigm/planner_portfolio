@@ -1,15 +1,56 @@
 <script setup>
 const emit = defineEmits(["open-fullscreen"]);
+
+const openDeckView = () => {
+  if (typeof window === "undefined") return;
+  window.location.assign("/?view=deck");
+};
 </script>
 
 <template>
   <aside class="portfolio-chat-launcher" aria-label="포트폴리오 챗봇 실행">
-    <button type="button" class="chat-launcher-button" @click="emit('open-fullscreen')">
-      <span class="chat-launcher-icon" aria-hidden="true">
-        <span class="chat-launcher-core">AI</span>
-      </span>
-      <span class="chat-launcher-label">AI에게 질문하기</span>
-    </button>
+    <div class="chat-launcher-stack">
+      <button type="button" class="chat-launcher-button" @click="emit('open-fullscreen')">
+        <span class="chat-launcher-icon" aria-hidden="true">
+          <span class="chat-launcher-core">AI</span>
+        </span>
+        <span class="chat-launcher-label">AI에게 질문하기</span>
+      </button>
+
+      <button type="button" class="chat-launcher-button" @click="openDeckView">
+        <span class="chat-launcher-icon" aria-hidden="true">
+          <span class="chat-launcher-core chat-launcher-core-deck">
+            <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+              <path
+                d="M6.75 4.75h7.3l3.2 3.2v11.3a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 5.25 19.25v-13a1.5 1.5 0 0 1 1.5-1.5Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              />
+              <path
+                d="M14.05 4.95v3a.8.8 0 0 0 .8.8h3"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              />
+              <path
+                d="M8.5 12.25h6.8M8.5 15.5h4.6"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              />
+            </svg>
+          </span>
+        </span>
+        <span class="chat-launcher-label">포트폴리오 보기</span>
+      </button>
+    </div>
   </aside>
 </template>
 
@@ -20,6 +61,11 @@ const emit = defineEmits(["open-fullscreen"]);
   left: 5rem;
   z-index: 45;
   transform: translateY(-50%);
+}
+
+.chat-launcher-stack {
+  display: grid;
+  gap: 0.7rem;
 }
 
 .chat-launcher-button {
@@ -54,6 +100,12 @@ const emit = defineEmits(["open-fullscreen"]);
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.08em;
+}
+
+.chat-launcher-core-deck svg {
+  width: 19px;
+  height: 19px;
+  display: block;
 }
 
 .chat-launcher-label {

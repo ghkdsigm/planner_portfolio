@@ -2273,6 +2273,7 @@ onUnmounted(() => {
     </footer>
 
     <PortfolioChatLauncher
+      v-show="!isDeckView && !isChatPage"
       @open-fullscreen="openChatPage"
     />
 

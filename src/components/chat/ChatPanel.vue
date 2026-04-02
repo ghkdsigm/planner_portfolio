@@ -1,6 +1,8 @@
 <script setup>
 import { computed, nextTick, onMounted, ref, watch } from "vue";
 
+import ChatSparkleIcon from "./ChatSparkleIcon.vue";
+import userAvatarImage from "../../assets/images/chat-user-avatar.png";
 import { resolveChatPeopleVisual, resolveChatProjectVisual } from "../../data/chat-showcase-assets";
 import { usePortfolioChat } from "../../composables/usePortfolioChat";
 
@@ -262,7 +264,14 @@ onMounted(() => {
         :class="message.role"
       >
         <div class="chat-message-avatar" aria-hidden="true">
-          {{ message.role === "assistant" ? "AI" : "YOU" }}
+          <ChatSparkleIcon
+            v-if="message.role === 'assistant'"
+            class="chat-message-avatar-icon"
+            :size="50"
+            :padding="6"
+            :rounded="12"
+          />
+          <img v-else :src="userAvatarImage" alt="" class="chat-message-avatar-image" />
         </div>
         <div class="chat-message-stack" :class="{ 'has-showcase': hasShowcase(message) }">
           <span class="chat-message-role">
@@ -357,7 +366,9 @@ onMounted(() => {
       </article>
 
       <article v-if="state.isLoading" class="chat-message assistant">
-        <div class="chat-message-avatar" aria-hidden="true">AI</div>
+        <div class="chat-message-avatar" aria-hidden="true">
+          <ChatSparkleIcon class="chat-message-avatar-icon" :size="32" :padding="6" :rounded="12" />
+        </div>
         <div class="chat-message-stack">
           <span class="chat-message-role">AI Interview Assistant</span>
           <div class="chat-message-bubble loading">
@@ -715,15 +726,17 @@ onMounted(() => {
   width: 32px;
   height: 32px;
   flex: 0 0 32px;
-  border-radius: 50%;
+  border-radius: 12px;
   display: grid;
   place-items: center;
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: #ffffff;
-  background: #20bb91;
-  box-shadow: 0 8px 20px rgba(33, 181, 137, 0.2);
+  /* background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 248, 246, 0.94));
+  box-shadow:
+    0 10px 22px rgba(33, 46, 42, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.86); */
 }
 
 .portfolio-chat-panel.fullscreen .chat-message-avatar {
@@ -731,17 +744,19 @@ onMounted(() => {
   height: 44px;
   flex-basis: 44px;
   margin-top: 0.15rem;
-  background: rgba(255, 255, 255, 0.94);
+  border-radius: 16px;
+  /* background: rgba(255, 255, 255, 0.94); */
   color: #a3a6bf;
-  box-shadow:
+  /* box-shadow:
     0 14px 28px rgba(180, 181, 210, 0.22),
-    inset 0 0 0 1px rgba(210, 212, 231, 0.9);
+    inset 0 0 0 1px rgba(210, 212, 231, 0.9); */
 }
 
 .chat-message.user .chat-message-avatar {
   background: #d9efea;
   color: #3c685f;
   box-shadow: 0 8px 18px rgba(154, 190, 182, 0.18);
+  overflow: hidden;
 }
 
 .portfolio-chat-panel.fullscreen .chat-message.user .chat-message-avatar {
@@ -750,6 +765,22 @@ onMounted(() => {
   box-shadow:
     0 14px 28px rgba(180, 181, 210, 0.18),
     inset 0 0 0 1px rgba(210, 212, 231, 0.82);
+}
+
+.chat-message-avatar-icon {
+  pointer-events: none;
+}
+
+.chat-message-avatar-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.portfolio-chat-panel.fullscreen .chat-message-avatar-icon {
+  transform: scale(1.18);
 }
 
 .chat-message-stack {

@@ -17,7 +17,7 @@ const emit = defineEmits(["open-fullscreen"]);
 .portfolio-chat-launcher {
   position: fixed;
   top: 50%;
-  left: 1.2rem;
+  left: 5rem;
   z-index: 45;
   transform: translateY(-50%);
 }

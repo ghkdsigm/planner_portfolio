@@ -18,7 +18,9 @@ const emit = defineEmits(["close"]);
         <ChatPanel
           fullscreen
           title="AI Interview Assistant"
-          description="포트폴리오 기반 인터뷰 답변 도우미"
+          description="포트폴리오 기반 인터뷰 답변 도우미입니다.
+첫 질문에서는 서버가 깨어나는 중이라 잠깐만 기다려주세요!
+곧 바로 답변 드릴게요 😊"
           placeholder="Ask me anything..."
           :show-fullscreen-action="false"
           :show-close-action="true"

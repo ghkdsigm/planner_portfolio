@@ -458,7 +458,16 @@ const PROJECT04_SLIDE_INTERVAL = 8000;
 let project04Timer = null;
 const daopSlides = [daopSlide01, daopSlide02, daopSlide03, daopSlide04, daopSlide05, daopSlide06];
 const referenceMainSlides = [m01, m02, m03, m04, m05, m06, m07, m08, m09];
-const careerMasonryPhotos = [com01, com02, com04, com05, com06, com07, com10, com11];
+const careerMasonryItems = [
+  { src: com01, label: "with 박지성&유엔비즈" },
+  { src: com02, label: "with 아이템베이" },
+  { src: com04, label: "with 오중석포토그래퍼&하이퍼네스트" },
+  { src: com05, label: "with 박문성해설위원" },
+  { src: com06, label: "with 유엔비즈" },
+  { src: com07, label: "with 동화기업" },
+  { src: com10, label: "with 하이퍼네스트" },
+  { src: com11, label: "in COEX Convention & Exhibition Center" },
+];
 const referenceMainSlideIndex = ref(0);
 const REFERENCE_MAIN_SLIDE_INTERVAL = 2500;
 let referenceMainSlideTimer = null;
@@ -2116,11 +2125,12 @@ onUnmounted(() => {
             </p>
             <div class="career-masonry">
               <figure
-                v-for="(photo, index) in careerMasonryPhotos"
+                v-for="(item, index) in careerMasonryItems"
                 :key="`career-photo-${index}`"
                 class="career-masonry-item"
               >
-                <img :src="photo" :alt="`커리어 협업 사진 ${index + 1}`" loading="lazy" />
+                <img :src="item.src" :alt="item.label" loading="lazy" />
+                <figcaption class="career-masonry-caption">{{ item.label }}</figcaption>
               </figure>
             </div>
           </div>

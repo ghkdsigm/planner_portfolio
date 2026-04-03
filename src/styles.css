@@ -1587,6 +1587,7 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
 .career-masonry-item {
   margin: 0 0 0.9rem;
   break-inside: avoid;
+  position: relative;
   border: 1px solid var(--stroke);
   border-radius: 0.9rem;
   overflow: hidden;
@@ -1597,6 +1598,35 @@ color-mix(in srgb, var(--mini-card-bg) 78%, #ffffff 22%);
   width: 100%;
   height: auto;
   display: block;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.career-masonry-caption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(12, 18, 32, 0.38);
+  color: #fff;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.career-masonry-item:hover img {
+  transform: scale(1.02);
+  filter: brightness(0.72);
+}
+
+.career-masonry-item:hover .career-masonry-caption {
+  opacity: 1;
 }
 
 .reference-list {

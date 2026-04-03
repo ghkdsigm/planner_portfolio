@@ -13,6 +13,41 @@ let geometry = null;
 let uniforms = null;
 let resizeHandler = null;
 let resizeObserver = null;
+let visibilityObserver = null;
+let isContainerVisible = true;
+
+const stopAnimation = () => {
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+    animationId = null;
+  }
+};
+
+const startAnimation = () => {
+  if (animationId || !renderer || !scene || !camera || !uniforms || !isContainerVisible || document.hidden) {
+    return;
+  }
+
+  const animate = () => {
+    if (!renderer || !scene || !camera || !uniforms || !isContainerVisible || document.hidden) {
+      animationId = null;
+      return;
+    }
+    uniforms.time.value += 0.05;
+    renderer.render(scene, camera);
+    animationId = requestAnimationFrame(animate);
+  };
+
+  animationId = requestAnimationFrame(animate);
+};
+
+const handleDocumentVisibilityChange = () => {
+  if (document.hidden) {
+    stopAnimation();
+  } else {
+    startAnimation();
+  }
+};
 
 const initThreeJS = () => {
   const container = containerRef.value;
@@ -98,14 +133,21 @@ const initThreeJS = () => {
   window.addEventListener("resize", resizeHandler, false);
   resizeObserver = new ResizeObserver(resizeHandler);
   resizeObserver.observe(container);
-
-  const animate = () => {
-    animationId = requestAnimationFrame(animate);
-    uniforms.time.value += 0.05;
-    renderer.render(scene, camera);
-  };
-
-  animate();
+  visibilityObserver = new IntersectionObserver(
+    ([entry]) => {
+      isContainerVisible = entry?.isIntersecting ?? true;
+      if (isContainerVisible) {
+        resizeHandler?.();
+        startAnimation();
+      } else {
+        stopAnimation();
+      }
+    },
+    { threshold: 0.05 }
+  );
+  visibilityObserver.observe(container);
+  document.addEventListener("visibilitychange", handleDocumentVisibilityChange);
+  startAnimation();
 };
 
 onMounted(() => {
@@ -113,10 +155,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  if (animationId) {
-    cancelAnimationFrame(animationId);
-    animationId = null;
-  }
+  stopAnimation();
   if (resizeHandler) {
     window.removeEventListener("resize", resizeHandler, false);
     resizeHandler = null;
@@ -125,6 +164,11 @@ onUnmounted(() => {
     resizeObserver.disconnect();
     resizeObserver = null;
   }
+  if (visibilityObserver) {
+    visibilityObserver.disconnect();
+    visibilityObserver = null;
+  }
+  document.removeEventListener("visibilitychange", handleDocumentVisibilityChange);
   if (mesh && scene) {
     scene.remove(mesh);
   }

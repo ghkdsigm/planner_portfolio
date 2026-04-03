@@ -114,6 +114,8 @@ const getBasePathname = () => {
   return normalized.endsWith("/deck") ? normalized.slice(0, -5) || "/" : normalized;
 };
 
+const HOME_SECTION_ID = "cover";
+
 const isDeckRoute = () => {
   if (typeof window === "undefined") return false;
   const url = new URL(window.location.href);
@@ -138,6 +140,12 @@ const navigateToView = (showDeck) => {
   url.hash = "";
   window.history.pushState({ view: showDeck ? DECK_QUERY_VALUE : "home" }, "", `${url.pathname}${url.search}`);
   isDeckView.value = showDeck;
+  if (!showDeck) {
+    activeSection.value = HOME_SECTION_ID;
+    showTopButton.value = false;
+    isNavHidden.value = false;
+    lastScrollY = 0;
+  }
   window.scrollTo({ top: 0, left: 0 });
 };
 
@@ -972,6 +980,10 @@ const NAV_HIDE_START = 140;
 const NAV_SCROLL_DELTA = 4;
 const CHAT_PAGE_HASH = "#/chat";
 let lastScrollY = 0;
+let scrollFrameId = 0;
+let pendingScrollY = 0;
+let sectionRefreshFrameId = 0;
+let sectionMetrics = [];
 
 const syncChatPageState = () => {
   if (typeof window === "undefined") return;
@@ -1023,13 +1035,11 @@ const smoothScroll = (id) => {
   }
 };
 
-const updateTopButtonVisibility = () => {
-  showTopButton.value = window.scrollY > 360;
+const updateTopButtonVisibility = (currentScrollY = window.scrollY) => {
+  showTopButton.value = currentScrollY > 360;
 };
 
-const updateNavVisibility = () => {
-  const currentScrollY = window.scrollY;
-
+const updateNavVisibility = (currentScrollY = window.scrollY) => {
   if (
     mobileMenuOpen.value ||
     isProjectPopupOpen.value ||
@@ -1057,12 +1067,34 @@ const updateNavVisibility = () => {
   lastScrollY = currentScrollY;
 };
 
-const updateActiveSection = () => {
-  const y = window.scrollY + 180;
+const refreshSectionMetrics = () => {
+  sectionMetrics = navItems
+    .map((item) => {
+      const el = document.getElementById(item.id);
+      if (!el) return null;
+      return {
+        id: item.id,
+        top: Math.round(el.getBoundingClientRect().top + window.scrollY),
+      };
+    })
+    .filter(Boolean);
+};
+
+const scheduleSectionMetricsRefresh = () => {
+  if (sectionRefreshFrameId) cancelAnimationFrame(sectionRefreshFrameId);
+  sectionRefreshFrameId = requestAnimationFrame(() => {
+    sectionRefreshFrameId = 0;
+    refreshSectionMetrics();
+    updateActiveSection(window.scrollY);
+  });
+};
+
+const updateActiveSection = (currentScrollY = window.scrollY) => {
   let current = "cover";
-  for (const item of navItems) {
-    const el = document.getElementById(item.id);
-    if (el && el.offsetTop <= y) current = item.id;
+  const y = currentScrollY + 180;
+  for (const item of sectionMetrics) {
+    if (item.top <= y) current = item.id;
+    else break;
   }
   activeSection.value = current;
 };
@@ -1071,15 +1103,37 @@ const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
+const runScrollEffects = (currentScrollY = window.scrollY) => {
+  updateTopButtonVisibility(currentScrollY);
+  updateActiveSection(currentScrollY);
+  updateNavVisibility(currentScrollY);
+};
+
+const resetHomeSectionState = () => {
+  activeSection.value = HOME_SECTION_ID;
+  showTopButton.value = false;
+  isNavHidden.value = false;
+  lastScrollY = 0;
+  pendingScrollY = 0;
+  if (scrollFrameId) {
+    cancelAnimationFrame(scrollFrameId);
+    scrollFrameId = 0;
+  }
+};
+
 const handleWindowScroll = () => {
-  updateTopButtonVisibility();
-  updateActiveSection();
-  updateNavVisibility();
+  pendingScrollY = window.scrollY;
+  if (scrollFrameId) return;
+  scrollFrameId = requestAnimationFrame(() => {
+    scrollFrameId = 0;
+    runScrollEffects(pendingScrollY);
+  });
 };
 
 const handleWindowResize = () => {
   resizeKey.value++;
   syncMobileNavState();
+  scheduleSectionMetricsRefresh();
 };
 
 const handleGlobalKeydown = (event) => {
@@ -1119,6 +1173,16 @@ watch([mobileMenuOpen, isProjectPopupOpen, isSurveyPopupOpen, isProjectImageZoom
   lastScrollY = window.scrollY;
 });
 
+watch(isDeckView, (showDeck) => {
+  if (showDeck) return;
+  resetHomeSectionState();
+  nextTick(() => {
+    window.scrollTo({ top: 0, left: 0 });
+    scheduleSectionMetricsRefresh();
+    runScrollEffects(0);
+  });
+});
+
 onMounted(() => {
   syncChatPageState();
   ensureSplineViewerScript().catch((error) => {
@@ -1132,12 +1196,13 @@ onMounted(() => {
   applyTheme();
   syncMobileNavState();
   lastScrollY = window.scrollY;
-  handleWindowScroll();
+  runScrollEffects(lastScrollY);
   window.addEventListener("scroll", handleWindowScroll, { passive: true });
   window.addEventListener("resize", handleWindowResize);
   window.addEventListener("keydown", handleGlobalKeydown);
   window.addEventListener("popstate", syncViewWithLocation);
   window.addEventListener("hashchange", syncChatPageState);
+  window.addEventListener("load", scheduleSectionMetricsRefresh);
 
   const reveals = document.querySelectorAll("[data-reveal]");
   const observer = new IntersectionObserver(
@@ -1175,7 +1240,10 @@ onMounted(() => {
 
   reveals.forEach((item) => observer.observe(item));
 
-  nextTick(() => updateVoiceRollOffsets());
+  nextTick(() => {
+    updateVoiceRollOffsets();
+    scheduleSectionMetricsRefresh();
+  });
   window.addEventListener("resize", updateVoiceRollOffsets);
 
   rollTimer = setInterval(advanceVoiceRoll, VOICE_ROLL_INTERVAL);
@@ -1190,6 +1258,9 @@ onUnmounted(() => {
   window.removeEventListener("keydown", handleGlobalKeydown);
   window.removeEventListener("popstate", syncViewWithLocation);
   window.removeEventListener("hashchange", syncChatPageState);
+  window.removeEventListener("load", scheduleSectionMetricsRefresh);
+  if (scrollFrameId) cancelAnimationFrame(scrollFrameId);
+  if (sectionRefreshFrameId) cancelAnimationFrame(sectionRefreshFrameId);
   if (rollTimer) clearInterval(rollTimer);
   if (project04Timer) clearInterval(project04Timer);
   if (referenceMainSlideTimer) clearInterval(referenceMainSlideTimer);

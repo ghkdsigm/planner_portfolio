@@ -1206,13 +1206,12 @@ onMounted(() => {
   }
 
   .portfolio-chat-panel.fullscreen {
-    padding: 0.9rem 1rem 1rem;
+    padding: 0;
     border-radius: 28px;
   }
 
   .chat-panel-header,
   .chat-input-shell {
-    flex-direction: column;
     align-items: center;
   }
 
@@ -1234,6 +1233,9 @@ onMounted(() => {
 
   .chat-send-btn.icon {
     width: 48px;
+  }
+  .portfolio-chat-panel.fullscreen .chat-message-viewport{
+    padding: 0;
   }
 }
 </style>

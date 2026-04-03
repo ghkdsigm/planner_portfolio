@@ -93,7 +93,7 @@ const emit = defineEmits(["close"]);
   }
 
   .chat-page-panel-frame {
-    padding: 0.3rem;
+    padding: 0.3 0rem;
     border-radius: 28px;
   }
 

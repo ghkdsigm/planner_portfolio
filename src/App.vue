@@ -459,13 +459,13 @@ let project04Timer = null;
 const daopSlides = [daopSlide01, daopSlide02, daopSlide03, daopSlide04, daopSlide05, daopSlide06];
 const referenceMainSlides = [m01, m02, m03, m04, m05, m06, m07, m08, m09];
 const careerMasonryItems = [
-  { src: com01, label: "with 박지성&유엔비즈" },
-  { src: com02, label: "with 아이템베이" },
-  { src: com04, label: "with 오중석포토그래퍼&하이퍼네스트" },
-  { src: com05, label: "with 박문성해설위원" },
-  { src: com06, label: "with 유엔비즈" },
-  { src: com07, label: "with 동화기업" },
-  { src: com10, label: "with 하이퍼네스트" },
+  { src: com01, label: "with 박지성 선수 & 유엔비즈" },
+  { src: com02, label: "with 아이템베이 동료들" },
+  { src: com04, label: "with 오중석 포토그래퍼 & 하이퍼네스트" },
+  { src: com05, label: "with 박문성 해설위원" },
+  { src: com06, label: "with 유엔비즈 동료들" },
+  { src: com07, label: "with 동화기업 동료들" },
+  { src: com10, label: "with 하이퍼네스트 동료들" },
   { src: com11, label: "in COEX Convention & Exhibition Center" },
 ];
 const referenceMainSlideIndex = ref(0);

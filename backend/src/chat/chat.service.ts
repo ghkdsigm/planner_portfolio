@@ -44,6 +44,7 @@ type PeopleCard = {
 const portfolioData = readJson<PortfolioData>(new URL("../../../src/data/portfolio.json", import.meta.url));
 const projectCatalog = buildProjectCatalog(portfolioData);
 const peopleGallery = buildPeopleGallery();
+const candidateBirthDate = { year: 1990, month: 1, day: 13 };
 
 @Injectable()
 export class ChatService {
@@ -75,7 +76,7 @@ export class ChatService {
     const retrieval = this.ragService.retrieve(body.question);
     const history = (body.history || []).slice(-6);
     const answer = this.openai
-      ? await this.generateWithOpenAI(body.question, history, retrieval)
+      ? await this.generateWithOpenAI(body.question, history, retrieval, getCurrentCandidateProfileSummary())
       : this.generateFallback(body.question, retrieval);
 
     return {
@@ -93,7 +94,12 @@ export class ChatService {
     };
   }
 
-  private async generateWithOpenAI(question: string, history: Message[], retrieval: ReturnType<RagService["retrieve"]>) {
+  private async generateWithOpenAI(
+    question: string,
+    history: Message[],
+    retrieval: ReturnType<RagService["retrieve"]>,
+    currentProfileSummary: string
+  ) {
     const contextBlock = retrieval.topChunks
       .map((chunk, index) => {
         return `[문맥 ${index + 1}] ${chunk.title}\n카테고리: ${chunk.category}\n내용: ${chunk.content}`;
@@ -117,6 +123,7 @@ export class ChatService {
             "면접관 질문이라면 지원자의 강점과 실제 프로젝트/성과를 연결해 답변합니다.",
             "인사말 또는 첫 질문에는 '황승현 지원자 인터뷰 답변 도우미입니다.'라는 표현을 우선 사용합니다.",
             "'황승현 지원자님' 또는 '어떻게 도와드릴까요?' 같은 표현은 사용하지 않습니다.",
+            `현재 시점 기준 기본 프로필: ${currentProfileSummary}`,
             contextBlock,
           ].join("\n\n"),
         },
@@ -205,6 +212,28 @@ export class ChatService {
 
     return peopleGallery;
   }
+}
+
+function getCurrentCandidateProfileSummary(referenceDate = new Date()) {
+  const age = getInternationalAge(referenceDate, candidateBirthDate.year, candidateBirthDate.month, candidateBirthDate.day);
+  const currentYear = referenceDate.getFullYear();
+  const currentMonth = referenceDate.getMonth() + 1;
+
+  return `황승현 지원자는 1990년 1월 13일생으로, ${currentYear}년 ${currentMonth}월 기준 만 ${age}세입니다. AI/AX 서비스 기획자이자 실행형 빌더형 기획자로서, 아이디어를 실제 결과물로 구현하는 데 강점을 가진 전문가입니다.`;
+}
+
+function getInternationalAge(referenceDate: Date, birthYear: number, birthMonth: number, birthDay: number) {
+  let age = referenceDate.getFullYear() - birthYear;
+  const currentMonth = referenceDate.getMonth() + 1;
+  const currentDay = referenceDate.getDate();
+  const hasHadBirthdayThisYear =
+    currentMonth > birthMonth || (currentMonth === birthMonth && currentDay >= birthDay);
+
+  if (!hasHadBirthdayThisYear) {
+    age -= 1;
+  }
+
+  return age;
 }
 
 function buildProjectCatalog(portfolio: PortfolioData): ProjectCatalogItem[] {

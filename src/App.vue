@@ -1287,7 +1287,7 @@ onUnmounted(() => {
       <div class="nav-top-row">
         <div class="brand">
           <span>{{ portfolio.meta.role }}</span>
-          <button
+          <!-- <button
             type="button"
             class="theme-toggle"
             :aria-label="isDarkMode ? '라이트 모드로 전환' : '다크 모드로 전환'"
@@ -1311,7 +1311,7 @@ onUnmounted(() => {
                 fill="currentColor"
               />
             </svg>
-          </button>
+          </button> -->
         </div>
         <button
           type="button"

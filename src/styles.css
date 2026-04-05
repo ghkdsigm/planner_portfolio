@@ -3394,6 +3394,17 @@ body[data-theme="light"] .process-card {
   opacity: 1;
   transform: translateY(0);
 }
+.research-grid article {
+  padding:0;
+}
+
+.research-voices .-roll-viewport {
+  margin:0;
+}
+
+.research-infographic {
+  margin:1rem 0;
+}
 
 @media (max-width: 980px) {
   .stats,
